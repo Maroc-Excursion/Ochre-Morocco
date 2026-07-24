@@ -9,9 +9,28 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useColors } from '@/hooks/useColors';
 import { Feather } from '@expo/vector-icons';
-import { WebView, WebViewNavigation } from 'react-native-webview';
 
 const SITE_URL = 'https://maroc-excursion.github.io/Ochre-Morocco/';
+
+// Web fallback — react-native-webview is native-only
+if (Platform.OS === 'web') {
+  const WebScreen = () => {
+    const colors = useColors();
+    return (
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <iframe
+          src={SITE_URL}
+          style={{ flex: 1, width: '100%', height: '100%', border: 'none' }}
+          title="Ochre Morocco"
+        />
+      </View>
+    );
+  };
+  module.exports = { default: WebScreen };
+}
+
+// Native screen
+import { WebView, WebViewNavigation } from 'react-native-webview';
 
 export default function HomeScreen() {
   const webViewRef = useRef<WebView>(null);
@@ -105,7 +124,6 @@ export default function HomeScreen() {
         mediaPlaybackRequiresUserAction={false}
         scalesPageToFit={false}
         contentInsetAdjustmentBehavior="never"
-        // inject viewport meta for proper mobile rendering
         injectedJavaScript={`
           (function() {
             var meta = document.querySelector('meta[name="viewport"]');
