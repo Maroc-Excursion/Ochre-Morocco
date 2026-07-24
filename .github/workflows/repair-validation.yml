@@ -1,1 +1,21 @@
-name: Repair validation\non:\n  workflow_dispatch:\n  push:\n    branches: [repair/unified-api]\njobs:\n  validate:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: pnpm/action-setup@v4\n        with:\n          version: 10\n      - uses: actions/setup-node@v4\n        with:\n          node-version: 24\n          cache: pnpm\n      - run: pnpm install --frozen-lockfile\n      - run: pnpm --filter @workspace/api-server run typecheck\n      - run: pnpm --filter @workspace/api-server run build\n      - run: pnpm --filter @workspace/ochre-morocco-app run typecheck\n
+name: Repair validation
+on:
+  workflow_dispatch:
+  push:
+    branches: [repair/unified-api]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @workspace/api-server run typecheck
+      - run: pnpm --filter @workspace/api-server run build
+      - run: pnpm --filter @workspace/ochre-morocco-app run typecheck
