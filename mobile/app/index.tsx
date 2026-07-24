@@ -81,8 +81,14 @@ export default function HomeScreen() {
         onLoadEnd={() => setLoading(false)}
         javaScriptEnabled
         domStorageEnabled
+        cacheEnabled
+        cacheMode="LOAD_CACHE_ELSE_NETWORK"
+        setSupportMultipleWindows={false}
+        renderToHardwareTextureAndroid
         allowsBackForwardNavigationGestures={Platform.OS === 'ios'}
+        allowsLinkPreview={false}
         allowsInlineMediaPlayback
+        mediaPlaybackRequiresUserAction={false}
         injectedJavaScript={`
           (function() {
             var meta = document.querySelector('meta[name="viewport"]');
@@ -92,6 +98,9 @@ export default function HomeScreen() {
               document.head.appendChild(meta);
             }
             meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0';
+            var style = document.createElement('style');
+            style.textContent = '* { -webkit-tap-highlight-color: transparent; }';
+            document.head.appendChild(style);
           })();
           true;
         `}

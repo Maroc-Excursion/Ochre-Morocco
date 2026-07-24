@@ -119,9 +119,18 @@ export default function HomeScreen() {
         startInLoadingState={false}
         javaScriptEnabled
         domStorageEnabled
+        // ── Performance ──────────────────────────────────────────
+        cacheEnabled                          // cache resources locally
+        cacheMode="LOAD_CACHE_ELSE_NETWORK"   // Android: serve cache first
+        setSupportMultipleWindows={false}
+        renderToHardwareTextureAndroid        // GPU acceleration on Android
+        // ── iOS specific ─────────────────────────────────────────
         allowsBackForwardNavigationGestures={Platform.OS === 'ios'}
+        allowsLinkPreview={false}
+        // ── Media ─────────────────────────────────────────────────
         allowsInlineMediaPlayback
         mediaPlaybackRequiresUserAction={false}
+        // ── Layout ────────────────────────────────────────────────
         scalesPageToFit={false}
         contentInsetAdjustmentBehavior="never"
         injectedJavaScript={`
@@ -133,6 +142,10 @@ export default function HomeScreen() {
               document.head.appendChild(meta);
             }
             meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0';
+            // Disable hover effects that slow down mobile rendering
+            var style = document.createElement('style');
+            style.textContent = '* { -webkit-tap-highlight-color: transparent; }';
+            document.head.appendChild(style);
           })();
           true;
         `}
