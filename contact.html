@@ -125,17 +125,31 @@
     <span class="logo-text">Ochre <span>Morocco</span></span>
   </a>
   <nav>
-    <a href="index.html">Home</a>
-    <a href="excursions.html">Excursions</a>
-    <a href="transferts.html">Transfers</a>
-    <a href="contact.html" class="active">Contact</a>
+    <a href="index.html" data-i18n="nav_home">Home</a>
+    <a href="excursions.html" data-i18n="nav_exc">Excursions</a>
+    <a href="transferts.html" data-i18n="nav_trans">Transfers</a>
+    <a href="contact.html" class="active" data-i18n="nav_contact">Contact</a>
   </nav>
-  <a href="https://wa.me/212694170004" class="btn-wa-header" target="_blank" rel="noopener">
-    <i class="fab fa-whatsapp"></i> Book on WhatsApp
-  </a>
-  <button class="hamburger" aria-label="Menu" onclick="document.getElementById('mobileNav').classList.add('open')">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="header-right">
+    <div class="lang-switcher">
+      <button class="lang-switcher-btn" aria-label="Select language">
+        <i class="fas fa-globe"></i>
+        <span id="activeLangLabel">EN</span>
+        <i class="fas fa-chevron-down" style="font-size:.55rem"></i>
+      </button>
+      <div class="lang-dropdown">
+        <button class="lang-option active" data-lang="en">🇬🇧 English</button>
+        <button class="lang-option" data-lang="es">🇪🇸 Español</button>
+        <button class="lang-option" data-lang="ar">🇲🇦 العربية</button>
+      </div>
+    </div>
+    <a href="https://wa.me/212694170004" class="btn-wa-header hide-sm" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Book Now
+    </a>
+    <button class="hamburger" aria-label="Menu" onclick="document.getElementById('mobileNav').classList.add('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
 
 <div class="mobile-nav" id="mobileNav" onclick="this.classList.remove('open')">
@@ -326,5 +340,6 @@ function handleSubmit(e) {
   msg.style.display = 'block';
 }
 </script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>

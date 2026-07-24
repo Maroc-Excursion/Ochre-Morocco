@@ -312,13 +312,34 @@
     .hero-dot { width: 8px; height: 8px; border-radius: 50%; border: none; cursor: pointer; padding: 0; background: rgba(255,255,255,.45); transition: all .3s; }
     .hero-dot.active { background: var(--gold); width: 24px; border-radius: 4px; }
 
+    /* ── HEADER RIGHT GROUP ── */
+    .header-right { display: flex; align-items: center; gap: 10px; }
+
     /* ── LANGUAGE SWITCHER ── */
     .lang-switcher { position: relative; }
-    .lang-switcher-btn { background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.28); color: #fff; padding: 5px 11px; border-radius: 20px; font-size: .78rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px; font-family: inherit; }
-    .lang-dropdown { position: absolute; right: 0; top: calc(100% + 8px); background: #fff; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,.18); padding: 6px; min-width: 130px; display: none; z-index: 999; }
+    .lang-switcher-btn {
+      background: #f4f0ea; border: 1.5px solid #e0d4c0;
+      color: var(--dark); padding: 6px 12px; border-radius: 20px;
+      font-size: .78rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; gap: 5px; font-family: inherit;
+      transition: background .18s;
+    }
+    .lang-switcher-btn:hover { background: #ede5d8; }
+    .lang-switcher-btn i.fa-globe { color: var(--gold); }
+    .lang-dropdown {
+      position: absolute; right: 0; top: calc(100% + 8px);
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 6px 28px rgba(0,0,0,.16);
+      padding: 6px; min-width: 140px; display: none; z-index: 9999;
+      border: 1px solid #f0e8d8;
+    }
     .lang-dropdown.open { display: flex; flex-direction: column; }
-    .lang-option { background: none; border: none; padding: 8px 12px; border-radius: 7px; cursor: pointer; font-size: .82rem; font-weight: 500; color: #333; text-align: left; transition: background .15s; width: 100%; }
-    .lang-option:hover, .lang-option.active { background: var(--light); color: var(--gold); font-weight: 700; }
+    .lang-option {
+      background: none; border: none; padding: 9px 14px; border-radius: 8px;
+      cursor: pointer; font-size: .84rem; font-weight: 500;
+      color: #333; text-align: left; transition: background .15s; width: 100%;
+    }
+    .lang-option:hover, .lang-option.active { background: #f7f0e6; color: var(--gold); font-weight: 700; }
 
     /* ── URGENCY NOTIFICATION ── */
     .urgency-notif { position: fixed; bottom: 90px; left: 16px; background: #fff; border-radius: 12px; padding: 12px 16px; box-shadow: 0 4px 24px rgba(0,0,0,.15); display: flex; align-items: center; gap: 10px; max-width: 290px; z-index: 998; transform: translateY(120px); opacity: 0; transition: all .45s cubic-bezier(.34,1.56,.64,1); font-size: .78rem; border-left: 3px solid #25d366; }
@@ -370,14 +391,6 @@
     <a href="https://wa.me/212694170004" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
     <a href="mailto:ochremorocco@gmail.com" class="hide-sm"><i class="fas fa-envelope"></i> ochremorocco@gmail.com</a>
   </div>
-  <div class="lang-switcher">
-    <button class="lang-switcher-btn" aria-label="Select language"><i class="fas fa-globe"></i> <span id="activeLangLabel">EN</span> <i class="fas fa-chevron-down" style="font-size:.6rem"></i></button>
-    <div class="lang-dropdown">
-      <button class="lang-option active" data-lang="en">🇬🇧 English</button>
-      <button class="lang-option" data-lang="es">🇪🇸 Español</button>
-      <button class="lang-option" data-lang="ar">🇲🇦 العربية</button>
-    </div>
-  </div>
 </div>
 
 <!-- HEADER -->
@@ -387,17 +400,31 @@
     <span class="logo-text">Ochre <span>Morocco</span></span>
   </div>
   <nav>
-    <a href="index.html">Home</a>
-    <a href="excursions.html">Excursions</a>
-    <a href="transferts.html">Transfers</a>
-    <a href="contact.html">Contact</a>
+    <a href="index.html" data-i18n="nav_home">Home</a>
+    <a href="excursions.html" data-i18n="nav_exc">Excursions</a>
+    <a href="transferts.html" data-i18n="nav_trans">Transfers</a>
+    <a href="contact.html" data-i18n="nav_contact">Contact</a>
   </nav>
-  <a href="https://wa.me/212694170004" class="btn-wa-header" target="_blank" rel="noopener">
-    <i class="fab fa-whatsapp"></i> Book on WhatsApp
-  </a>
-  <button class="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="header-right">
+    <div class="lang-switcher">
+      <button class="lang-switcher-btn" aria-label="Select language">
+        <i class="fas fa-globe"></i>
+        <span id="activeLangLabel">EN</span>
+        <i class="fas fa-chevron-down" style="font-size:.55rem"></i>
+      </button>
+      <div class="lang-dropdown">
+        <button class="lang-option active" data-lang="en">🇬🇧 English</button>
+        <button class="lang-option" data-lang="es">🇪🇸 Español</button>
+        <button class="lang-option" data-lang="ar">🇲🇦 العربية</button>
+      </div>
+    </div>
+    <a href="https://wa.me/212694170004" class="btn-wa-header hide-sm" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Book Now
+    </a>
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
 
 <!-- TRUST STRIP -->
@@ -419,12 +446,12 @@
   <div class="hero-slide"><img src="assets/images/essaouira-remparts-vagues.jpg" alt="Essaouira Coast" /></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <span class="hero-badge"><i class="fas fa-star"></i> Marrakech Excursions – Best Prices</span>
-    <h1>Discover Morocco<br>with <span>Ochre Morocco</span></h1>
-    <p>Adventures & excursions from Marrakech at the best prices. Book via WhatsApp in seconds.</p>
+    <span class="hero-badge"><i class="fas fa-star"></i> <span data-i18n="hero_badge">#1 Excursion Agency in Morocco</span></span>
+    <h1 data-i18n="hero_title">Discover the Magic<br>of <span>Morocco</span></h1>
+    <p data-i18n="hero_sub">Premium excursions, unforgettable tours and authentic adventures in the heart of Morocco</p>
     <div class="hero-btns">
-      <a href="#services" class="btn-gold"><i class="fas fa-search"></i> View All Services</a>
-      <a href="https://wa.me/212694170004" class="btn-wa" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Book Now</a>
+      <a href="#services" class="btn-gold"><i class="fas fa-search"></i> <span data-i18n="hero_btn1">Explore our Excursions</span></a>
+      <a href="https://wa.me/212694170004" class="btn-wa" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> <span data-i18n="wa_btn">WhatsApp</span></a>
     </div>
   </div>
   <button class="hero-arrow prev" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
