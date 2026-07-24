@@ -1,0 +1,23 @@
+kind = "mobile"
+previewPath = "/"
+title = "Ochre Morocco App"
+version = "1.0.0"
+id = "artifacts/ochre-morocco-app"
+router = "expo-domain"
+
+[[services]]
+name = "expo"
+ensurePreviewReachable = "/status"
+paths = [ "/" ]
+localPort = 21270
+
+[services.development]
+run = "pnpm --filter @workspace/ochre-morocco-app run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ochre-morocco-app", "run", "build" ]
+run = [ "pnpm", "--filter", "@workspace/ochre-morocco-app", "run", "serve" ]
+
+[services.env]
+PORT = "21270"
+BASE_PATH = "/"
