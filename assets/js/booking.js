@@ -7,7 +7,7 @@
   /* ── CONFIGURATION ───────────────────────────────────────── */
   var CFG = {
     whatsapp: '212694170004',
-    ownerEmail: 'contact@ochre-morocco.com',
+    ownerEmail: 'ochremorocco@gmail.com',
 
     /* EmailJS — sign up FREE at https://www.emailjs.com
        1. Create an account and add your email service (Gmail, Outlook, etc.)

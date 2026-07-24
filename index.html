@@ -292,14 +292,68 @@
     }
     .float-wa:hover { transform: scale(1.1); }
 
+    /* ── HERO SLIDER ── */
+    .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity .9s ease; }
+    .hero-slide.active { opacity: 1; }
+    .hero-slide img { width: 100%; height: 100%; object-fit: cover; animation: kenBurns 9s ease-in-out infinite alternate; }
+    @keyframes kenBurns { from { transform: scale(1) translateX(0); } to { transform: scale(1.07) translateX(-1%); } }
+    .hero-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35);
+      backdrop-filter: blur(4px); color: #fff;
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 5; transition: background .2s; font-size: .9rem;
+    }
+    .hero-arrow:hover { background: rgba(255,255,255,.35); }
+    .hero-arrow.prev { left: 16px; }
+    .hero-arrow.next { right: 16px; }
+    .hero-dots { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 5; }
+    .hero-dot { width: 8px; height: 8px; border-radius: 50%; border: none; cursor: pointer; padding: 0; background: rgba(255,255,255,.45); transition: all .3s; }
+    .hero-dot.active { background: var(--gold); width: 24px; border-radius: 4px; }
+
+    /* ── LANGUAGE SWITCHER ── */
+    .lang-switcher { position: relative; }
+    .lang-switcher-btn { background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.28); color: #fff; padding: 5px 11px; border-radius: 20px; font-size: .78rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px; font-family: inherit; }
+    .lang-dropdown { position: absolute; right: 0; top: calc(100% + 8px); background: #fff; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,.18); padding: 6px; min-width: 130px; display: none; z-index: 999; }
+    .lang-dropdown.open { display: flex; flex-direction: column; }
+    .lang-option { background: none; border: none; padding: 8px 12px; border-radius: 7px; cursor: pointer; font-size: .82rem; font-weight: 500; color: #333; text-align: left; transition: background .15s; width: 100%; }
+    .lang-option:hover, .lang-option.active { background: var(--light); color: var(--gold); font-weight: 700; }
+
+    /* ── URGENCY NOTIFICATION ── */
+    .urgency-notif { position: fixed; bottom: 90px; left: 16px; background: #fff; border-radius: 12px; padding: 12px 16px; box-shadow: 0 4px 24px rgba(0,0,0,.15); display: flex; align-items: center; gap: 10px; max-width: 290px; z-index: 998; transform: translateY(120px); opacity: 0; transition: all .45s cubic-bezier(.34,1.56,.64,1); font-size: .78rem; border-left: 3px solid #25d366; }
+    .urgency-notif.show { transform: translateY(0); opacity: 1; }
+    .urgency-notif .notif-avatar { font-size: 1.4rem; color: var(--gold); flex-shrink: 0; }
+    .urgency-notif .notif-text { color: #333; line-height: 1.45; }
+
+    /* ── TRUST STRIP ── */
+    .trust-strip { background: #fff; border-bottom: 1px solid #eee; padding: 14px 24px; }
+    .trust-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 32px; flex-wrap: wrap; }
+    .trust-item { display: flex; align-items: center; gap: 8px; font-size: .82rem; font-weight: 600; color: var(--dark); }
+    .trust-item i { color: var(--gold); font-size: .9rem; }
+
+    /* ── MAP PLACEHOLDER ── */
+    .loc-map-card { display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #f7f3ee 0%, #ede5d8 100%); border-radius: 20px; height: 430px; text-align: center; padding: 40px; box-shadow: 0 8px 40px rgba(0,0,0,.08); gap: 0; }
+    .map-pin-icon { font-size: 3.8rem; color: var(--gold); margin-bottom: 16px; }
+    .loc-map-card h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 8px; color: var(--dark); }
+    .loc-map-card p { color: var(--muted); margin-bottom: 28px; line-height: 1.6; font-size: .9rem; }
+    .btn-open-map { display: inline-flex; align-items: center; gap: 9px; background: linear-gradient(135deg,var(--gold),#a87020); color: #fff; padding: 13px 28px; border-radius: 50px; font-weight: 700; font-size: .92rem; text-decoration: none; transition: transform .18s, box-shadow .18s; box-shadow: 0 4px 20px rgba(200,146,43,.35); margin-bottom: 12px; }
+    .btn-open-map:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,146,43,.45); }
+    .btn-visit-web { display: inline-flex; align-items: center; gap: 8px; background: var(--dark); color: #fff; padding: 11px 24px; border-radius: 50px; font-weight: 600; font-size: .85rem; text-decoration: none; transition: background .2s; }
+    .btn-visit-web:hover { background: #333; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { display: none; }
       .hamburger { display: flex; }
-      .hero h1 { font-size: 1.6rem; }
+      .hero { height: 480px; }
+      .hero h1 { font-size: 1.7rem; }
+      .hero-arrow { display: none; }
       .section-title { font-size: 1.5rem; }
       .services-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
       .card-img { height: 140px; }
+      .trust-strip { display: none; }
+      .loc-map-card { height: 280px; padding: 28px; }
     }
     @media (max-width: 480px) {
       .services-grid { grid-template-columns: 1fr 1fr; }
@@ -314,7 +368,15 @@
   <div>
     <a href="tel:+212694170004"><i class="fas fa-phone-alt"></i> +212 694 170 004</a>
     <a href="https://wa.me/212694170004" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-    <a href="mailto:contact@ochre-morocco.com" class="hide-sm"><i class="fas fa-envelope"></i> contact@ochre-morocco.com</a>
+    <a href="mailto:ochremorocco@gmail.com" class="hide-sm"><i class="fas fa-envelope"></i> ochremorocco@gmail.com</a>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-switcher-btn" aria-label="Select language"><i class="fas fa-globe"></i> <span id="activeLangLabel">EN</span> <i class="fas fa-chevron-down" style="font-size:.6rem"></i></button>
+    <div class="lang-dropdown">
+      <button class="lang-option active" data-lang="en">🇬🇧 English</button>
+      <button class="lang-option" data-lang="es">🇪🇸 Español</button>
+      <button class="lang-option" data-lang="ar">🇲🇦 العربية</button>
+    </div>
   </div>
 </div>
 
@@ -338,9 +400,23 @@
   </button>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <img src="assets/images/marrakech-koutoubia-coucher.jpg" alt="Marrakech" />
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-inner">
+    <span class="trust-item"><i class="fas fa-shield-halved"></i> Secure Booking</span>
+    <span class="trust-item"><i class="fas fa-undo"></i> Free Cancellation</span>
+    <span class="trust-item"><i class="fas fa-star"></i> 5-Star Reviews</span>
+    <span class="trust-item"><i class="fas fa-bolt"></i> Instant Confirmation</span>
+    <span class="trust-item"><i class="fab fa-whatsapp" style="color:#25d366"></i> Reply in Minutes</span>
+  </div>
+</div>
+
+<!-- HERO SLIDER -->
+<section class="hero" style="height:520px">
+  <div class="hero-slide active"><img src="assets/images/marrakech-koutoubia-coucher.jpg" alt="Marrakech at sunset" /></div>
+  <div class="hero-slide"><img src="assets/images/sahara-caravane-coucher.jpg" alt="Sahara Desert" /></div>
+  <div class="hero-slide"><img src="assets/images/ourika-randonnee.jpg" alt="Atlas Mountains" /></div>
+  <div class="hero-slide"><img src="assets/images/essaouira-remparts-vagues.jpg" alt="Essaouira Coast" /></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <span class="hero-badge"><i class="fas fa-star"></i> Marrakech Excursions – Best Prices</span>
@@ -350,6 +426,14 @@
       <a href="#services" class="btn-gold"><i class="fas fa-search"></i> View All Services</a>
       <a href="https://wa.me/212694170004" class="btn-wa" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Book Now</a>
     </div>
+  </div>
+  <button class="hero-arrow prev" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
+  <button class="hero-arrow next" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
+  <div class="hero-dots">
+    <button class="hero-dot active" aria-label="Slide 1"></button>
+    <button class="hero-dot" aria-label="Slide 2"></button>
+    <button class="hero-dot" aria-label="Slide 3"></button>
+    <button class="hero-dot" aria-label="Slide 4"></button>
   </div>
 </section>
 
@@ -418,7 +502,7 @@
       <!-- Hot Air Balloon -->
       <div class="card">
         <div class="card-img">
-          <img src="assets/images/desert-nuit-etoiles.jpg" alt="Hot Air Balloon" loading="lazy" />
+          <img src="assets/images/agafay-coucher-soleil.jpg" alt="Hot Air Balloon" loading="lazy" />
           <span class="badge-discount">-19%</span>
           <span class="badge-tag">Wow Experience</span>
           <div class="card-price-overlay">
@@ -745,7 +829,7 @@
           <div class="loc-icon"><i class="fas fa-envelope"></i></div>
           <div class="loc-text">
             <strong>Email</strong>
-            <a href="mailto:contact@ochre-morocco.com">contact@ochre-morocco.com</a>
+            <a href="mailto:ochremorocco@gmail.com">ochremorocco@gmail.com</a>
           </div>
         </div>
         <div class="loc-card">
@@ -763,14 +847,16 @@
       </a>
     </div>
 
-    <div class="loc-map">
-      <iframe
-        src="https://maps.google.com/maps?q=J2PF%2B4V5+Marrakech+40000+Morocco&output=embed&z=17"
-        width="100%" height="100%"
-        style="border:0;" allowfullscreen="" loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        title="Ochre Morocco – Marrakech Office">
-      </iframe>
+    <div class="loc-map-card">
+      <div class="map-pin-icon"><i class="fas fa-map-location-dot"></i></div>
+      <h3>Find Our Office</h3>
+      <p>J2PF+4V5, Marrakech 40000<br>Morocco</p>
+      <a href="https://maps.google.com/?q=J2PF%2B4V5+Marrakech+40000+Morocco" class="btn-open-map" target="_blank" rel="noopener">
+        <i class="fas fa-diamond-turn-right"></i> Open in Google Maps
+      </a>
+      <a href="https://ochre-morocco.com" class="btn-visit-web" target="_blank" rel="noopener">
+        <i class="fas fa-globe"></i> Visit Our Website
+      </a>
     </div>
 
   </div>
@@ -791,8 +877,15 @@
   <i class="fab fa-whatsapp"></i>
 </a>
 
+<!-- Urgency Notification -->
+<div class="urgency-notif" id="urgencyNotif">
+  <div class="notif-avatar"><i class="fas fa-user-circle"></i></div>
+  <div class="notif-text"></div>
+</div>
+
   <!-- EmailJS (configure in assets/js/booking.js) -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="assets/js/booking.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

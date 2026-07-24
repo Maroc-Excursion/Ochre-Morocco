@@ -241,26 +241,6 @@
      11. LANGUAGE SWITCHER
   ================================================================ */
   const translations = {
-    fr: {
-      nav_home:       'Accueil',
-      nav_exc:        'Excursions',
-      nav_circ:       'Circuits',
-      nav_trans:      'Transferts',
-      nav_desert:     'Désert Agafay',
-      nav_about:      'Qui sommes-nous ?',
-      nav_contact:    'Contact',
-      nav_blog:       'Blog',
-      hero_badge:     '#1 Agence d\'Excursions au Maroc',
-      hero_title:     'Découvrez la Magie<br>du <span>Maroc</span>',
-      hero_sub:       'Excursions premium, circuits inoubliables et aventures authentiques au cœur du Royaume Chérifien',
-      hero_btn1:      'Explorer nos Excursions',
-      hero_btn2:      'Nous Contacter',
-      wa_btn:         'WhatsApp',
-      search_tab1:    'Excursions',
-      search_tab2:    'Circuits',
-      search_tab3:    'Transferts',
-      free_cancel:    'Annulation gratuite',
-    },
     en: {
       nav_home:       'Home',
       nav_exc:        'Excursions',
@@ -323,7 +303,7 @@
     }
   };
 
-  let currentLang = localStorage.getItem('me_lang') || 'fr';
+  let currentLang = localStorage.getItem('me_lang') || 'en';
 
   function applyLanguage(lang) {
     if (!translations[lang]) return;
@@ -354,7 +334,7 @@
     document.documentElement.dir  = (lang === 'ar') ? 'rtl' : 'ltr';
 
     // Update visible label in the switcher button
-    const labelMap = { fr: 'FR', en: 'EN', es: 'ES', ar: 'ع' };
+    const labelMap = { en: 'EN', es: 'ES', ar: 'ع' };
     const lbl = document.getElementById('activeLangLabel');
     if (lbl) lbl.textContent = labelMap[lang] || lang.toUpperCase();
 
