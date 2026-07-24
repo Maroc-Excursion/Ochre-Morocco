@@ -1,0 +1,10 @@
+import { Router } from "express";
+    import { pool } from "@workspace/db";
+    import { createSession, destroySession, hashPassword, requireAdmin, verifyPassword, type AdminRequest } from "../lib/auth";
+    const router = Router();
+    router.post("/auth/login", async (req, res) => { const email = String(req.body?.email || "").trim().toLowerCase(); const password = String(req.body?.password || ""); if (!email || !password) return res.status(400).json({ error: "EMAIL_AND_PASSWORD_REQUIRED" }); const result = await pool.query("SELECT id, email, password_hash FROM admin_users WHERE email = $1", [email]); if (!result.rows[0] || !(await verifyPassword(password, result.rows[0].password_hash))) return res.status(401).json({ error: "INVALID_CREDENTIALS" }); await createSession(result.rows[0].id, res); return res.json({ user: { id: result.rows[0].id, email: result.rows[0].email } }); });
+    router.post("/auth/logout", async (req, res) => { await destroySession(req, res); return res.status(204).end(); });
+    router.get("/auth/me", requireAdmin, (req: AdminRequest, res) => res.json({ user: req.adminUser }));
+    router.post("/auth/password", requireAdmin, async (req: AdminRequest, res) => { const currentPassword = String(req.body?.currentPassword || ""); const newPassword = String(req.body?.newPassword || ""); if (newPassword.length < 10) return res.status(400).json({ error: "PASSWORD_MIN_LENGTH_10" }); const current = await pool.query("SELECT password_hash FROM admin_users WHERE id = $1", [req.adminUser!.id]); if (!current.rows[0] || !(await verifyPassword(currentPassword, current.rows[0].password_hash))) return res.status(401).json({ error: "CURRENT_PASSWORD_INVALID" }); await pool.query("UPDATE admin_users SET password_hash = $1, updated_at = NOW() WHERE id = $2", [await hashPassword(newPassword), req.adminUser!.id]); await pool.query("DELETE FROM admin_sessions WHERE user_id = $1", [req.adminUser!.id]); return res.json({ ok: true }); });
+    export default router;
+    
