@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="ar" dir="ltr">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Ochre Morocco – Admin Panel</title>
+<title>Ochre Morocco – لوحة التحكم</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -24,18 +24,16 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .sidebar-logo .logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#fff}
 .sidebar-logo h1{font-size:.95rem;font-weight:700;color:var(--text)}
 .sidebar-logo span{font-size:.7rem;color:var(--muted);display:block}
-
 .sidebar-nav{flex:1;padding:16px 0;overflow-y:auto}
 .nav-section{padding:8px 16px 4px;font-size:.65rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;margin:2px 8px;border-radius:8px;cursor:pointer;transition:var(--trans);font-size:.85rem;color:var(--muted);user-select:none}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;margin:2px 8px;border-radius:8px;cursor:pointer;transition:var(--trans);font-size:.85rem;color:var(--muted);user-select:none;border:none;background:none;width:calc(100% - 16px);text-align:left;font-family:inherit}
 .nav-item:hover{background:rgba(255,255,255,.05);color:var(--text)}
 .nav-item.active{background:rgba(26,122,94,.2);color:var(--green2);font-weight:600}
 .nav-item.active .nav-icon{color:var(--green2)}
 .nav-icon{width:18px;text-align:center;font-size:.9rem}
 .nav-badge{margin-left:auto;background:var(--green);color:#fff;font-size:.6rem;padding:2px 6px;border-radius:20px;font-weight:700}
-
 .sidebar-footer{padding:16px;border-top:1px solid var(--border)}
-.sidebar-user{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:var(--card);cursor:pointer}
+.sidebar-user{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:var(--card)}
 .sidebar-user .avatar{width:34px;height:34px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#fff}
 .sidebar-user .info{flex:1}
 .sidebar-user .name{font-size:.8rem;font-weight:600}
@@ -48,19 +46,18 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .topbar{background:var(--sidebar);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;gap:16px}
 .topbar-title{font-size:1.1rem;font-weight:600;flex:1}
 .topbar-actions{display:flex;align-items:center;gap:10px}
-
 .content{padding:28px;flex:1}
 
 /* ── Pages ── */
 .page{display:none}
 .page.active{display:block}
 
-/* ── Login ── */
-#page-login{display:flex;align-items:center;justify-content:center;min-height:100vh;margin-left:0}
-.login-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:48px 40px;width:100%;max-width:420px;text-align:center}
-.login-logo{width:64px;height:64px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:#fff;margin:0 auto 24px}
-.login-card h2{font-size:1.4rem;font-weight:700;margin-bottom:6px}
-.login-card p{color:var(--muted);font-size:.85rem;margin-bottom:32px;line-height:1.6}
+/* ── Login / Setup Screens ── */
+.auth-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:500;padding:20px}
+.auth-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:48px 40px;width:100%;max-width:420px;text-align:center}
+.auth-logo{width:64px;height:64px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:#fff;margin:0 auto 24px}
+.auth-card h2{font-size:1.4rem;font-weight:700;margin-bottom:6px}
+.auth-card p{color:var(--muted);font-size:.85rem;margin-bottom:28px;line-height:1.6}
 .form-group{margin-bottom:16px;text-align:left}
 .form-group label{display:block;font-size:.8rem;font-weight:500;margin-bottom:6px;color:var(--muted)}
 .form-control{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:inherit;font-size:.9rem;transition:var(--trans)}
@@ -73,13 +70,18 @@ select.form-control option{background:var(--bg)}
 .btn-danger:hover{opacity:.85}
 .btn-ghost{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--border)}
 .btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-warning{background:var(--warning);color:#fff}
+.btn-warning:hover{opacity:.85}
 .btn-sm{padding:6px 14px;font-size:.78rem}
 .btn-icon{padding:8px;border-radius:6px;background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:var(--trans)}
 .btn-icon:hover{background:rgba(255,255,255,.12);color:var(--text)}
-.btn-block{width:100%;justify-content:center}
-.login-info{background:rgba(66,153,225,.08);border:1px solid rgba(66,153,225,.2);border-radius:8px;padding:12px;margin-bottom:20px;font-size:.78rem;color:var(--info);text-align:left;line-height:1.6}
+.btn-block{width:100%;justify-content:center;margin-top:4px}
+.alert{padding:12px 16px;border-radius:8px;font-size:.82rem;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.alert-danger{background:rgba(229,62,62,.1);border:1px solid rgba(229,62,62,.3);color:var(--danger)}
+.alert-info{background:rgba(66,153,225,.1);border:1px solid rgba(66,153,225,.3);color:var(--info)}
+.alert-success{background:rgba(72,187,120,.1);border:1px solid rgba(72,187,120,.3);color:var(--success)}
 
-/* ── Cards ── */
+/* ── Stats ── */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;margin-bottom:28px}
 .stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;display:flex;align-items:flex-start;gap:16px}
 .stat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
@@ -87,13 +89,14 @@ select.form-control option{background:var(--bg)}
 .stat-icon.gold{background:rgba(212,168,83,.2);color:var(--gold)}
 .stat-icon.info{background:rgba(66,153,225,.2);color:var(--info)}
 .stat-icon.warning{background:rgba(237,137,54,.2);color:var(--warning)}
+.stat-icon.danger{background:rgba(229,62,62,.2);color:var(--danger)}
 .stat-label{font-size:.78rem;color:var(--muted);margin-bottom:4px}
 .stat-value{font-size:1.8rem;font-weight:700;line-height:1}
 .stat-sub{font-size:.72rem;color:var(--muted);margin-top:4px}
 
 /* ── Table ── */
 .table-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:24px}
-.table-header{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.table-header{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .table-header h3{font-size:.95rem;font-weight:600;flex:1}
 .table-search{background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:8px 14px;color:var(--text);font-family:inherit;font-size:.82rem;width:200px}
 .table-search:focus{outline:none;border-color:var(--green2)}
@@ -103,7 +106,7 @@ td{padding:14px 18px;border-bottom:1px solid rgba(42,51,71,.5);font-size:.85rem;
 tr:last-child td{border-bottom:none}
 tr:hover td{background:rgba(255,255,255,.02)}
 .td-img{width:52px;height:38px;border-radius:6px;object-fit:cover}
-.td-title{font-weight:500;max-width:280px}
+.td-title{font-weight:500;max-width:260px}
 .td-sub{font-size:.75rem;color:var(--muted);margin-top:2px}
 
 /* ── Badges ── */
@@ -124,22 +127,54 @@ tr:hover td{background:rgba(255,255,255,.02)}
 /* ── Modal ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.open{display:flex}
-.modal{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);width:100%;max-width:560px;max-height:90vh;overflow-y:auto}
-.modal-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);width:100%;max-width:580px;max-height:92vh;overflow-y:auto}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;position:sticky;top:0;background:var(--card);z-index:1}
 .modal-header h3{flex:1;font-size:1rem;font-weight:600}
 .modal-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.2rem;padding:4px;transition:var(--trans)}
 .modal-close:hover{color:var(--text)}
 .modal-body{padding:24px}
-.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;position:sticky;bottom:0;background:var(--card)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-row.single{grid-template-columns:1fr}
 textarea.form-control{resize:vertical;min-height:80px}
 .form-hint{font-size:.72rem;color:var(--muted);margin-top:4px}
 
-/* ── Section heading ── */
-.page-header{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+/* ── Page header ── */
+.page-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:24px;flex-wrap:wrap}
 .page-header h2{font-size:1.2rem;font-weight:700;flex:1}
 .page-header p{font-size:.82rem;color:var(--muted);margin-top:2px}
+
+/* ── Settings ── */
+.settings-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+.settings-section h3{font-size:.95rem;font-weight:600;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;color:var(--green2)}
+
+/* ── Loading / Empty ── */
+.loading{display:flex;align-items:center;gap:10px;color:var(--muted);padding:40px;justify-content:center;font-size:.9rem}
+.spinner{width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--green2);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty-state i{font-size:2.5rem;margin-bottom:16px;opacity:.4;display:block}
+.empty-state p{font-size:.85rem}
+
+/* ── Toast ── */
+.toast-container{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:.82rem;display:flex;align-items:center;gap:10px;min-width:260px;animation:slideIn .3s ease;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.toast.success{border-color:rgba(72,187,120,.4)}
+.toast.error{border-color:rgba(229,62,62,.4)}
+.toast.info{border-color:rgba(66,153,225,.4)}
+@keyframes slideIn{from{transform:translateX(100px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* ── Image preview ── */
+.img-preview{width:100%;height:120px;object-fit:cover;border-radius:8px;margin-top:8px;display:none}
+.img-preview.show{display:block}
+
+/* ── YouTube preview ── */
+.yt-preview{width:100%;aspect-ratio:16/9;border-radius:8px;margin-top:12px;border:none;display:none}
+.yt-preview.show{display:block}
+
+/* ── Price inline edit ── */
+.price-input{background:var(--bg);border:1.5px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-family:inherit;font-size:.85rem;width:80px;text-align:center}
+.price-input:focus{outline:none;border-color:var(--green2)}
 
 /* ── City cards ── */
 .cities-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
@@ -149,33 +184,8 @@ textarea.form-control{resize:vertical;min-height:80px}
 .city-body{padding:16px}
 .city-name{font-size:1rem;font-weight:700;margin-bottom:4px}
 .city-desc{font-size:.78rem;color:var(--muted);margin-bottom:12px;line-height:1.5}
-.city-footer{display:flex;align-items:center;gap:8px}
+.city-footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .city-airport{font-size:.72rem;background:var(--card2);border-radius:6px;padding:3px 8px;color:var(--muted)}
-
-/* ── Alert ── */
-.alert{padding:12px 16px;border-radius:8px;font-size:.82rem;margin-bottom:16px;display:flex;align-items:center;gap:10px}
-.alert-success{background:rgba(72,187,120,.1);border:1px solid rgba(72,187,120,.3);color:var(--success)}
-.alert-danger{background:rgba(229,62,62,.1);border:1px solid rgba(229,62,62,.3);color:var(--danger)}
-.alert-info{background:rgba(66,153,225,.1);border:1px solid rgba(66,153,225,.3);color:var(--info)}
-
-/* ── Loading ── */
-.loading{display:flex;align-items:center;gap:10px;color:var(--muted);padding:40px;justify-content:center;font-size:.9rem}
-.spinner{width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--green2);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* ── Empty state ── */
-.empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
-.empty-state i{font-size:2.5rem;margin-bottom:16px;opacity:.4}
-.empty-state p{font-size:.85rem}
-
-/* ── Tabs ── */
-.tab-bar{display:flex;gap:4px;background:var(--card);border-radius:10px;padding:4px;margin-bottom:20px;width:fit-content}
-.tab-btn{padding:8px 18px;border-radius:7px;font-size:.82rem;font-weight:500;cursor:pointer;transition:var(--trans);border:none;background:none;color:var(--muted);font-family:inherit}
-.tab-btn.active{background:var(--green);color:#fff;font-weight:600}
-
-/* ── Settings sections ── */
-.settings-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
-.settings-section h3{font-size:.95rem;font-weight:600;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;color:var(--green2)}
 
 /* ── Responsive ── */
 @media(max-width:768px){
@@ -185,49 +195,63 @@ textarea.form-control{resize:vertical;min-height:80px}
   .form-row{grid-template-columns:1fr}
   .stats-grid{grid-template-columns:1fr 1fr}
 }
-
-/* ── Toast ── */
-.toast-container{position:fixed;top:20px;right:20px;z-index:1000;display:flex;flex-direction:column;gap:8px}
-.toast{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:.82rem;display:flex;align-items:center;gap:10px;min-width:260px;animation:slideIn .3s ease;box-shadow:0 8px 32px rgba(0,0,0,.4)}
-.toast.success{border-color:rgba(72,187,120,.4)}
-.toast.error{border-color:rgba(229,62,62,.4)}
-@keyframes slideIn{from{transform:translateX(100px);opacity:0}to{transform:translateX(0);opacity:1}}
-
-/* ── Image preview ── */
-.img-preview{width:100%;height:120px;object-fit:cover;border-radius:8px;margin-top:8px;display:none}
-.img-preview.show{display:block}
 </style>
 </head>
 <body>
 
-<!-- LOGIN PAGE -->
-<div id="page-login" class="page active" style="display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%">
-  <div class="login-card">
-    <div class="login-logo"><i class="fas fa-map-marked-alt"></i></div>
+<!-- ══════════════════════════════════════
+     AUTH SCREENS
+══════════════════════════════════════ -->
+
+<!-- Screen 1: Email + Password -->
+<div id="screen-login" class="auth-screen">
+  <div class="auth-card">
+    <div class="auth-logo"><i class="fas fa-map-marked-alt"></i></div>
     <h2>Ochre Morocco</h2>
-    <p>لوحة التحكم الإدارية<br/>Panneau d'administration</p>
-    <div class="login-info">
-      <i class="fas fa-info-circle"></i>
-      أدخل GitHub Token الخاص بك للوصول إلى لوحة التحكم.<br/>
-      <small>الرمز يُحفظ مؤقتاً في المتصفح فقط.</small>
-    </div>
-    <div class="form-group">
-      <label>GitHub Personal Access Token</label>
-      <input type="password" id="login-token" class="form-control" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off"/>
-    </div>
-    <div class="form-group">
-      <label>GitHub Repository</label>
-      <input type="text" id="login-repo" class="form-control" value="Maroc-Excursion/Maroc-Excursion"/>
-    </div>
+    <p>لوحة التحكم الإدارية</p>
     <div id="login-error" class="alert alert-danger" style="display:none"></div>
+    <div class="form-group">
+      <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+      <input type="email" id="inp-email" class="form-control" placeholder="admin@ochremorocco.com" autocomplete="email"/>
+    </div>
+    <div class="form-group">
+      <label><i class="fas fa-lock"></i> كلمة السر</label>
+      <input type="password" id="inp-pass" class="form-control" placeholder="••••••••" autocomplete="current-password"/>
+    </div>
     <button class="btn btn-primary btn-block" onclick="doLogin()">
-      <i class="fas fa-sign-in-alt"></i> Connexion
+      <i class="fas fa-sign-in-alt"></i> دخول
     </button>
   </div>
 </div>
 
-<!-- ADMIN LAYOUT -->
-<div id="admin-layout" style="display:none;width:100%">
+<!-- Screen 2: Token Setup (first time only) -->
+<div id="screen-token" class="auth-screen" style="display:none">
+  <div class="auth-card">
+    <div class="auth-logo"><i class="fas fa-key"></i></div>
+    <h2>إعداد أول مرة</h2>
+    <p>أدخل GitHub Token مرة واحدة فقط — سيُحفظ بشكل دائم ولن يُطلب منك مرة أخرى.</p>
+    <div class="alert alert-info" style="margin-bottom:20px">
+      <i class="fas fa-info-circle"></i>
+      اذهب إلى <strong>GitHub → Settings → Developer settings → Personal access tokens</strong> وأنشئ token بصلاحية <strong>repo</strong>
+    </div>
+    <div id="token-error" class="alert alert-danger" style="display:none"></div>
+    <div class="form-group">
+      <label><i class="fas fa-key"></i> GitHub Personal Access Token</label>
+      <input type="password" id="inp-token" class="form-control" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"/>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="doSaveToken()">
+      <i class="fas fa-save"></i> حفظ وإطلاق لوحة التحكم
+    </button>
+    <button class="btn btn-ghost btn-block" style="margin-top:8px" onclick="doLogout()">
+      <i class="fas fa-arrow-left"></i> رجوع
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     ADMIN LAYOUT
+══════════════════════════════════════ -->
+<div id="admin-layout" style="display:none;width:100%;min-height:100vh">
 
 <!-- Sidebar -->
 <aside class="sidebar" id="sidebar">
@@ -235,43 +259,42 @@ textarea.form-control{resize:vertical;min-height:80px}
     <div class="logo-icon"><i class="fas fa-map-marked-alt"></i></div>
     <div>
       <h1>Ochre Morocco</h1>
-      <span>Admin Dashboard</span>
+      <span>لوحة التحكم</span>
     </div>
   </div>
   <nav class="sidebar-nav">
-    <div class="nav-section">Général</div>
-    <div class="nav-item active" onclick=\"showPage('dashboard',this)\">
-      <i class="fas fa-chart-pie nav-icon"></i> Tableau de bord
-    </div>
-    <div class="nav-section">Contenu</div>
-    <div class="nav-item" onclick=\"showPage('cities',this)\">
-      <i class="fas fa-city nav-icon"></i> Villes
-      <span class="nav-badge" id="badge-cities">1</span>
-    </div>
-    <div class="nav-item" onclick=\"showPage('excursions',this)\">
-      <i class="fas fa-hiking nav-icon"></i> Excursions
-      <span class="nav-badge" id="badge-excursions">0</span>
-    </div>
-    <div class="nav-item" onclick=\"showPage('circuits',this)\">
-      <i class="fas fa-route nav-icon"></i> Circuits
+    <div class="nav-section">عام</div>
+    <button class="nav-item active" id="nav-dashboard" onclick="showPage('dashboard')">
+      <i class="fas fa-chart-pie nav-icon"></i> لوحة التحكم
+    </button>
+    <div class="nav-section">المحتوى</div>
+    <button class="nav-item" id="nav-services" onclick="showPage('services')">
+      <i class="fas fa-hiking nav-icon"></i> الخدمات والأسعار
+      <span class="nav-badge" id="badge-services">0</span>
+    </button>
+    <button class="nav-item" id="nav-transfers" onclick="showPage('transfers')">
+      <i class="fas fa-shuttle-van nav-icon"></i> التنقلات
+    </button>
+    <button class="nav-item" id="nav-circuits" onclick="showPage('circuits')">
+      <i class="fas fa-route nav-icon"></i> الدورات السياحية
       <span class="nav-badge" id="badge-circuits">0</span>
-    </div>
-    <div class="nav-item" onclick=\"showPage('transfers',this)\">
-      <i class="fas fa-shuttle-van nav-icon"></i> Transferts
-    </div>
-    <div class="nav-section">Configuration</div>
-    <div class="nav-item" onclick=\"showPage('settings',this)\">
-      <i class="fas fa-cog nav-icon"></i> Paramètres
-    </div>
+    </button>
+    <div class="nav-section">الإعدادات</div>
+    <button class="nav-item" id="nav-youtube" onclick="showPage('youtube')">
+      <i class="fab fa-youtube nav-icon" style="color:#ff0000"></i> فيديو YouTube
+    </button>
+    <button class="nav-item" id="nav-settings" onclick="showPage('settings')">
+      <i class="fas fa-cog nav-icon"></i> إعدادات الموقع
+    </button>
   </nav>
   <div class="sidebar-footer">
     <div class="sidebar-user">
       <div class="avatar">A</div>
       <div class="info">
-        <div class="name">Administrateur</div>
+        <div class="name">Administrator</div>
         <div class="role">Super Admin</div>
       </div>
-      <button class="logout-btn" onclick="doLogout()" title="Déconnexion"><i class="fas fa-sign-out-alt"></i></button>
+      <button class="logout-btn" onclick="doLogout()" title="تسجيل الخروج"><i class="fas fa-sign-out-alt"></i></button>
     </div>
   </div>
 </aside>
@@ -280,283 +303,239 @@ textarea.form-control{resize:vertical;min-height:80px}
 <div class="main">
   <div class="topbar">
     <button class="btn-icon" id="sidebar-toggle" onclick="toggleSidebar()" style="display:none"><i class="fas fa-bars"></i></button>
-    <span class="topbar-title" id="topbar-title">Tableau de bord</span>
+    <span class="topbar-title" id="topbar-title">لوحة التحكم</span>
     <div class="topbar-actions">
       <a href="../index.html" target="_blank" class="btn btn-ghost btn-sm">
-        <i class="fas fa-external-link-alt"></i> Voir le site
+        <i class="fas fa-external-link-alt"></i> عرض الموقع
       </a>
     </div>
   </div>
   <div class="content">
 
     <!-- ══ DASHBOARD ══ -->
-    <div id="page-dashboard" class="page active">
+    <div id="page-dashboard" class="page">
       <div class="stats-grid" id="stats-grid">
         <div class="stat-card">
-          <div class="stat-icon green"><i class="fas fa-city"></i></div>
-          <div><div class="stat-label">Villes actives</div><div class="stat-value" id="stat-cities">-</div><div class="stat-sub">Destinations disponibles</div></div>
+          <div class="stat-icon green"><i class="fas fa-hiking"></i></div>
+          <div><div class="stat-label">الخدمات النشطة</div><div class="stat-value" id="stat-services">-</div><div class="stat-sub">الأنشطة والرحلات</div></div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon gold"><i class="fas fa-hiking"></i></div>
-          <div><div class="stat-label">Excursions</div><div class="stat-value" id="stat-excursions">-</div><div class="stat-sub">Activités publiées</div></div>
+          <div class="stat-icon gold"><i class="fas fa-route"></i></div>
+          <div><div class="stat-label">الدورات السياحية</div><div class="stat-value" id="stat-circuits">-</div><div class="stat-sub">الجولات المنظمة</div></div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon info"><i class="fas fa-route"></i></div>
-          <div><div class="stat-label">Circuits</div><div class="stat-value" id="stat-circuits">-</div><div class="stat-sub">Itinéraires organisés</div></div>
+          <div class="stat-icon info"><i class="fas fa-shuttle-van"></i></div>
+          <div><div class="stat-label">التنقلات</div><div class="stat-value" id="stat-transfers">-</div><div class="stat-sub">وسائل النقل</div></div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon warning"><i class="fas fa-shuttle-van"></i></div>
-          <div><div class="stat-label">Transferts</div><div class="stat-value" id="stat-transfers">-</div><div class="stat-sub">Véhicules disponibles</div></div>
+          <div class="stat-icon warning"><i class="fas fa-euro-sign"></i></div>
+          <div><div class="stat-label">أدنى سعر</div><div class="stat-value" id="stat-min-price">-</div><div class="stat-sub">أرخص خدمة متاحة</div></div>
         </div>
       </div>
       <div class="table-card">
-        <div class="table-header"><h3><i class="fas fa-city" style="color:var(--green2);margin-right:6px"></i> Villes actives</h3></div>
-        <div id="dash-cities-list"><div class="loading"><div class="spinner"></div> Chargement...</div></div>
-      </div>
-      <div class="table-card">
-        <div class="table-header"><h3><i class="fas fa-hiking" style="color:var(--gold);margin-right:6px"></i> Dernières excursions</h3></div>
-        <div id="dash-exc-list"><div class="loading"><div class="spinner"></div> Chargement...</div></div>
+        <div class="table-header"><h3><i class="fas fa-hiking" style="color:var(--gold);margin-right:6px"></i> جميع الخدمات</h3></div>
+        <div id="dash-services-list"><div class="loading"><div class="spinner"></div> جارٍ التحميل...</div></div>
       </div>
     </div>
 
-    <!-- ══ CITIES ══ -->
-    <div id="page-cities" class="page">
+    <!-- ══ SERVICES (EXCURSIONS + PRICES) ══ -->
+    <div id="page-services" class="page">
       <div class="page-header">
-        <div><h2><i class="fas fa-city" style="color:var(--green2)"></i> Villes</h2><p>Gérez les villes de départ des excursions</p></div>
-        <button class="btn btn-primary" onclick="openCityModal()"><i class="fas fa-plus"></i> Ajouter une ville</button>
-      </div>
-      <div class="cities-grid" id="cities-grid"><div class="loading"><div class="spinner"></div> Chargement...</div></div>
-    </div>
-
-    <!-- ══ EXCURSIONS ══ -->
-    <div id="page-excursions" class="page">
-      <div class="page-header">
-        <div><h2><i class="fas fa-hiking" style="color:var(--gold)"></i> Excursions</h2><p>Gérez toutes les excursions par ville</p></div>
-        <button class="btn btn-primary" onclick="openExcModal()"><i class="fas fa-plus"></i> Ajouter</button>
+        <div><h2><i class="fas fa-hiking" style="color:var(--gold)"></i> الخدمات والأسعار</h2><p>تحكم في جميع الخدمات، الأسعار، الصور والنصوص</p></div>
+        <button class="btn btn-primary" onclick="openSvcModal()"><i class="fas fa-plus"></i> إضافة خدمة</button>
       </div>
       <div class="table-card">
         <div class="table-header">
-          <h3>Liste des excursions</h3>
-          <select id="exc-city-filter" class="form-control" style="width:180px" onchange="renderExcursions()">
-            <option value="">Toutes les villes</option>
+          <h3>قائمة الخدمات</h3>
+          <select id="svc-cat-filter" class="form-control" style="width:180px" onchange="renderServices()">
+            <option value="">كل الفئات</option>
+            <option value="marrakech transfer">تنقلات</option>
+            <option value="marrakech">أنشطة</option>
+            <option value="marrakech desert">صحراء</option>
+            <option value="marrakech montagne">جبال</option>
+            <option value="marrakech excursions">رحلات يومية</option>
           </select>
-          <input type="text" class="table-search" placeholder="Rechercher..." id="exc-search" oninput="renderExcursions()"/>
+          <input type="text" class="table-search" placeholder="بحث..." id="svc-search" oninput="renderServices()"/>
         </div>
-        <div id="exc-table"><div class="loading"><div class="spinner"></div> Chargement...</div></div>
-      </div>
-    </div>
-
-    <!-- ══ CIRCUITS ══ -->
-    <div id="page-circuits" class="page">
-      <div class="page-header">
-        <div><h2><i class="fas fa-route" style="color:var(--info)"></i> Circuits</h2><p>Gérez les circuits organisés</p></div>
-        <button class="btn btn-primary" onclick="openCircuitModal()"><i class="fas fa-plus"></i> Ajouter</button>
-      </div>
-      <div class="table-card">
-        <div class="table-header">
-          <h3>Liste des circuits</h3>
-          <input type="text" class="table-search" placeholder="Rechercher..." id="circ-search" oninput="renderCircuits()"/>
-        </div>
-        <div id="circ-table"><div class="loading"><div class="spinner"></div> Chargement...</div></div>
+        <div id="svc-table"><div class="loading"><div class="spinner"></div> جارٍ التحميل...</div></div>
       </div>
     </div>
 
     <!-- ══ TRANSFERS ══ -->
     <div id="page-transfers" class="page">
       <div class="page-header">
-        <div><h2><i class="fas fa-shuttle-van" style="color:var(--warning)"></i> Transferts</h2><p>Gérez les options de transfert</p></div>
-        <button class="btn btn-primary" onclick="openTransferModal()"><i class="fas fa-plus"></i> Ajouter</button>
+        <div><h2><i class="fas fa-shuttle-van" style="color:var(--warning)"></i> التنقلات</h2><p>إدارة وسائل النقل والأسعار</p></div>
+        <button class="btn btn-primary" onclick="openTransferModal()"><i class="fas fa-plus"></i> إضافة</button>
       </div>
       <div class="table-card">
-        <div class="table-header"><h3>Véhicules & tarifs</h3></div>
-        <div id="transfer-table"><div class="loading"><div class="spinner"></div> Chargement...</div></div>
+        <div class="table-header"><h3>السيارات والأسعار</h3></div>
+        <div id="transfer-table"><div class="loading"><div class="spinner"></div> جارٍ التحميل...</div></div>
+      </div>
+    </div>
+
+    <!-- ══ CIRCUITS ══ -->
+    <div id="page-circuits" class="page">
+      <div class="page-header">
+        <div><h2><i class="fas fa-route" style="color:var(--info)"></i> الدورات السياحية</h2><p>إدارة الجولات المنظمة</p></div>
+        <button class="btn btn-primary" onclick="openCircuitModal()"><i class="fas fa-plus"></i> إضافة</button>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <h3>قائمة الدورات</h3>
+          <input type="text" class="table-search" placeholder="بحث..." id="circ-search" oninput="renderCircuits()"/>
+        </div>
+        <div id="circ-table"><div class="loading"><div class="spinner"></div> جارٍ التحميل...</div></div>
+      </div>
+    </div>
+
+    <!-- ══ YOUTUBE ══ -->
+    <div id="page-youtube" class="page">
+      <div class="page-header">
+        <div><h2><i class="fab fa-youtube" style="color:#ff0000"></i> فيديو YouTube</h2><p>أدخل رابط فيديو YouTube ليظهر مباشرة في الموقع</p></div>
+      </div>
+      <div class="settings-section">
+        <h3><i class="fab fa-youtube"></i> رابط الفيديو</h3>
+        <div class="form-group">
+          <label>رابط YouTube (مثال: https://www.youtube.com/watch?v=ABC123)</label>
+          <input type="url" class="form-control" id="yt-url" placeholder="https://www.youtube.com/watch?v=..." oninput="previewYoutube()"/>
+          <div class="form-hint">يمكنك نسخ الرابط مباشرة من YouTube</div>
+        </div>
+        <div class="form-group">
+          <label>عنوان القسم (ما يظهر فوق الفيديو في الموقع)</label>
+          <input type="text" class="form-control" id="yt-title" placeholder="شاهد المغرب بعيونك" value="اكتشف المغرب"/>
+        </div>
+        <div class="form-group">
+          <label>وصف قصير</label>
+          <input type="text" class="form-control" id="yt-subtitle" placeholder="وصف مختصر عن الفيديو"/>
+        </div>
+        <iframe id="yt-preview-frame" class="yt-preview" allowfullscreen></iframe>
+        <div style="margin-top:16px">
+          <button class="btn btn-primary" onclick="saveYoutube()"><i class="fas fa-save"></i> حفظ وتطبيق على الموقع</button>
+          <button class="btn btn-danger btn-sm" style="margin-left:10px" onclick="removeYoutube()"><i class="fas fa-trash"></i> إزالة الفيديو</button>
+        </div>
+      </div>
+      <div class="settings-section" style="margin-top:0">
+        <h3><i class="fas fa-info-circle"></i> كيف يعمل؟</h3>
+        <p style="font-size:.85rem;color:var(--muted);line-height:1.8">
+          1. انسخ رابط أي فيديو YouTube<br>
+          2. الصقه في الحقل أعلاه<br>
+          3. اضغط "حفظ وتطبيق على الموقع"<br>
+          4. الفيديو سيظهر تلقائياً في صفحة الموقع الرئيسية بين قسم الخدمات وزر الحجز
+        </p>
       </div>
     </div>
 
     <!-- ══ SETTINGS ══ -->
     <div id="page-settings" class="page">
       <div class="page-header">
-        <div><h2><i class="fas fa-cog" style="color:var(--muted)"></i> Paramètres du site</h2><p>Coordonnées, réseaux sociaux et configuration générale</p></div>
+        <div><h2><i class="fas fa-cog" style="color:var(--muted)"></i> إعدادات الموقع</h2><p>معلومات الاتصال، الشبكات الاجتماعية والإعدادات العامة</p></div>
       </div>
       <form onsubmit="saveSettings(event)">
         <div class="settings-section">
-          <h3><i class="fas fa-info-circle"></i> Informations du site</h3>
+          <h3><i class="fas fa-info-circle"></i> معلومات الموقع</h3>
           <div class="form-row">
-            <div class="form-group"><label>Nom du site</label><input type="text" class="form-control" id="s-name" placeholder="Ochre Morocco"/></div>
-            <div class="form-group"><label>Slogan</label><input type="text" class="form-control" id="s-tagline" placeholder="Découvrez la Magie du Maroc"/></div>
+            <div class="form-group"><label>اسم الموقع</label><input type="text" class="form-control" id="s-name" placeholder="Ochre Morocco"/></div>
+            <div class="form-group"><label>الشعار</label><input type="text" class="form-control" id="s-tagline" placeholder="Discover the Magic of Morocco"/></div>
           </div>
-          <div class="form-group form-row single"><label>Description</label><textarea class="form-control" id="s-description" rows="2"></textarea></div>
+          <div class="form-group form-row single"><label>الوصف</label><textarea class="form-control" id="s-description" rows="2"></textarea></div>
         </div>
         <div class="settings-section">
-          <h3><i class="fas fa-phone"></i> Coordonnées</h3>
+          <h3><i class="fas fa-phone"></i> معلومات الاتصال</h3>
           <div class="form-row">
-            <div class="form-group"><label>Téléphone 1</label><input type="text" class="form-control" id="s-phone1" placeholder="+212 694 170 004"/></div>
-            <div class="form-group"><label>Téléphone 2 / WhatsApp</label><input type="text" class="form-control" id="s-phone2" placeholder="+212 694 170 004"/></div>
+            <div class="form-group"><label>الهاتف 1</label><input type="text" class="form-control" id="s-phone1" placeholder="+212 694 170 004"/></div>
+            <div class="form-group"><label>الهاتف 2 / WhatsApp</label><input type="text" class="form-control" id="s-phone2" placeholder="+212 694 170 004"/></div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label>Email</label><input type="email" class="form-control" id="s-email" placeholder="contact@ochre-morocco.com"/></div>
-            <div class="form-group"><label>Numéro WhatsApp (sans +)</label><input type="text" class="form-control" id="s-whatsapp" placeholder="212694170004"/></div>
+            <div class="form-group"><label>البريد الإلكتروني</label><input type="email" class="form-control" id="s-email" placeholder="contact@ochre-morocco.com"/></div>
+            <div class="form-group"><label>رقم WhatsApp (بدون +)</label><input type="text" class="form-control" id="s-whatsapp" placeholder="212694170004"/></div>
           </div>
         </div>
         <div class="settings-section">
-          <h3><i class="fas fa-share-alt"></i> Réseaux sociaux</h3>
+          <h3><i class="fas fa-share-alt"></i> الشبكات الاجتماعية</h3>
           <div class="form-row">
             <div class="form-group"><label><i class="fab fa-facebook"></i> Facebook</label><input type="url" class="form-control" id="s-facebook" placeholder="https://facebook.com/..."/></div>
             <div class="form-group"><label><i class="fab fa-instagram"></i> Instagram</label><input type="url" class="form-control" id="s-instagram" placeholder="https://instagram.com/..."/></div>
           </div>
           <div class="form-row">
             <div class="form-group"><label><i class="fab fa-tiktok"></i> TikTok</label><input type="url" class="form-control" id="s-tiktok" placeholder="https://tiktok.com/@..."/></div>
-            <div class="form-group"><label><i class="fab fa-youtube"></i> YouTube</label><input type="url" class="form-control" id="s-youtube" placeholder="https://youtube.com/@..."/></div>
+            <div class="form-group"><label><i class="fab fa-youtube"></i> YouTube Channel</label><input type="url" class="form-control" id="s-youtube" placeholder="https://youtube.com/@..."/></div>
           </div>
         </div>
         <div style="display:flex;justify-content:flex-end">
-          <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Sauvegarder les paramètres</button>
+          <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> حفظ الإعدادات</button>
         </div>
       </form>
     </div>
 
   </div><!-- /content -->
 </div><!-- /main -->
-
 </div><!-- /admin-layout -->
 
 <!-- Toast container -->
 <div class="toast-container" id="toast-container"></div>
 
-<!-- ══ MODAL: CITY ══ -->
-<div class="modal-overlay" id="modal-city">
-  <div class="modal">
-    <div class="modal-header">
-      <h3 id="city-modal-title">Ajouter une ville</h3>
-      <button class="modal-close" onclick="closeModal('modal-city')"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="modal-body">
-      <input type="hidden" id="city-edit-id"/>
-      <div class="form-row">
-        <div class="form-group"><label>Nom de la ville *</label><input type="text" class="form-control" id="city-name" placeholder="Ex: Agadir" required/></div>
-        <div class="form-group"><label>Nom en arabe</label><input type="text" class="form-control" id="city-name-ar" placeholder="أكادير"/></div>
-      </div>
-      <div class="form-group"><label>Description courte</label><textarea class="form-control" id="city-desc" rows="2" placeholder="Description de la ville..."></textarea></div>
-      <div class="form-row">
-        <div class="form-group"><label>Code aéroport (IATA)</label><input type="text" class="form-control" id="city-airport" placeholder="Ex: AGA" maxlength="3"/></div>
-        <div class="form-group"><label>Nom aéroport</label><input type="text" class="form-control" id="city-airport-name" placeholder="Ex: Agadir Al Massira"/></div>
-      </div>
-      <div class="form-group">
-        <label>URL Image (Unsplash ou autre)</label>
-        <input type="url" class="form-control" id="city-image" placeholder="https://images.unsplash.com/..." oninput="previewImg(this,'city-img-preview')"/><button type="button" class="btn btn-ghost btn-sm" onclick="uploadImage('city-image','city-img-preview')" style="margin-top:6px;width:100%"><i class="fas fa-upload"></i> Upload from device</button>
-        <img id="city-img-preview" class="img-preview"/>
-      </div>
-      <div class="form-group">
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
-          <label class="toggle"><input type="checkbox" id="city-active" checked/><span class="toggle-slider"></span></label>
-          Ville active (visible sur le site)
-        </label>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-city')">Annuler</button>
-      <button class="btn btn-primary" onclick="saveCity()"><i class="fas fa-save"></i> Sauvegarder</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ MODAL: EXCURSION ══ -->
-<div class="modal-overlay" id="modal-exc">
+<!-- ══ MODAL: SERVICE ══ -->
+<div class="modal-overlay" id="modal-svc">
   <div class="modal" style="max-width:640px">
     <div class="modal-header">
-      <h3 id="exc-modal-title">Ajouter une excursion</h3>
-      <button class="modal-close" onclick="closeModal('modal-exc')"><i class="fas fa-times"></i></button>
+      <h3 id="svc-modal-title">إضافة خدمة</h3>
+      <button class="modal-close" onclick="closeModal('modal-svc')"><i class="fas fa-times"></i></button>
     </div>
     <div class="modal-body">
-      <input type="hidden" id="exc-edit-id"/>
-      <div class="form-group"><label>Titre de l'excursion *</label><input type="text" class="form-control" id="exc-title" required placeholder="Ex: Excursion d'une journée à Essaouira"/></div>
+      <input type="hidden" id="svc-edit-id"/>
+      <div class="form-group"><label>عنوان الخدمة *</label><input type="text" class="form-control" id="svc-title" required placeholder="مثال: رحلة يوم كامل إلى أسواق مراكش"/></div>
       <div class="form-row">
-        <div class="form-group"><label>Ville de départ *</label>
-          <select class="form-control" id="exc-city" required>
-            <option value="">Sélectionner...</option>
+        <div class="form-group"><label>السعر (€) *</label><input type="number" class="form-control" id="svc-price" min="0" step="0.01" required placeholder="25"/></div>
+        <div class="form-group"><label>السعر القديم (€) <small>اختياري</small></label><input type="number" class="form-control" id="svc-old-price" min="0" step="0.01" placeholder="49"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>المدة</label><input type="text" class="form-control" id="svc-duration" placeholder="يوم كامل / نصف يوم"/></div>
+        <div class="form-group"><label>الفئة *</label>
+          <select class="form-control" id="svc-category" required>
+            <option value="marrakech">أنشطة ومغامرات</option>
+            <option value="marrakech transfer">تنقلات</option>
+            <option value="marrakech desert">صحراء</option>
+            <option value="marrakech montagne">جبال</option>
+            <option value="marrakech excursions">رحلات يومية</option>
           </select>
         </div>
-        <div class="form-group"><label>Durée</label><input type="text" class="form-control" id="exc-duration" placeholder="Ex: Journée entière"/></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Prix (€) *</label><input type="number" class="form-control" id="exc-price" min="0" step="0.01" required placeholder="28"/></div>
-        <div class="form-group"><label>Ancien prix (€) <small>optionnel</small></label><input type="number" class="form-control" id="exc-old-price" min="0" step="0.01" placeholder="43"/></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>Badge (ex: -35%)</label><input type="text" class="form-control" id="exc-badge" placeholder="-35%"/></div>
-        <div class="form-group"><label>Tag spécial</label>
-          <select class="form-control" id="exc-tag">
-            <option value="">Aucun</option>
-            <option value="Populaire">Populaire</option>
-            <option value="Best-seller">Best-seller</option>
-            <option value="Nouveau">Nouveau</option>
+        <div class="form-group"><label>شارة (مثال: -35%)</label><input type="text" class="form-control" id="svc-badge" placeholder="-35%"/></div>
+        <div class="form-group"><label>وسم خاص</label>
+          <select class="form-control" id="svc-tag">
+            <option value="">بدون</option>
+            <option value="Popular">Popular</option>
+            <option value="Best Seller">Best Seller</option>
+            <option value="New">New</option>
             <option value="Top">Top</option>
-            <option value="Coup de ♥">Coup de ♥</option>
+            <option value="Wow Experience">Wow Experience</option>
+            <option value="Best Price">Best Price</option>
+            <option value="Adventure">Adventure</option>
           </select>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group"><label>Catégorie (data-cat)</label><input type="text" class="form-control" id="exc-category" placeholder="marrakech desert"/></div>
-        <div class="form-group"><label>Note (1–5)</label><input type="number" class="form-control" id="exc-rating" min="1" max="5" value="5"/></div>
-      </div>
-      <div class="form-group"><label>Nombre d'avis</label><input type="number" class="form-control" id="exc-reviews" min="0" placeholder="247"/></div>
       <div class="form-group">
-        <label>URL Image</label>
-        <input type="url" class="form-control" id="exc-image" placeholder="https://images.unsplash.com/..." oninput="previewImg(this,'exc-img-preview')"/><button type="button" class="btn btn-ghost btn-sm" onclick="uploadImage('exc-image','exc-img-preview')" style="margin-top:6px;width:100%"><i class="fas fa-upload"></i> Upload from device</button>
-        <img id="exc-img-preview" class="img-preview"/>
+        <label>مميزات الخدمة (سطر لكل ميزة)</label>
+        <textarea class="form-control" id="svc-meta" rows="4" placeholder="fas fa-clock|نصف يوم&#10;fas fa-car|النقل مشمول&#10;fas fa-utensils|الوجبات مشمولة"></textarea>
+        <div class="form-hint">الصيغة: icon|نص — مثال: fas fa-clock|ساعتان</div>
       </div>
       <div class="form-group">
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
-          <label class="toggle"><input type="checkbox" id="exc-cancel" checked/><span class="toggle-slider"></span></label>
-          Annulation gratuite
-        </label>
+        <label>صورة الخدمة (رابط URL)</label>
+        <input type="url" class="form-control" id="svc-image" placeholder="https://..." oninput="previewImg(this,'svc-img-preview')"/>
+        <button type="button" class="btn btn-ghost btn-sm" onclick="uploadImage('svc-image','svc-img-preview')" style="margin-top:6px;width:100%"><i class="fas fa-upload"></i> رفع صورة من الجهاز</button>
+        <img id="svc-img-preview" class="img-preview"/>
       </div>
       <div class="form-group">
         <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
-          <label class="toggle"><input type="checkbox" id="exc-active" checked/><span class="toggle-slider"></span></label>
-          Excursion active
+          <label class="toggle"><input type="checkbox" id="svc-active" checked/><span class="toggle-slider"></span></label>
+          الخدمة مفعّلة (تظهر في الموقع)
         </label>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-exc')">Annuler</button>
-      <button class="btn btn-primary" onclick="saveExcursion()"><i class="fas fa-save"></i> Sauvegarder</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ MODAL: CIRCUIT ══ -->
-<div class="modal-overlay" id="modal-circuit">
-  <div class="modal" style="max-width:640px">
-    <div class="modal-header">
-      <h3 id="circ-modal-title">Ajouter un circuit</h3>
-      <button class="modal-close" onclick="closeModal('modal-circuit')"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="modal-body">
-      <input type="hidden" id="circ-edit-id"/>
-      <div class="form-group"><label>Titre du circuit *</label><input type="text" class="form-control" id="circ-title" required/></div>
-      <div class="form-group"><label>Sous-titre / Itinéraire</label><input type="text" class="form-control" id="circ-subtitle" placeholder="Marrakech → Fès → Marrakech"/></div>
-      <div class="form-row">
-        <div class="form-group"><label>Durée *</label><input type="text" class="form-control" id="circ-duration" placeholder="7 Jours / 6 Nuits" required/></div>
-        <div class="form-group"><label>Prix depuis (€) *</label><input type="number" class="form-control" id="circ-price" min="0" required/></div>
-      </div>
-      <div class="form-group"><label>Description</label><textarea class="form-control" id="circ-description" rows="3"></textarea></div>
-      <div class="form-group"><label>Inclusions (une par ligne)</label><textarea class="form-control" id="circ-includes" rows="4" placeholder="Transport climatisé&#10;Guide francophone&#10;Hôtels 3–4★"></textarea></div>
-      <div class="form-group">
-        <label>URL Image</label>
-        <input type="url" class="form-control" id="circ-image" placeholder="https://images.unsplash.com/..." oninput="previewImg(this,'circ-img-preview')"/><button type="button" class="btn btn-ghost btn-sm" onclick="uploadImage('circ-image','circ-img-preview')" style="margin-top:6px;width:100%"><i class="fas fa-upload"></i> Upload from device</button>
-        <img id="circ-img-preview" class="img-preview"/>
-      </div>
-      <div class="form-group">
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
-          <label class="toggle"><input type="checkbox" id="circ-active" checked/><span class="toggle-slider"></span></label>
-          Circuit actif
-        </label>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-circuit')">Annuler</button>
-      <button class="btn btn-primary" onclick="saveCircuit()"><i class="fas fa-save"></i> Sauvegarder</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-svc')">إلغاء</button>
+      <button class="btn btn-primary" onclick="saveService()"><i class="fas fa-save"></i> حفظ</button>
     </div>
   </div>
 </div>
@@ -565,35 +544,71 @@ textarea.form-control{resize:vertical;min-height:80px}
 <div class="modal-overlay" id="modal-transfer">
   <div class="modal">
     <div class="modal-header">
-      <h3 id="transfer-modal-title">Ajouter un véhicule</h3>
+      <h3 id="transfer-modal-title">إضافة سيارة</h3>
       <button class="modal-close" onclick="closeModal('modal-transfer')"><i class="fas fa-times"></i></button>
     </div>
     <div class="modal-body">
       <input type="hidden" id="transfer-edit-id"/>
       <div class="form-row">
-        <div class="form-group"><label>Type de véhicule *</label><input type="text" class="form-control" id="transfer-type" placeholder="Ex: Berline" required/></div>
-        <div class="form-group"><label>Modèle</label><input type="text" class="form-control" id="transfer-model" placeholder="Mercedes Classe E"/></div>
+        <div class="form-group"><label>نوع السيارة *</label><input type="text" class="form-control" id="transfer-type" placeholder="بيرلين / ميني باص" required/></div>
+        <div class="form-group"><label>الموديل</label><input type="text" class="form-control" id="transfer-model" placeholder="Mercedes Classe E"/></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Capacité (personnes)</label><input type="text" class="form-control" id="transfer-capacity" placeholder="1–3 personnes"/></div>
-        <div class="form-group"><label>Prix depuis (€)</label><input type="number" class="form-control" id="transfer-price" min="0"/></div>
+        <div class="form-group"><label>السعة</label><input type="text" class="form-control" id="transfer-capacity" placeholder="1–3 أشخاص"/></div>
+        <div class="form-group"><label>السعر (€)</label><input type="number" class="form-control" id="transfer-price" min="0"/></div>
       </div>
       <div class="form-group">
-        <label>URL Image</label>
-        <input type="url" class="form-control" id="transfer-image" placeholder="https://images.unsplash.com/..." oninput="previewImg(this,'transfer-img-preview')"/><button type="button" class="btn btn-ghost btn-sm" onclick="uploadImage('transfer-image','transfer-img-preview')" style="margin-top:6px;width:100%"><i class="fas fa-upload"></i> Upload from device</button>
+        <label>صورة</label>
+        <input type="url" class="form-control" id="transfer-image" placeholder="https://..." oninput="previewImg(this,'transfer-img-preview')"/>
         <img id="transfer-img-preview" class="img-preview"/>
       </div>
-      <div class="form-group"><label>Caractéristiques (séparées par virgule)</label><input type="text" class="form-control" id="transfer-features" placeholder="Climatisé, Wifi, 2 valises"/></div>
+      <div class="form-group"><label>الخصائص (مفصولة بفاصلة)</label><input type="text" class="form-control" id="transfer-features" placeholder="مكيف, Wifi, حقيبتان"/></div>
       <div class="form-group">
         <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
           <label class="toggle"><input type="checkbox" id="transfer-popular"/><span class="toggle-slider"></span></label>
-          Marquer comme "Populaire"
+          تمييز كـ "شائع"
         </label>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-transfer')">Annuler</button>
-      <button class="btn btn-primary" onclick="saveTransfer()"><i class="fas fa-save"></i> Sauvegarder</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-transfer')">إلغاء</button>
+      <button class="btn btn-primary" onclick="saveTransfer()"><i class="fas fa-save"></i> حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: CIRCUIT ══ -->
+<div class="modal-overlay" id="modal-circuit">
+  <div class="modal" style="max-width:640px">
+    <div class="modal-header">
+      <h3 id="circ-modal-title">إضافة دورة سياحية</h3>
+      <button class="modal-close" onclick="closeModal('modal-circuit')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="circ-edit-id"/>
+      <div class="form-group"><label>العنوان *</label><input type="text" class="form-control" id="circ-title" required/></div>
+      <div class="form-group"><label>المسار</label><input type="text" class="form-control" id="circ-subtitle" placeholder="مراكش → فاس → مراكش"/></div>
+      <div class="form-row">
+        <div class="form-group"><label>المدة *</label><input type="text" class="form-control" id="circ-duration" placeholder="7 أيام / 6 ليالٍ" required/></div>
+        <div class="form-group"><label>السعر (€) *</label><input type="number" class="form-control" id="circ-price" min="0" required/></div>
+      </div>
+      <div class="form-group"><label>الوصف</label><textarea class="form-control" id="circ-description" rows="3"></textarea></div>
+      <div class="form-group"><label>ما يشمله (سطر لكل بند)</label><textarea class="form-control" id="circ-includes" rows="4" placeholder="النقل المكيف&#10;مرشد سياحي&#10;فنادق 3-4★"></textarea></div>
+      <div class="form-group">
+        <label>صورة</label>
+        <input type="url" class="form-control" id="circ-image" placeholder="https://..." oninput="previewImg(this,'circ-img-preview')"/>
+        <img id="circ-img-preview" class="img-preview"/>
+      </div>
+      <div class="form-group">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+          <label class="toggle"><input type="checkbox" id="circ-active" checked/><span class="toggle-slider"></span></label>
+          الدورة مفعّلة
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-circuit')">إلغاء</button>
+      <button class="btn btn-primary" onclick="saveCircuit()"><i class="fas fa-save"></i> حفظ</button>
     </div>
   </div>
 </div>
@@ -602,61 +617,167 @@ textarea.form-control{resize:vertical;min-height:80px}
 <div class="modal-overlay" id="modal-confirm">
   <div class="modal" style="max-width:400px">
     <div class="modal-header">
-      <h3><i class="fas fa-exclamation-triangle" style="color:var(--danger)"></i> Confirmation</h3>
+      <h3><i class="fas fa-exclamation-triangle" style="color:var(--danger)"></i> تأكيد الحذف</h3>
       <button class="modal-close" onclick="closeModal('modal-confirm')"><i class="fas fa-times"></i></button>
     </div>
-    <div class="modal-body" id="confirm-message">Êtes-vous sûr de vouloir supprimer cet élément ?</div>
+    <div class="modal-body" id="confirm-message">هل أنت متأكد أنك تريد حذف هذا العنصر؟</div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">Annuler</button>
-      <button class="btn btn-danger" id="confirm-btn">Supprimer</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">إلغاء</button>
+      <button class="btn btn-danger" id="confirm-btn"><i class="fas fa-trash"></i> حذف</button>
     </div>
   </div>
 </div>
 
 <script>
 // ════════════════════════════════════════
-// CONFIG & STATE
+// CONFIG — بيانات الدخول ورابط المستودع
 // ════════════════════════════════════════
-const REPO = () => document.getElementById('login-repo')?.value || sessionStorage.getItem('repo') || 'Maroc-Excursion/Maroc-Excursion';
-const TOKEN = () => sessionStorage.getItem('gh_token');
-const BASE_API = () => `https://api.github.com/repos/${sessionStorage.getItem('repo') || 'Maroc-Excursion/Maroc-Excursion'}/contents`;
+const ADMIN_EMAIL    = 'admin@ochremorocco.com';
+const ADMIN_PASSWORD = 'Ochre@2025';
+const REPO           = 'Maroc-Excursion/Ochre-Morocco';
+const BRANCH         = 'main';
+const BASE_API       = `https://api.github.com/repos/${REPO}/contents`;
 
-let DATA = { cities: [], excursions: [], circuits: [], transfers: [], settings: {} };
-let FILE_SHAS = {};
+// الحصول على Token من localStorage
+function getToken() { return localStorage.getItem('ochre_gh_token') || ''; }
+
+let DATA       = { excursions: [], circuits: [], transfers: [], settings: {} };
+let FILE_SHAS  = {};
 let currentPage = 'dashboard';
 
-// Fix relative image paths (JSON stores paths relative to root, admin is in /admin/ subdir)
-function imgSrc(path) {
-  if (!path) return '';
-  if (path.startsWith('http') || path.startsWith('//')) return path;
-  if (path.startsWith('../')) return path;
-  return '../' + path;
+// ════════════════════════════════════════
+// AUTH: LOGIN & TOKEN SETUP
+// ════════════════════════════════════════
+function doLogin() {
+  const email = document.getElementById('inp-email').value.trim();
+  const pass  = document.getElementById('inp-pass').value;
+  const errEl = document.getElementById('login-error');
+  errEl.style.display = 'none';
+
+  if (!email || !pass) {
+    errEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> أدخل البريد الإلكتروني وكلمة السر.';
+    errEl.style.display = 'flex'; return;
+  }
+  if (email !== ADMIN_EMAIL || pass !== ADMIN_PASSWORD) {
+    errEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> البريد الإلكتروني أو كلمة السر غير صحيحة.';
+    errEl.style.display = 'flex'; return;
+  }
+
+  // بيانات الدخول صحيحة — هل يوجد token محفوظ؟
+  const token = getToken();
+  if (!token) {
+    // عرض شاشة إدخال Token (مرة واحدة فقط)
+    document.getElementById('screen-login').style.display = 'none';
+    document.getElementById('screen-token').style.display = 'flex';
+  } else {
+    // لوحة التحكم مباشرة
+    launchAdmin();
+  }
 }
+
+async function doSaveToken() {
+  const token = document.getElementById('inp-token').value.trim();
+  const errEl = document.getElementById('token-error');
+  errEl.style.display = 'none';
+  if (!token) {
+    errEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> أدخل الـ Token.';
+    errEl.style.display = 'flex'; return;
+  }
+  // التحقق من صحة التوكن
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}`, {
+      headers: { Authorization: `token ${token}` }
+    });
+    if (!res.ok) throw new Error('Token غير صالح أو لا يملك صلاحية الوصول للمستودع.');
+    // حفظ في localStorage — يبقى دائماً حتى يُمسح يدوياً
+    localStorage.setItem('ochre_gh_token', token);
+    launchAdmin();
+  } catch (e) {
+    errEl.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${e.message}`;
+    errEl.style.display = 'flex';
+  }
+}
+
+function launchAdmin() {
+  document.getElementById('screen-login').style.display = 'none';
+  document.getElementById('screen-token').style.display = 'none';
+  document.getElementById('admin-layout').style.display = 'flex';
+  loadAllData();
+}
+
+function doLogout() {
+  // يمسح فقط جلسة الدخول ولا يمسح الـ Token
+  document.getElementById('admin-layout').style.display = 'none';
+  document.getElementById('screen-login').style.display = 'flex';
+  document.getElementById('inp-email').value = '';
+  document.getElementById('inp-pass').value = '';
+}
+
+// ════════════════════════════════════════
+// AUTO-LOGIN: إذا كان Token موجوداً وبيانات الجلسة محفوظة
+// ════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  const token     = getToken();
+  const autoLogin = sessionStorage.getItem('ochre_authed');
+  if (token && autoLogin) {
+    launchAdmin();
+  }
+  if (window.innerWidth < 768) {
+    document.getElementById('sidebar-toggle').style.display = 'flex';
+  }
+});
+
+// حفظ حالة الجلسة بعد الدخول (لتجنب إعادة كتابة البريد في نفس الجلسة)
+function rememberSession() { sessionStorage.setItem('ochre_authed', '1'); }
+
+const _origLaunch = launchAdmin;
+// Override to also set sessionStorage
+window.launchAdmin = function() {
+  sessionStorage.setItem('ochre_authed', '1');
+  document.getElementById('screen-login').style.display = 'none';
+  document.getElementById('screen-token').style.display = 'none';
+  document.getElementById('admin-layout').style.display = 'flex';
+  loadAllData();
+};
+
+// Enter key for login
+document.getElementById('inp-email').addEventListener('keypress', e => { if(e.key==='Enter') document.getElementById('inp-pass').focus(); });
+document.getElementById('inp-pass').addEventListener('keypress', e => { if(e.key==='Enter') doLogin(); });
+document.getElementById('inp-token').addEventListener('keypress', e => { if(e.key==='Enter') doSaveToken(); });
 
 // ════════════════════════════════════════
 // GITHUB API
 // ════════════════════════════════════════
 async function ghGet(path) {
-  const res = await fetch(`${BASE_API()}/${path}`, {
-    headers: { Authorization: `token ${TOKEN()}`, Accept: 'application/vnd.github.v3+json' }
+  const res = await fetch(`${BASE_API}/${path}?ref=${BRANCH}`, {
+    headers: { Authorization: `token ${getToken()}`, Accept: 'application/vnd.github.v3+json' }
   });
-  if (!res.ok) throw new Error(`GET ${path} failed: ${res.status}`);
+  if (!res.ok) throw new Error(`فشل جلب ${path}: ${res.status}`);
   const d = await res.json();
   const bytes = Uint8Array.from(atob(d.content.replace(/\n/g,'')), c => c.charCodeAt(0));
   return { data: JSON.parse(new TextDecoder('utf-8').decode(bytes)), sha: d.sha };
 }
 
 async function ghPut(path, data, sha, message) {
-  const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-  const body = { message, content, ...(sha ? { sha } : {}) };
-  const res = await fetch(`${BASE_API()}/${path}`, {
+  const json    = JSON.stringify(data, null, 2);
+  const encoder = new TextEncoder();
+  const bytes   = encoder.encode(json);
+  let binary = '';
+  bytes.forEach(b => binary += String.fromCharCode(b));
+  const content = btoa(binary);
+  const body = { message, content, branch: BRANCH, ...(sha ? { sha } : {}) };
+  const res = await fetch(`${BASE_API}/${path}`, {
     method: 'PUT',
-    headers: { Authorization: `token ${TOKEN()}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+    headers: {
+      Authorization: `token ${getToken()}`,
+      Accept: 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify(body)
   });
   if (!res.ok) {
     const err = await res.json();
-    throw new Error(err.message || `PUT ${path} failed: ${res.status}`);
+    throw new Error(err.message || `فشل حفظ ${path}: ${res.status}`);
   }
   const d = await res.json();
   FILE_SHAS[path] = d.content.sha;
@@ -664,52 +785,19 @@ async function ghPut(path, data, sha, message) {
 }
 
 // ════════════════════════════════════════
-// LOGIN / LOGOUT
-// ════════════════════════════════════════
-async function doLogin() {
-  const token = document.getElementById('login-token').value.trim();
-  const repo = document.getElementById('login-repo').value.trim();
-  const errEl = document.getElementById('login-error');
-  errEl.style.display = 'none';
-  if (!token) { errEl.textContent = 'Veuillez saisir votre token GitHub.'; errEl.style.display = 'flex'; return; }
-  try {
-    const res = await fetch(`https://api.github.com/repos/${repo}`, {
-      headers: { Authorization: `token ${token}` }
-    });
-    if (!res.ok) throw new Error('Token invalide ou accès refusé.');
-    sessionStorage.setItem('gh_token', token);
-    sessionStorage.setItem('repo', repo);
-    document.getElementById('page-login').style.display = 'none';
-    document.getElementById('admin-layout').style.display = 'flex';
-    await loadAllData();
-  } catch(e) {
-    errEl.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${e.message}`;
-    errEl.style.display = 'flex';
-  }
-}
-
-function doLogout() {
-  sessionStorage.clear();
-  location.reload();
-}
-
-// ════════════════════════════════════════
 // LOAD DATA
 // ════════════════════════════════════════
 async function loadAllData() {
   try {
-    const [cities, excursions, circuits, settings] = await Promise.all([
-      ghGet('data/cities.json').catch(() => ({ data: [], sha: null })),
+    const [excursions, circuits, settings] = await Promise.all([
       ghGet('data/excursions.json').catch(() => ({ data: [], sha: null })),
       ghGet('data/circuits.json').catch(() => ({ data: [], sha: null })),
       ghGet('data/settings.json').catch(() => ({ data: {}, sha: null })),
     ]);
-    DATA.cities = cities.data; FILE_SHAS['data/cities.json'] = cities.sha;
     DATA.excursions = excursions.data; FILE_SHAS['data/excursions.json'] = excursions.sha;
-    DATA.circuits = circuits.data; FILE_SHAS['data/circuits.json'] = circuits.sha;
-    DATA.settings = settings.data; FILE_SHAS['data/settings.json'] = settings.sha;
+    DATA.circuits   = circuits.data;   FILE_SHAS['data/circuits.json']   = circuits.sha;
+    DATA.settings   = settings.data;   FILE_SHAS['data/settings.json']   = settings.sha;
 
-    // Load transfers (may not exist yet)
     try {
       const t = await ghGet('data/transfers.json');
       DATA.transfers = t.data; FILE_SHAS['data/transfers.json'] = t.sha;
@@ -717,329 +805,225 @@ async function loadAllData() {
 
     updateBadges();
     renderDashboard();
-    renderCityFilter();
     loadSettings();
+    loadYoutube();
   } catch(e) {
-    toast('Erreur de chargement: ' + e.message, 'error');
+    toast('خطأ في تحميل البيانات: ' + e.message, 'error');
   }
 }
 
 function getDefaultTransfers() {
   return [
-    { id: 'berline', type: 'Berline', model: 'Mercedes Classe E / Similaire', capacity: '1–3 personnes', price: 18, image: 'assets/images/vehicule-berline-aeroport.jpg', features: ['Climatisé', 'Wifi', '2 valises'], popular: false },
-    { id: 'minibus', type: 'Minibus', model: 'Mercedes Sprinter 8 Places', capacity: '4–8 personnes', price: 35, image: 'assets/images/vehicule-minibus.jpg', features: ['Climatisé', 'Wifi', '8 valises'], popular: true },
-    { id: '4x4', type: '4x4 Luxe', model: 'Toyota Land Cruiser / Land Rover', capacity: '1–6 personnes', price: 55, image: 'assets/images/vehicule-4x4-desert.jpg', features: ['Tout terrain', 'Climatisé', 'Confort premium'], popular: false }
+    { id:'berline', type:'بيرلين', model:'Mercedes Classe E', capacity:'1–3 أشخاص', price:18, image:'assets/images/vehicule-berline-aeroport.jpg', features:['مكيف','Wifi','2 حقائب'], popular:false },
+    { id:'minibus', type:'ميني باص', model:'Mercedes Sprinter 8', capacity:'4–8 أشخاص', price:35, image:'assets/images/vehicule-minibus.jpg', features:['مكيف','Wifi','8 حقائب'], popular:true },
+    { id:'4x4', type:'4×4 فاخرة', model:'Toyota Land Cruiser', capacity:'1–6 أشخاص', price:55, image:'assets/images/vehicule-4x4-desert.jpg', features:['مسالك وعرة','مكيف','راحة فاخرة'], popular:false }
   ];
 }
 
 // ════════════════════════════════════════
-// SAVE HELPERS
+// SAVE HELPER
 // ════════════════════════════════════════
 async function saveData(key, data, commitMsg) {
   const path = `data/${key}.json`;
   await ghPut(path, data, FILE_SHAS[path], commitMsg);
   DATA[key] = data;
-  toast('✓ Sauvegardé avec succès!', 'success');
+  toast('✓ تم الحفظ بنجاح!', 'success');
 }
 
 // ════════════════════════════════════════
 // NAVIGATION
 // ════════════════════════════════════════
-const pageLabels = { dashboard: 'Tableau de bord', cities: 'Villes', excursions: 'Excursions', circuits: 'Circuits', transfers: 'Transferts', settings: 'Paramètres' };
-function showPage(name, clickedEl) {
+const pageLabels = {
+  dashboard: 'لوحة التحكم',
+  services:  'الخدمات والأسعار',
+  transfers: 'التنقلات',
+  circuits:  'الدورات السياحية',
+  youtube:   'فيديو YouTube',
+  settings:  'إعدادات الموقع'
+};
+
+function showPage(name) {
+  // إخفاء كل الصفحات
+  document.querySelectorAll('.page').forEach(el => el.style.display = 'none');
+  // إزالة active من كل الأزرار
   document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  (clickedEl || document.querySelector(`.nav-item[onclick*="'${name}'"]`))?.closest('.nav-item')?.classList.add('active');
-  document.querySelectorAll('#page-dashboard,#page-cities,#page-excursions,#page-circuits,#page-transfers,#page-settings')
-    .forEach(el => el.style.display = 'none');
-  document.getElementById(`page-${name}`).style.display = 'block';
+  // تفعيل الصفحة المطلوبة
+  const pg = document.getElementById('page-' + name);
+  if (pg) pg.style.display = 'block';
+  // تفعيل الزر في القائمة
+  const btn = document.getElementById('nav-' + name);
+  if (btn) btn.classList.add('active');
   document.getElementById('topbar-title').textContent = pageLabels[name] || name;
   currentPage = name;
-  if (name === 'cities') renderCities();
-  if (name === 'excursions') { renderCityFilter(); renderExcursions(); }
-  if (name === 'circuits') renderCircuits();
-  if (name === 'transfers') renderTransfers();
-  if (name === 'dashboard') renderDashboard();
+
+  if (name === 'services')  { renderServices(); }
+  if (name === 'transfers') { renderTransfers(); }
+  if (name === 'circuits')  { renderCircuits(); }
+  if (name === 'dashboard') { renderDashboard(); }
+  if (name === 'youtube')   { loadYoutube(); }
+
+  // Close sidebar on mobile
+  if (window.innerWidth < 768) {
+    document.getElementById('sidebar').classList.remove('open');
+  }
 }
 
 // ════════════════════════════════════════
 // DASHBOARD
 // ════════════════════════════════════════
 function updateBadges() {
-  document.getElementById('badge-cities').textContent = DATA.cities.filter(c => c.active).length;
-  document.getElementById('badge-excursions').textContent = DATA.excursions.filter(e => e.active !== false).length;
-  document.getElementById('badge-circuits').textContent = DATA.circuits.filter(c => c.active !== false).length;
-  document.getElementById('stat-cities').textContent = DATA.cities.filter(c => c.active).length;
-  document.getElementById('stat-excursions').textContent = DATA.excursions.length;
-  document.getElementById('stat-circuits').textContent = DATA.circuits.length;
+  const active = DATA.excursions.filter(e => e.active !== false).length;
+  const circ   = DATA.circuits.filter(c => c.active !== false).length;
+  document.getElementById('badge-services').textContent = active;
+  document.getElementById('badge-circuits').textContent = circ;
+  document.getElementById('stat-services').textContent  = active;
+  document.getElementById('stat-circuits').textContent  = circ;
   document.getElementById('stat-transfers').textContent = DATA.transfers.length;
+  const prices = DATA.excursions.filter(e => e.active !== false).map(e => e.price);
+  document.getElementById('stat-min-price').textContent = prices.length ? '€' + Math.min(...prices) : '-';
 }
 
 function renderDashboard() {
   updateBadges();
-  // Cities summary
-  const cl = document.getElementById('dash-cities-list');
-  cl.innerHTML = DATA.cities.length ? `
-    <table><thead><tr><th>Ville</th><th>Aéroport</th><th>Excursions</th><th>Statut</th></tr></thead><tbody>
-    ${DATA.cities.map(c => `<tr>
-      <td><strong>${c.name}</strong>${c.nameAr ? `<div class="td-sub">${c.nameAr}</div>` : ''}</td>
-      <td><span class="badge badge-info">${c.airport || '–'}</span></td>
-      <td>${DATA.excursions.filter(e => e.cityId === c.id).length} excursion(s)</td>
-      <td><span class="badge ${c.active ? 'badge-green' : 'badge-red'}">${c.active ? 'Active' : 'Inactive'}</span></td>
+  const el = document.getElementById('dash-services-list');
+  const list = DATA.excursions.slice(0, 10);
+  el.innerHTML = list.length ? `
+    <table><thead><tr><th>صورة</th><th>الخدمة</th><th>الفئة</th><th>السعر الحالي</th><th>حالة</th></tr></thead><tbody>
+    ${list.map(e => `<tr>
+      <td><img src="${imgSrc(e.image)}" class="td-img" onerror="this.style.display='none'"/></td>
+      <td class="td-title">${e.title}</td>
+      <td><span class="badge badge-info" style="font-size:.7rem">${e.category||''}</span></td>
+      <td><strong>€${e.price}</strong>${e.oldPrice ? `<span style="color:var(--muted);text-decoration:line-through;font-size:.75rem;margin-left:6px">€${e.oldPrice}</span>` : ''}</td>
+      <td><span class="badge ${e.active !== false ? 'badge-green' : 'badge-red'}">${e.active !== false ? '● نشط' : '○ مخفي'}</span></td>
     </tr>`).join('')}
-    </tbody></table>` : `<div class="empty-state"><i class="fas fa-city"></i><p>Aucune ville configurée</p></div>`;
-
-  // Recent excursions
-  const el = document.getElementById('dash-exc-list');
-  const recent = DATA.excursions.slice(0, 6);
-  el.innerHTML = recent.length ? `
-    <table><thead><tr><th>Image</th><th>Titre</th><th>Ville</th><th>Prix</th><th>Statut</th></tr></thead><tbody>
-    ${recent.map(e => {
-      const city = DATA.cities.find(c => c.id === e.cityId);
-      return `<tr>
-        <td><img src="${imgSrc(e.image)}" class="td-img" onerror="this.style.display='none'"/></td>
-        <td class="td-title">${e.title}</td>
-        <td>${city?.name || e.cityId}</td>
-        <td><strong>€${e.price}</strong>${e.oldPrice ? `<span style="color:var(--muted);text-decoration:line-through;font-size:.75rem;margin-left:4px">€${e.oldPrice}</span>` : ''}</td>
-        <td><span class="badge ${e.active !== false ? 'badge-green' : 'badge-red'}">${e.active !== false ? 'Active' : 'Inactive'}</span></td>
-      </tr>`;
-    }).join('')}
-    </tbody></table>` : `<div class="empty-state"><i class="fas fa-hiking"></i><p>Aucune excursion</p></div>`;
+    </tbody></table>` : `<div class="empty-state"><i class="fas fa-hiking"></i><p>لا توجد خدمات بعد</p></div>`;
 }
 
 // ════════════════════════════════════════
-// CITIES
+// SERVICES (EXCURSIONS)
 // ════════════════════════════════════════
-function renderCities() {
-  const grid = document.getElementById('cities-grid');
-  if (!DATA.cities.length) { grid.innerHTML = `<div class="empty-state"><i class="fas fa-city"></i><p>Aucune ville. Cliquez sur "Ajouter une ville".</p></div>`; return; }
-  grid.innerHTML = DATA.cities.map(city => `
-    <div class="city-card">
-      <img src="${imgSrc(city.image) || '../assets/images/marrakech-koutoubia-coucher.jpg'}" class="city-img" onerror="this.style.display='none'"/>
-      <div class="city-body">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-          <div class="city-name">${city.name}</div>
-          ${city.nameAr ? `<span style="color:var(--muted);font-size:.85rem">${city.nameAr}</span>` : ''}
-          <span class="badge ${city.active ? 'badge-green' : 'badge-red'}" style="margin-left:auto">${city.active ? 'Active' : 'Inactive'}</span>
-        </div>
-        <div class="city-desc">${city.description || ''}</div>
-        <div class="city-footer">
-          ${city.airport ? `<span class="city-airport">✈ ${city.airport} – ${city.airportName || ''}</span>` : ''}
-          <div style="margin-left:auto;display:flex;gap:6px">
-            <button class="btn btn-ghost btn-sm" onclick="toggleCity('${city.id}')">
-              <i class="fas fa-${city.active ? 'eye-slash' : 'eye'}"></i>
-            </button>
-            <button class="btn btn-ghost btn-sm" onclick="openCityModal('${city.id}')"><i class="fas fa-edit"></i></button>
-            <button class="btn btn-danger btn-sm" onclick="confirmDelete('city','${city.id}')"><i class="fas fa-trash"></i></button>
-          </div>
-        </div>
-      </div>
-    </div>`).join('');
-}
-
-function openCityModal(id) {
-  const city = id ? DATA.cities.find(c => c.id === id) : null;
-  document.getElementById('city-modal-title').textContent = city ? 'Modifier la ville' : 'Ajouter une ville';
-  document.getElementById('city-edit-id').value = id || '';
-  document.getElementById('city-name').value = city?.name || '';
-  document.getElementById('city-name-ar').value = city?.nameAr || '';
-  document.getElementById('city-desc').value = city?.description || '';
-  document.getElementById('city-airport').value = city?.airport || '';
-  document.getElementById('city-airport-name').value = city?.airportName || '';
-  document.getElementById('city-image').value = city?.image || '';
-  document.getElementById('city-active').checked = city ? city.active : true;
-  const prev = document.getElementById('city-img-preview');
-  prev.src = city?.image || ''; prev.className = city?.image ? 'img-preview show' : 'img-preview';
-  openModal('modal-city');
-}
-
-async function saveCity() {
-  const name = document.getElementById('city-name').value.trim();
-  if (!name) { toast('Le nom est obligatoire', 'error'); return; }
-  const editId = document.getElementById('city-edit-id').value;
-  const city = {
-    id: editId || name.toLowerCase().replace(/\s+/g, '-').replace(/[éèê]/g,'e').replace(/[àâ]/g,'a').replace(/[ùû]/g,'u'),
-    name, nameAr: document.getElementById('city-name-ar').value,
-    active: document.getElementById('city-active').checked,
-    description: document.getElementById('city-desc').value,
-    airport: document.getElementById('city-airport').value.toUpperCase(),
-    airportName: document.getElementById('city-airport-name').value,
-    image: document.getElementById('city-image').value,
-    order: editId ? DATA.cities.find(c => c.id === editId)?.order || 99 : DATA.cities.length + 1
-  };
-  let cities = editId ? DATA.cities.map(c => c.id === editId ? city : c) : [...DATA.cities, city];
-  await saveData('cities', cities, `Admin: ${editId ? 'Modifier' : 'Ajouter'} ville ${name}`);
-  closeModal('modal-city'); renderCities(); renderCityFilter(); updateBadges();
-}
-
-async function toggleCity(id) {
-  const cities = DATA.cities.map(c => c.id === id ? { ...c, active: !c.active } : c);
-  await saveData('cities', cities, `Admin: Toggle ville ${id}`);
-  renderCities(); updateBadges();
-}
-
-function renderCityFilter() {
-  const sel = document.getElementById('exc-city-filter');
-  const selModal = document.getElementById('exc-city');
-  const opts = DATA.cities.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-  sel.innerHTML = `<option value="">Toutes les villes</option>${opts}`;
-  selModal.innerHTML = `<option value="">Sélectionner...</option>${opts}`;
-}
-
-// ════════════════════════════════════════
-// EXCURSIONS
-// ════════════════════════════════════════
-function renderExcursions() {
-  const cityFilter = document.getElementById('exc-city-filter').value;
-  const search = document.getElementById('exc-search').value.toLowerCase();
+function renderServices() {
+  const catFilter = document.getElementById('svc-cat-filter').value;
+  const search    = document.getElementById('svc-search').value.toLowerCase();
   let list = DATA.excursions.filter(e => {
-    if (cityFilter && e.cityId !== cityFilter) return false;
+    if (catFilter && e.category !== catFilter) return false;
     if (search && !e.title.toLowerCase().includes(search)) return false;
     return true;
   });
-  const el = document.getElementById('exc-table');
-  if (!list.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-hiking"></i><p>Aucune excursion trouvée.</p></div>`; return; }
-  el.innerHTML = `<table><thead><tr><th>Image</th><th>Titre</th><th>Ville</th><th>Prix</th><th>Durée</th><th>Avis</th><th>Actif</th><th>Actions</th></tr></thead><tbody>
-  ${list.map(e => {
-    const city = DATA.cities.find(c => c.id === e.cityId);
-    return `<tr>
-      <td><img src="${imgSrc(e.image)}" class="td-img" onerror="this.style.display='none'"/></td>
-      <td class="td-title">${e.title}${e.tags?.length ? `<div class="td-sub">${e.tags.join(', ')}</div>` : ''}</td>
-      <td>${city?.name || e.cityId}</td>
-      <td><strong>€${e.price}</strong>${e.oldPrice ? `<br><span style="color:var(--muted);text-decoration:line-through;font-size:.75rem">€${e.oldPrice}</span>` : ''}</td>
-      <td style="font-size:.8rem">${e.duration || '–'}</td>
-      <td><span class="badge badge-gold">★ ${e.rating || 5} (${e.reviews || 0})</span></td>
-      <td><label class="toggle"><input type="checkbox" ${e.active !== false ? 'checked' : ''} onchange="toggleExc('${e.id}',this.checked)"/><span class="toggle-slider"></span></label></td>
-      <td><div style="display:flex;gap:4px">
-        <button class="btn-icon" onclick="openExcModal('${e.id}')"><i class="fas fa-edit"></i></button>
-        <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('excursion','${e.id}')"><i class="fas fa-trash"></i></button>
-      </div></td>
-    </tr>`;
-  }).join('')}
-  </tbody></table>`;
-}
-
-function openExcModal(id) {
-  const exc = id ? DATA.excursions.find(e => e.id === id) : null;
-  document.getElementById('exc-modal-title').textContent = exc ? 'Modifier l\'excursion' : 'Ajouter une excursion';
-  document.getElementById('exc-edit-id').value = id || '';
-  document.getElementById('exc-title').value = exc?.title || '';
-  document.getElementById('exc-city').value = exc?.cityId || '';
-  document.getElementById('exc-duration').value = exc?.duration || '';
-  document.getElementById('exc-price').value = exc?.price || '';
-  document.getElementById('exc-old-price').value = exc?.oldPrice || '';
-  document.getElementById('exc-badge').value = exc?.badge || '';
-  document.getElementById('exc-tag').value = exc?.tags?.[0] || '';
-  document.getElementById('exc-category').value = exc?.category || '';
-  document.getElementById('exc-rating').value = exc?.rating || 5;
-  document.getElementById('exc-reviews').value = exc?.reviews || '';
-  document.getElementById('exc-image').value = exc?.image || '';
-  document.getElementById('exc-cancel').checked = exc ? (exc.freeCancel !== false) : true;
-  document.getElementById('exc-active').checked = exc ? (exc.active !== false) : true;
-  const prev = document.getElementById('exc-img-preview');
-  prev.src = exc?.image || ''; prev.className = exc?.image ? 'img-preview show' : 'img-preview';
-  openModal('modal-exc');
-}
-
-async function saveExcursion() {
-  const title = document.getElementById('exc-title').value.trim();
-  const cityId = document.getElementById('exc-city').value;
-  const price = parseFloat(document.getElementById('exc-price').value);
-  if (!title || !cityId || isNaN(price)) { toast('Titre, ville et prix sont obligatoires', 'error'); return; }
-  const editId = document.getElementById('exc-edit-id').value;
-  const tag = document.getElementById('exc-tag').value;
-  const exc = {
-    id: editId || title.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').slice(0,30)+'-'+Date.now().toString(36),
-    cityId, title,
-    image: document.getElementById('exc-image').value,
-    price,
-    oldPrice: parseFloat(document.getElementById('exc-old-price').value) || null,
-    duration: document.getElementById('exc-duration').value,
-    category: document.getElementById('exc-category').value || cityId,
-    tags: tag ? [tag] : [],
-    badge: document.getElementById('exc-badge').value || null,
-    freeCancel: document.getElementById('exc-cancel').checked,
-    rating: parseInt(document.getElementById('exc-rating').value) || 5,
-    reviews: parseInt(document.getElementById('exc-reviews').value) || 0,
-    active: document.getElementById('exc-active').checked,
-    order: editId ? DATA.excursions.find(e => e.id === editId)?.order || 99 : DATA.excursions.length + 1
-  };
-  let excursions = editId ? DATA.excursions.map(e => e.id === editId ? exc : e) : [...DATA.excursions, exc];
-  await saveData('excursions', excursions, `Admin: ${editId ? 'Modifier' : 'Ajouter'} excursion ${title}`);
-  closeModal('modal-exc'); renderExcursions(); updateBadges();
-}
-
-async function toggleExc(id, active) {
-  const excursions = DATA.excursions.map(e => e.id === id ? { ...e, active } : e);
-  await saveData('excursions', excursions, `Admin: Toggle excursion ${id}`);
-  renderExcursions();
-  updateBadges();
-}
-
-// ════════════════════════════════════════
-// CIRCUITS
-// ════════════════════════════════════════
-function renderCircuits() {
-  const search = document.getElementById('circ-search').value.toLowerCase();
-  const list = DATA.circuits.filter(c => !search || c.title.toLowerCase().includes(search));
-  const el = document.getElementById('circ-table');
-  if (!list.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-route"></i><p>Aucun circuit trouvé.</p></div>`; return; }
-  el.innerHTML = `<table><thead><tr><th>Image</th><th>Titre</th><th>Durée</th><th>Prix</th><th>Actif</th><th>Actions</th></tr></thead><tbody>
-  ${list.map(c => `<tr>
-    <td><img src="${imgSrc(c.image)}" class="td-img" onerror="this.style.display='none'"/></td>
-    <td class="td-title">${c.title}<div class="td-sub">${c.subtitle || ''}</div></td>
-    <td><span class="badge badge-info">${c.duration}</span></td>
-    <td><strong>€${c.price}</strong>/pers.</td>
-    <td><label class="toggle"><input type="checkbox" ${c.active !== false ? 'checked' : ''} onchange="toggleCircuit('${c.id}',this.checked)"/><span class="toggle-slider"></span></label></td>
+  const el = document.getElementById('svc-table');
+  if (!list.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-hiking"></i><p>لا توجد خدمات.</p></div>`; return; }
+  el.innerHTML = `<table><thead><tr>
+    <th>صورة</th><th>الخدمة</th><th>الفئة</th>
+    <th>السعر €</th><th>السعر القديم €</th>
+    <th>نشط</th><th>إجراءات</th>
+  </tr></thead><tbody>
+  ${list.map(e => `<tr>
+    <td><img src="${imgSrc(e.image)}" class="td-img" onerror="this.style.display='none'"/></td>
+    <td class="td-title">${e.title}${e.tags&&e.tags[0]?`<div class="td-sub">${e.tags[0]}</div>`:''}</td>
+    <td><span class="badge badge-info" style="font-size:.65rem">${catLabel(e.category)}</span></td>
+    <td>
+      <input type="number" class="price-input" value="${e.price}" min="0" step="1"
+        onchange="quickSavePrice('${e.id}', 'price', this.value)" title="اضغط Enter أو انقر خارجاً للحفظ"/>
+    </td>
+    <td>
+      <input type="number" class="price-input" value="${e.oldPrice||''}" min="0" step="1"
+        placeholder="—"
+        onchange="quickSavePrice('${e.id}', 'oldPrice', this.value)" title="السعر القديم (للتشطيب)"/>
+    </td>
+    <td><label class="toggle"><input type="checkbox" ${e.active!==false?'checked':''} onchange="toggleSvc('${e.id}',this.checked)"/><span class="toggle-slider"></span></label></td>
     <td><div style="display:flex;gap:4px">
-      <button class="btn-icon" onclick="openCircuitModal('${c.id}')"><i class="fas fa-edit"></i></button>
-      <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('circuit','${c.id}')"><i class="fas fa-trash"></i></button>
+      <button class="btn-icon" onclick="openSvcModal('${e.id}')" title="تعديل"><i class="fas fa-edit"></i></button>
+      <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('excursion','${e.id}')" title="حذف"><i class="fas fa-trash"></i></button>
     </div></td>
   </tr>`).join('')}
   </tbody></table>`;
 }
 
-function openCircuitModal(id) {
-  const c = id ? DATA.circuits.find(x => x.id === id) : null;
-  document.getElementById('circ-modal-title').textContent = c ? 'Modifier le circuit' : 'Ajouter un circuit';
-  document.getElementById('circ-edit-id').value = id || '';
-  document.getElementById('circ-title').value = c?.title || '';
-  document.getElementById('circ-subtitle').value = c?.subtitle || '';
-  document.getElementById('circ-duration').value = c?.duration || '';
-  document.getElementById('circ-price').value = c?.price || '';
-  document.getElementById('circ-description').value = c?.description || '';
-  document.getElementById('circ-includes').value = c?.includes?.join('\n') || '';
-  document.getElementById('circ-image').value = c?.image || '';
-  document.getElementById('circ-active').checked = c ? (c.active !== false) : true;
-  const prev = document.getElementById('circ-img-preview');
-  prev.src = c?.image || ''; prev.className = c?.image ? 'img-preview show' : 'img-preview';
-  openModal('modal-circuit');
-}
-
-async function saveCircuit() {
-  const title = document.getElementById('circ-title').value.trim();
-  const duration = document.getElementById('circ-duration').value.trim();
-  const price = parseFloat(document.getElementById('circ-price').value);
-  if (!title || !duration || isNaN(price)) { toast('Titre, durée et prix sont obligatoires', 'error'); return; }
-  const editId = document.getElementById('circ-edit-id').value;
-  const c = {
-    id: editId || title.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').slice(0,30),
-    title, subtitle: document.getElementById('circ-subtitle').value,
-    duration, price,
-    description: document.getElementById('circ-description').value,
-    includes: document.getElementById('circ-includes').value.split('\n').filter(Boolean),
-    image: document.getElementById('circ-image').value,
-    active: document.getElementById('circ-active').checked,
-    order: editId ? DATA.circuits.find(x => x.id === editId)?.order || 99 : DATA.circuits.length + 1
+function catLabel(cat) {
+  const map = {
+    'marrakech transfer': 'تنقلات',
+    'marrakech': 'أنشطة',
+    'marrakech desert': 'صحراء',
+    'marrakech montagne': 'جبال',
+    'marrakech excursions': 'رحلات يومية'
   };
-  let circuits = editId ? DATA.circuits.map(x => x.id === editId ? c : x) : [...DATA.circuits, c];
-  await saveData('circuits', circuits, `Admin: ${editId ? 'Modifier' : 'Ajouter'} circuit ${title}`);
-  closeModal('modal-circuit'); renderCircuits(); updateBadges();
+  return map[cat] || cat || '';
 }
 
-async function toggleCircuit(id, active) {
-  const circuits = DATA.circuits.map(c => c.id === id ? { ...c, active } : c);
-  await saveData('circuits', circuits, `Admin: Toggle circuit ${id}`);
-  renderCircuits(); updateBadges();
+// تعديل السعر مباشرة من الجدول
+async function quickSavePrice(id, field, value) {
+  const parsed = parseFloat(value);
+  const excursions = DATA.excursions.map(e => {
+    if (e.id !== id) return e;
+    const updated = { ...e };
+    if (field === 'price')    updated.price    = isNaN(parsed) ? e.price : parsed;
+    if (field === 'oldPrice') updated.oldPrice = (value === '' || isNaN(parsed)) ? null : parsed;
+    return updated;
+  });
+  try {
+    await saveData('excursions', excursions, `Admin: تحديث سعر ${id}`);
+    renderDashboard();
+  } catch(err) { toast('خطأ: ' + err.message, 'error'); }
+}
+
+function openSvcModal(id) {
+  const e = id ? DATA.excursions.find(x => x.id === id) : null;
+  document.getElementById('svc-modal-title').textContent = e ? 'تعديل الخدمة' : 'إضافة خدمة';
+  document.getElementById('svc-edit-id').value    = id || '';
+  document.getElementById('svc-title').value      = e?.title || '';
+  document.getElementById('svc-price').value      = e?.price || '';
+  document.getElementById('svc-old-price').value  = e?.oldPrice || '';
+  document.getElementById('svc-duration').value   = e?.duration || '';
+  document.getElementById('svc-category').value   = e?.category || 'marrakech';
+  document.getElementById('svc-badge').value      = e?.badge || '';
+  document.getElementById('svc-tag').value        = e?.tags?.[0] || '';
+  document.getElementById('svc-meta').value       = (e?.meta || []).join('\n');
+  document.getElementById('svc-image').value      = e?.image || '';
+  document.getElementById('svc-active').checked  = e ? (e.active !== false) : true;
+  const prev = document.getElementById('svc-img-preview');
+  if (e?.image) { prev.src = imgSrc(e.image); prev.className = 'img-preview show'; }
+  else          { prev.className = 'img-preview'; }
+  openModal('modal-svc');
+}
+
+async function saveService() {
+  const title = document.getElementById('svc-title').value.trim();
+  const price = parseFloat(document.getElementById('svc-price').value);
+  if (!title || isNaN(price)) { toast('العنوان والسعر مطلوبان', 'error'); return; }
+  const editId = document.getElementById('svc-edit-id').value;
+  const tag    = document.getElementById('svc-tag').value;
+  const svc = {
+    id:        editId || title.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').slice(0,30) + '-' + Date.now().toString(36),
+    cityId:    'marrakech',
+    title,
+    image:     document.getElementById('svc-image').value,
+    price,
+    oldPrice:  parseFloat(document.getElementById('svc-old-price').value) || null,
+    duration:  document.getElementById('svc-duration').value,
+    category:  document.getElementById('svc-category').value,
+    tags:      tag ? [tag] : [],
+    badge:     document.getElementById('svc-badge').value || null,
+    freeCancel: true,
+    meta:      document.getElementById('svc-meta').value.split('\n').filter(Boolean),
+    rating:    5,
+    reviews:   0,
+    active:    document.getElementById('svc-active').checked,
+    order:     editId ? (DATA.excursions.find(e => e.id === editId)?.order || 99) : DATA.excursions.length + 1
+  };
+  const excursions = editId
+    ? DATA.excursions.map(e => e.id === editId ? svc : e)
+    : [...DATA.excursions, svc];
+  await saveData('excursions', excursions, `Admin: ${editId ? 'تعديل' : 'إضافة'} خدمة ${title}`);
+  closeModal('modal-svc');
+  renderServices();
+  updateBadges();
+}
+
+async function toggleSvc(id, active) {
+  const excursions = DATA.excursions.map(e => e.id === id ? { ...e, active } : e);
+  await saveData('excursions', excursions, `Admin: ${active ? 'تفعيل' : 'إخفاء'} خدمة ${id}`);
+  renderServices();
+  updateBadges();
 }
 
 // ════════════════════════════════════════
@@ -1047,14 +1031,14 @@ async function toggleCircuit(id, active) {
 // ════════════════════════════════════════
 function renderTransfers() {
   const el = document.getElementById('transfer-table');
-  if (!DATA.transfers.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-shuttle-van"></i><p>Aucun véhicule configuré.</p></div>`; return; }
-  el.innerHTML = `<table><thead><tr><th>Image</th><th>Véhicule</th><th>Capacité</th><th>Prix</th><th>Populaire</th><th>Actions</th></tr></thead><tbody>
+  if (!DATA.transfers.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-shuttle-van"></i><p>لا توجد سيارات.</p></div>`; return; }
+  el.innerHTML = `<table><thead><tr><th>صورة</th><th>السيارة</th><th>السعة</th><th>السعر €</th><th>شائع</th><th>إجراءات</th></tr></thead><tbody>
   ${DATA.transfers.map(t => `<tr>
     <td><img src="${imgSrc(t.image)}" class="td-img" onerror="this.style.display='none'"/></td>
-    <td><strong>${t.type}</strong><div class="td-sub">${t.model}</div></td>
-    <td>${t.capacity}</td>
-    <td><strong>€${t.price}</strong>/trajet</td>
-    <td>${t.popular ? '<span class="badge badge-gold">⭐ Populaire</span>' : '–'}</td>
+    <td><strong>${t.type}</strong><div class="td-sub">${t.model||''}</div></td>
+    <td>${t.capacity||''}</td>
+    <td><strong>€${t.price}</strong></td>
+    <td>${t.popular ? '<span class="badge badge-gold">⭐ شائع</span>' : '–'}</td>
     <td><div style="display:flex;gap:4px">
       <button class="btn-icon" onclick="openTransferModal('${t.id}')"><i class="fas fa-edit"></i></button>
       <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('transfer','${t.id}')"><i class="fas fa-trash"></i></button>
@@ -1065,36 +1049,171 @@ function renderTransfers() {
 
 function openTransferModal(id) {
   const t = id ? DATA.transfers.find(x => x.id === id) : null;
-  document.getElementById('transfer-modal-title').textContent = t ? 'Modifier le véhicule' : 'Ajouter un véhicule';
-  document.getElementById('transfer-edit-id').value = id || '';
-  document.getElementById('transfer-type').value = t?.type || '';
-  document.getElementById('transfer-model').value = t?.model || '';
-  document.getElementById('transfer-capacity').value = t?.capacity || '';
-  document.getElementById('transfer-price').value = t?.price || '';
-  document.getElementById('transfer-image').value = t?.image || '';
-  document.getElementById('transfer-features').value = t?.features?.join(', ') || '';
-  document.getElementById('transfer-popular').checked = t?.popular || false;
+  document.getElementById('transfer-modal-title').textContent = t ? 'تعديل السيارة' : 'إضافة سيارة';
+  document.getElementById('transfer-edit-id').value       = id || '';
+  document.getElementById('transfer-type').value          = t?.type || '';
+  document.getElementById('transfer-model').value         = t?.model || '';
+  document.getElementById('transfer-capacity').value      = t?.capacity || '';
+  document.getElementById('transfer-price').value         = t?.price || '';
+  document.getElementById('transfer-image').value         = t?.image || '';
+  document.getElementById('transfer-features').value      = t?.features?.join(', ') || '';
+  document.getElementById('transfer-popular').checked     = t?.popular || false;
   const prev = document.getElementById('transfer-img-preview');
-  prev.src = t?.image || ''; prev.className = t?.image ? 'img-preview show' : 'img-preview';
+  if (t?.image) { prev.src = imgSrc(t.image); prev.className = 'img-preview show'; }
+  else          { prev.className = 'img-preview'; }
   openModal('modal-transfer');
 }
 
 async function saveTransfer() {
   const type = document.getElementById('transfer-type').value.trim();
-  if (!type) { toast('Le type est obligatoire', 'error'); return; }
+  if (!type) { toast('نوع السيارة مطلوب', 'error'); return; }
   const editId = document.getElementById('transfer-edit-id').value;
   const t = {
-    id: editId || type.toLowerCase().replace(/\s+/g,'-'),
-    type, model: document.getElementById('transfer-model').value,
+    id:       editId || type.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,''),
+    type,
+    model:    document.getElementById('transfer-model').value,
     capacity: document.getElementById('transfer-capacity').value,
-    price: parseFloat(document.getElementById('transfer-price').value) || 0,
-    image: document.getElementById('transfer-image').value,
+    price:    parseFloat(document.getElementById('transfer-price').value) || 0,
+    image:    document.getElementById('transfer-image').value,
     features: document.getElementById('transfer-features').value.split(',').map(s => s.trim()).filter(Boolean),
-    popular: document.getElementById('transfer-popular').checked
+    popular:  document.getElementById('transfer-popular').checked
   };
-  let transfers = editId ? DATA.transfers.map(x => x.id === editId ? t : x) : [...DATA.transfers, t];
-  await saveData('transfers', transfers, `Admin: ${editId ? 'Modifier' : 'Ajouter'} transfert ${type}`);
-  closeModal('modal-transfer'); renderTransfers(); updateBadges();
+  const transfers = editId ? DATA.transfers.map(x => x.id === editId ? t : x) : [...DATA.transfers, t];
+  await saveData('transfers', transfers, `Admin: ${editId ? 'تعديل' : 'إضافة'} سيارة ${type}`);
+  closeModal('modal-transfer');
+  renderTransfers();
+  updateBadges();
+}
+
+// ════════════════════════════════════════
+// CIRCUITS
+// ════════════════════════════════════════
+function renderCircuits() {
+  const search = document.getElementById('circ-search').value.toLowerCase();
+  const list   = DATA.circuits.filter(c => !search || c.title.toLowerCase().includes(search));
+  const el     = document.getElementById('circ-table');
+  if (!list.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-route"></i><p>لا توجد دورات سياحية.</p></div>`; return; }
+  el.innerHTML = `<table><thead><tr><th>صورة</th><th>العنوان</th><th>المدة</th><th>السعر</th><th>نشط</th><th>إجراءات</th></tr></thead><tbody>
+  ${list.map(c => `<tr>
+    <td><img src="${imgSrc(c.image)}" class="td-img" onerror="this.style.display='none'"/></td>
+    <td class="td-title">${c.title}<div class="td-sub">${c.subtitle||''}</div></td>
+    <td><span class="badge badge-info">${c.duration}</span></td>
+    <td><strong>€${c.price}</strong>/شخص</td>
+    <td><label class="toggle"><input type="checkbox" ${c.active!==false?'checked':''} onchange="toggleCircuit('${c.id}',this.checked)"/><span class="toggle-slider"></span></label></td>
+    <td><div style="display:flex;gap:4px">
+      <button class="btn-icon" onclick="openCircuitModal('${c.id}')"><i class="fas fa-edit"></i></button>
+      <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('circuit','${c.id}')"><i class="fas fa-trash"></i></button>
+    </div></td>
+  </tr>`).join('')}
+  </tbody></table>`;
+}
+
+function openCircuitModal(id) {
+  const c = id ? DATA.circuits.find(x => x.id === id) : null;
+  document.getElementById('circ-modal-title').textContent = c ? 'تعديل الدورة' : 'إضافة دورة';
+  document.getElementById('circ-edit-id').value        = id || '';
+  document.getElementById('circ-title').value          = c?.title || '';
+  document.getElementById('circ-subtitle').value       = c?.subtitle || '';
+  document.getElementById('circ-duration').value       = c?.duration || '';
+  document.getElementById('circ-price').value          = c?.price || '';
+  document.getElementById('circ-description').value    = c?.description || '';
+  document.getElementById('circ-includes').value       = (c?.includes || []).join('\n');
+  document.getElementById('circ-image').value          = c?.image || '';
+  document.getElementById('circ-active').checked       = c ? (c.active !== false) : true;
+  const prev = document.getElementById('circ-img-preview');
+  if (c?.image) { prev.src = imgSrc(c.image); prev.className = 'img-preview show'; }
+  else          { prev.className = 'img-preview'; }
+  openModal('modal-circuit');
+}
+
+async function saveCircuit() {
+  const title    = document.getElementById('circ-title').value.trim();
+  const duration = document.getElementById('circ-duration').value.trim();
+  const price    = parseFloat(document.getElementById('circ-price').value);
+  if (!title || !duration || isNaN(price)) { toast('العنوان والمدة والسعر مطلوبة', 'error'); return; }
+  const editId = document.getElementById('circ-edit-id').value;
+  const c = {
+    id:          editId || title.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').slice(0,30),
+    title,
+    subtitle:    document.getElementById('circ-subtitle').value,
+    duration,
+    price,
+    description: document.getElementById('circ-description').value,
+    includes:    document.getElementById('circ-includes').value.split('\n').filter(Boolean),
+    image:       document.getElementById('circ-image').value,
+    active:      document.getElementById('circ-active').checked,
+    order:       editId ? (DATA.circuits.find(x => x.id === editId)?.order || 99) : DATA.circuits.length + 1
+  };
+  const circuits = editId ? DATA.circuits.map(x => x.id === editId ? c : x) : [...DATA.circuits, c];
+  await saveData('circuits', circuits, `Admin: ${editId ? 'تعديل' : 'إضافة'} دورة ${title}`);
+  closeModal('modal-circuit');
+  renderCircuits();
+  updateBadges();
+}
+
+async function toggleCircuit(id, active) {
+  const circuits = DATA.circuits.map(c => c.id === id ? { ...c, active } : c);
+  await saveData('circuits', circuits, `Admin: تغيير حالة الدورة ${id}`);
+  renderCircuits();
+  updateBadges();
+}
+
+// ════════════════════════════════════════
+// YOUTUBE
+// ════════════════════════════════════════
+function loadYoutube() {
+  const yt = DATA.settings.youtube_video || {};
+  document.getElementById('yt-url').value      = yt.url || '';
+  document.getElementById('yt-title').value    = yt.title || 'اكتشف المغرب';
+  document.getElementById('yt-subtitle').value = yt.subtitle || '';
+  previewYoutube();
+}
+
+function previewYoutube() {
+  const url   = document.getElementById('yt-url').value.trim();
+  const frame = document.getElementById('yt-preview-frame');
+  const vid   = extractYoutubeId(url);
+  if (vid) {
+    frame.src = `https://www.youtube.com/embed/${vid}`;
+    frame.className = 'yt-preview show';
+  } else {
+    frame.src = '';
+    frame.className = 'yt-preview';
+  }
+}
+
+function extractYoutubeId(url) {
+  if (!url) return null;
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/
+  ];
+  for (const p of patterns) {
+    const m = url.match(p);
+    if (m) return m[1];
+  }
+  return null;
+}
+
+async function saveYoutube() {
+  const url      = document.getElementById('yt-url').value.trim();
+  const title    = document.getElementById('yt-title').value.trim();
+  const subtitle = document.getElementById('yt-subtitle').value.trim();
+  const vid      = extractYoutubeId(url);
+  if (url && !vid) { toast('رابط YouTube غير صالح — تأكد من الرابط', 'error'); return; }
+  const settings = {
+    ...DATA.settings,
+    youtube_video: url ? { url, videoId: vid, title, subtitle, active: true } : null
+  };
+  await saveData('settings', settings, 'Admin: تحديث فيديو YouTube');
+  DATA.settings = settings;
+}
+
+async function removeYoutube() {
+  document.getElementById('yt-url').value = '';
+  document.getElementById('yt-preview-frame').className = 'yt-preview';
+  const settings = { ...DATA.settings, youtube_video: null };
+  await saveData('settings', settings, 'Admin: إزالة فيديو YouTube');
+  DATA.settings = settings;
 }
 
 // ════════════════════════════════════════
@@ -1102,52 +1221,64 @@ async function saveTransfer() {
 // ════════════════════════════════════════
 function loadSettings() {
   const s = DATA.settings;
-  document.getElementById('s-name').value = s.site?.name || '';
-  document.getElementById('s-tagline').value = s.site?.tagline || '';
+  document.getElementById('s-name').value        = s.site?.name        || '';
+  document.getElementById('s-tagline').value     = s.site?.tagline     || '';
   document.getElementById('s-description').value = s.site?.description || '';
-  document.getElementById('s-phone1').value = s.contact?.phone1 || '';
-  document.getElementById('s-phone2').value = s.contact?.phone2 || '';
-  document.getElementById('s-email').value = s.contact?.email || '';
-  document.getElementById('s-whatsapp').value = s.contact?.whatsapp || '';
-  document.getElementById('s-facebook').value = s.social?.facebook || '';
-  document.getElementById('s-instagram').value = s.social?.instagram || '';
-  document.getElementById('s-tiktok').value = s.social?.tiktok || '';
-  document.getElementById('s-youtube').value = s.social?.youtube || '';
+  document.getElementById('s-phone1').value      = s.contact?.phone1   || '';
+  document.getElementById('s-phone2').value      = s.contact?.phone2   || '';
+  document.getElementById('s-email').value       = s.contact?.email    || '';
+  document.getElementById('s-whatsapp').value    = s.contact?.whatsapp || '';
+  document.getElementById('s-facebook').value    = s.social?.facebook  || '';
+  document.getElementById('s-instagram').value   = s.social?.instagram || '';
+  document.getElementById('s-tiktok').value      = s.social?.tiktok    || '';
+  document.getElementById('s-youtube').value     = s.social?.youtube   || '';
 }
 
 async function saveSettings(e) {
   e.preventDefault();
   const settings = {
-    site: { name: document.getElementById('s-name').value, tagline: document.getElementById('s-tagline').value, description: document.getElementById('s-description').value },
-    contact: { phone1: document.getElementById('s-phone1').value, phone2: document.getElementById('s-phone2').value, email: document.getElementById('s-email').value, whatsapp: document.getElementById('s-whatsapp').value },
-    social: { facebook: document.getElementById('s-facebook').value, instagram: document.getElementById('s-instagram').value, tiktok: document.getElementById('s-tiktok').value, youtube: document.getElementById('s-youtube').value }
+    ...DATA.settings,
+    site: {
+      name:        document.getElementById('s-name').value,
+      tagline:     document.getElementById('s-tagline').value,
+      description: document.getElementById('s-description').value
+    },
+    contact: {
+      phone1:    document.getElementById('s-phone1').value,
+      phone2:    document.getElementById('s-phone2').value,
+      email:     document.getElementById('s-email').value,
+      whatsapp:  document.getElementById('s-whatsapp').value
+    },
+    social: {
+      facebook:  document.getElementById('s-facebook').value,
+      instagram: document.getElementById('s-instagram').value,
+      tiktok:    document.getElementById('s-tiktok').value,
+      youtube:   document.getElementById('s-youtube').value
+    }
   };
-  await saveData('settings', settings, 'Admin: Mise à jour paramètres du site');
-  loadSettings();
+  await saveData('settings', settings, 'Admin: تحديث إعدادات الموقع');
+  DATA.settings = settings;
 }
 
 // ════════════════════════════════════════
 // DELETE
 // ════════════════════════════════════════
 function confirmDelete(type, id) {
-  document.getElementById('confirm-message').textContent = `Êtes-vous sûr de vouloir supprimer cet élément (${type}: ${id}) ?`;
+  document.getElementById('confirm-message').textContent = `هل تريد حذف هذا العنصر؟ (${type}: ${id})`;
   document.getElementById('confirm-btn').onclick = () => doDelete(type, id);
   openModal('modal-confirm');
 }
 
 async function doDelete(type, id) {
   closeModal('modal-confirm');
-  if (type === 'city') {
-    await saveData('cities', DATA.cities.filter(c => c.id !== id), `Admin: Supprimer ville ${id}`);
-    renderCities(); renderCityFilter();
-  } else if (type === 'excursion') {
-    await saveData('excursions', DATA.excursions.filter(e => e.id !== id), `Admin: Supprimer excursion ${id}`);
-    renderExcursions();
+  if (type === 'excursion') {
+    await saveData('excursions', DATA.excursions.filter(e => e.id !== id), `Admin: حذف خدمة ${id}`);
+    renderServices();
   } else if (type === 'circuit') {
-    await saveData('circuits', DATA.circuits.filter(c => c.id !== id), `Admin: Supprimer circuit ${id}`);
+    await saveData('circuits', DATA.circuits.filter(c => c.id !== id), `Admin: حذف دورة ${id}`);
     renderCircuits();
   } else if (type === 'transfer') {
-    await saveData('transfers', DATA.transfers.filter(t => t.id !== id), `Admin: Supprimer transfert ${id}`);
+    await saveData('transfers', DATA.transfers.filter(t => t.id !== id), `Admin: حذف سيارة ${id}`);
     renderTransfers();
   }
   updateBadges();
@@ -1156,58 +1287,44 @@ async function doDelete(type, id) {
 // ════════════════════════════════════════
 // MODAL HELPERS
 // ════════════════════════════════════════
-function openModal(id) { document.getElementById(id).classList.add('open'); }
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.modal-overlay').forEach(m => m.addEventListener('click', e => { if(e.target === m) m.classList.remove('open'); }));
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+});
 
 // ════════════════════════════════════════
 // UI HELPERS
 // ════════════════════════════════════════
+function imgSrc(path) {
+  if (!path) return '';
+  if (path.startsWith('http') || path.startsWith('//')) return path;
+  return '../' + path.replace(/^\.\.\//, '');
+}
+
 function previewImg(input, previewId) {
   const img = document.getElementById(previewId);
   if (input.value) { img.src = input.value; img.className = 'img-preview show'; }
-  else { img.className = 'img-preview'; }
+  else             { img.className = 'img-preview'; }
 }
 
 function toast(msg, type = 'success') {
   const c = document.getElementById('toast-container');
   const t = document.createElement('div');
   t.className = `toast ${type}`;
-  t.innerHTML = `<i class="fas fa-${type==='success'?'check-circle':'exclamation-circle'}"></i> ${msg}`;
+  const icon = type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle';
+  t.innerHTML = `<i class="fas fa-${icon}"></i> ${msg}`;
   c.appendChild(t);
-  setTimeout(() => t.remove(), 3500);
+  setTimeout(() => t.remove(), 4000);
 }
 
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('open');
 }
 
-// Init page visibility
-document.getElementById('page-dashboard').style.display = 'block';
-['page-cities','page-excursions','page-circuits','page-transfers','page-settings'].forEach(id => {
-  document.getElementById(id).style.display = 'none';
-});
-
-// Check session
-window.addEventListener('DOMContentLoaded', () => {
-  const token = sessionStorage.getItem('gh_token');
-  if (token) {
-    document.getElementById('page-login').style.display = 'none';
-    document.getElementById('admin-layout').style.display = 'flex';
-    loadAllData();
-  }
-  // Mobile detection
-  if (window.innerWidth < 768) {
-    document.getElementById('sidebar-toggle').style.display = 'flex';
-  }
-});
-
-// Enter key for login
-document.getElementById('login-token').addEventListener('keypress', e => { if(e.key==='Enter') doLogin(); });
-
-/* ════════════════════════════════════════
-   IMAGE UPLOAD — upload from device to repo
-   ════════════════════════════════════════ */
+// ════════════════════════════════════════
+// IMAGE UPLOAD — رفع الصور إلى المستودع
+// ════════════════════════════════════════
 async function uploadImage(fieldId, previewId) {
   const input = document.createElement('input');
   input.type = 'file';
@@ -1215,43 +1332,47 @@ async function uploadImage(fieldId, previewId) {
   input.onchange = async () => {
     const file = input.files[0];
     if (!file) return;
-    if (file.size > 5 * 1024 * 1024) { toast('Image must be under 5 MB', 'error'); return; }
+    if (file.size > 5 * 1024 * 1024) { toast('الصورة يجب أن تكون أقل من 5 ميغابايت', 'error'); return; }
     const reader = new FileReader();
     reader.onload = async (ev) => {
       try {
-        toast('Uploading image…', 'info');
-        const base64 = ev.target.result.split(',')[1];
-        const ext = file.name.split('.').pop().toLowerCase() || 'jpg';
+        toast('جارٍ رفع الصورة...', 'info');
+        const base64   = ev.target.result.split(',')[1];
         const safeName = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9._-]/g, '-').toLowerCase();
         const repoPath = 'assets/images/' + safeName;
-        const repo = sessionStorage.getItem('repo') || 'Maroc-Excursion/Ochre-Morocco';
-        const res = await fetch(`https://api.github.com/repos/${repo}/contents/${repoPath}`, {
+        const res = await fetch(`${BASE_API}/${repoPath}`, {
           method: 'PUT',
           headers: {
-            Authorization: `token ${TOKEN()}`,
+            Authorization: `token ${getToken()}`,
             Accept: 'application/vnd.github.v3+json',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            message: 'Admin: Upload image ' + safeName,
-            content: base64
+            message: 'Admin: رفع صورة ' + safeName,
+            content: base64,
+            branch: BRANCH
           })
         });
-        if (!res.ok) { const e = await res.json(); throw new Error(e.message || 'Upload failed'); }
-        // Set URL field to relative path
+        if (!res.ok) { const e = await res.json(); throw new Error(e.message || 'فشل الرفع'); }
         const field = document.getElementById(fieldId);
         if (field) {
           field.value = repoPath;
           const prev = document.getElementById(previewId);
           if (prev) { prev.src = '../' + repoPath; prev.className = 'img-preview show'; }
         }
-        toast('✓ Image uploaded successfully!', 'success');
-      } catch (err) { toast('Upload failed: ' + err.message, 'error'); }
+        toast('✓ تم رفع الصورة بنجاح!', 'success');
+      } catch (err) { toast('خطأ في الرفع: ' + err.message, 'error'); }
     };
     reader.readAsDataURL(file);
   };
   input.click();
 }
+
+// ════════════════════════════════════════
+// INIT — عرض الصفحة الأولى
+// ════════════════════════════════════════
+document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+document.getElementById('page-dashboard').style.display = 'block';
 </script>
 </body>
 </html>

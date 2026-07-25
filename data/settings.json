@@ -17,21 +17,10 @@
     "youtube": "https://www.youtube.com/@OchreMorocco"
   },
   "hero_slides": [
-    {
-      "image": "assets/images/marrakech-koutoubia-coucher.jpg",
-      "alt": "Marrakech"
-    },
-    {
-      "image": "assets/images/sahara-caravane-coucher.jpg",
-      "alt": "Sahara Desert"
-    },
-    {
-      "image": "assets/images/ourika-randonnee.jpg",
-      "alt": "Atlas Mountains"
-    },
-    {
-      "image": "assets/images/essaouira-remparts-vagues.jpg",
-      "alt": "Essaouira"
-    }
-  ]
+    { "image": "assets/images/marrakech-koutoubia-coucher.jpg", "alt": "Marrakech" },
+    { "image": "assets/images/sahara-caravane-coucher.jpg",     "alt": "Sahara Desert" },
+    { "image": "assets/images/ourika-randonnee.jpg",            "alt": "Atlas Mountains" },
+    { "image": "assets/images/essaouira-remparts-vagues.jpg",   "alt": "Essaouira" }
+  ],
+  "youtube_video": null
 }
