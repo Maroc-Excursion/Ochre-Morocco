@@ -699,6 +699,7 @@ async function doSaveToken() {
 }
 
 function launchAdmin() {
+  sessionStorage.setItem('ochre_authed', '1');
   document.getElementById('screen-login').style.display = 'none';
   document.getElementById('screen-token').style.display = 'none';
   document.getElementById('admin-layout').style.display = 'flex';
@@ -706,7 +707,7 @@ function launchAdmin() {
 }
 
 function doLogout() {
-  // يمسح فقط جلسة الدخول ولا يمسح الـ Token
+  sessionStorage.removeItem('ochre_authed');
   document.getElementById('admin-layout').style.display = 'none';
   document.getElementById('screen-login').style.display = 'flex';
   document.getElementById('inp-email').value = '';
@@ -717,28 +718,13 @@ function doLogout() {
 // AUTO-LOGIN: إذا كان Token موجوداً وبيانات الجلسة محفوظة
 // ════════════════════════════════════════
 window.addEventListener('DOMContentLoaded', () => {
-  const token     = getToken();
-  const autoLogin = sessionStorage.getItem('ochre_authed');
-  if (token && autoLogin) {
+  if (getToken() && sessionStorage.getItem('ochre_authed')) {
     launchAdmin();
   }
   if (window.innerWidth < 768) {
     document.getElementById('sidebar-toggle').style.display = 'flex';
   }
 });
-
-// حفظ حالة الجلسة بعد الدخول (لتجنب إعادة كتابة البريد في نفس الجلسة)
-function rememberSession() { sessionStorage.setItem('ochre_authed', '1'); }
-
-const _origLaunch = launchAdmin;
-// Override to also set sessionStorage
-window.launchAdmin = function() {
-  sessionStorage.setItem('ochre_authed', '1');
-  document.getElementById('screen-login').style.display = 'none';
-  document.getElementById('screen-token').style.display = 'none';
-  document.getElementById('admin-layout').style.display = 'flex';
-  loadAllData();
-};
 
 // Enter key for login
 document.getElementById('inp-email').addEventListener('keypress', e => { if(e.key==='Enter') document.getElementById('inp-pass').focus(); });

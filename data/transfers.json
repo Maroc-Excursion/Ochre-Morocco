@@ -1,0 +1,32 @@
+[
+  {
+    "id": "berline",
+    "type": "بيرلين",
+    "model": "Mercedes Classe E",
+    "capacity": "1–3 أشخاص",
+    "price": 18,
+    "image": "assets/images/vehicule-berline-aeroport.jpg",
+    "features": ["مكيف", "Wifi", "2 حقائب"],
+    "popular": false
+  },
+  {
+    "id": "minibus",
+    "type": "ميني باص",
+    "model": "Mercedes Sprinter 8",
+    "capacity": "4–8 أشخاص",
+    "price": 35,
+    "image": "assets/images/vehicule-minibus.jpg",
+    "features": ["مكيف", "Wifi", "8 حقائب"],
+    "popular": true
+  },
+  {
+    "id": "4x4",
+    "type": "4×4 فاخرة",
+    "model": "Toyota Land Cruiser",
+    "capacity": "1–6 أشخاص",
+    "price": 55,
+    "image": "assets/images/vehicule-4x4-desert.jpg",
+    "features": ["مسالك وعرة", "مكيف", "راحة فاخرة"],
+    "popular": false
+  }
+]
