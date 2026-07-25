@@ -5,10 +5,10 @@
     "description": "Premium excursions and adventures from Marrakech – Desert, Atlas, Essaouira, Sahara and more"
   },
   "contact": {
-    "phone1": "+212 694 170 004",
+    "phone1": "+212 694 170 0045",
     "phone2": "+212 694 170 004",
-    "whatsapp": "212694170004",
-    "email": "ochremorocco@gmail.com"
+    "email": "ochremorocco@gmail.com",
+    "whatsapp": "212694170004"
   },
   "social": {
     "facebook": "https://www.facebook.com/OchreMorocco",
@@ -17,10 +17,22 @@
     "youtube": "https://www.youtube.com/@OchreMorocco"
   },
   "hero_slides": [
-    { "image": "assets/images/marrakech-koutoubia-coucher.jpg", "alt": "Marrakech" },
-    { "image": "assets/images/sahara-caravane-coucher.jpg",     "alt": "Sahara Desert" },
-    { "image": "assets/images/ourika-randonnee.jpg",            "alt": "Atlas Mountains" },
-    { "image": "assets/images/essaouira-remparts-vagues.jpg",   "alt": "Essaouira" }
+    {
+      "image": "assets/images/marrakech-koutoubia-coucher.jpg",
+      "alt": "Marrakech"
+    },
+    {
+      "image": "assets/images/sahara-caravane-coucher.jpg",
+      "alt": "Sahara Desert"
+    },
+    {
+      "image": "assets/images/ourika-randonnee.jpg",
+      "alt": "Atlas Mountains"
+    },
+    {
+      "image": "assets/images/essaouira-remparts-vagues.jpg",
+      "alt": "Essaouira"
+    }
   ],
   "youtube_video": null
 }
