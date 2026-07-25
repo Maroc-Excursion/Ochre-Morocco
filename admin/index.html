@@ -443,7 +443,7 @@ textarea.form-control{resize:vertical;min-height:80px}
       </div>
       <div class="form-group">
         <label>URL Image (Unsplash ou autre)</label>
-        <input type="url" class="form-control" id="city-image" placeholder="https://images.unsplash.com/..." oninput="previewImg(this,'city-img-preview')"/>
+        <input type="url" class="form-control" id="city-image" placeholder="https://images.unsplash.com/..." oninput="previewImg(this,'city-img-preview')"/><button type="button" class="btn btn-ghost btn-sm" onclick="uploadImage('city-image','city-img-preview')" style="margin-top:6px;width:100%"><i class="fas fa-upload"></i> Upload from device</button>
         <img id="city-img-preview" class="img-preview"/>
       </div>
       <div class="form-group">
@@ -502,7 +502,7 @@ textarea.form-control{resize:vertical;min-height:80px}
       <div class="form-group"><label>Nombre d'avis</label><input type="number" class="form-control" id="exc-reviews" min="0" placeholder="247"/></div>
       <div class="form-group">
         <label>URL Image</label>
-        <input type="url" class="form-control" id="exc-image" placeholder="https://images.unsplash.com/..." oninput="previewImg(this,'exc-img-preview')"/>
+        <input type="url" class="form-control" id="exc-image" placeholder="https://images.unsplash.com/..." oninput="previewImg(this,'exc-img-preview')"/><button type="button" class="btn btn-ghost btn-sm" onclick="uploadImage('exc-image','exc-img-preview')" style="margin-top:6px;width:100%"><i class="fas fa-upload"></i> Upload from device</button>
         <img id="exc-img-preview" class="img-preview"/>
       </div>
       <div class="form-group">
@@ -544,7 +544,7 @@ textarea.form-control{resize:vertical;min-height:80px}
       <div class="form-group"><label>Inclusions (une par ligne)</label><textarea class="form-control" id="circ-includes" rows="4" placeholder="Transport climatisé&#10;Guide francophone&#10;Hôtels 3–4★"></textarea></div>
       <div class="form-group">
         <label>URL Image</label>
-        <input type="url" class="form-control" id="circ-image" placeholder="https://images.unsplash.com/..." oninput="previewImg(this,'circ-img-preview')"/>
+        <input type="url" class="form-control" id="circ-image" placeholder="https://images.unsplash.com/..." oninput="previewImg(this,'circ-img-preview')"/><button type="button" class="btn btn-ghost btn-sm" onclick="uploadImage('circ-image','circ-img-preview')" style="margin-top:6px;width:100%"><i class="fas fa-upload"></i> Upload from device</button>
         <img id="circ-img-preview" class="img-preview"/>
       </div>
       <div class="form-group">
@@ -580,7 +580,7 @@ textarea.form-control{resize:vertical;min-height:80px}
       </div>
       <div class="form-group">
         <label>URL Image</label>
-        <input type="url" class="form-control" id="transfer-image" placeholder="https://images.unsplash.com/..." oninput="previewImg(this,'transfer-img-preview')"/>
+        <input type="url" class="form-control" id="transfer-image" placeholder="https://images.unsplash.com/..." oninput="previewImg(this,'transfer-img-preview')"/><button type="button" class="btn btn-ghost btn-sm" onclick="uploadImage('transfer-image','transfer-img-preview')" style="margin-top:6px;width:100%"><i class="fas fa-upload"></i> Upload from device</button>
         <img id="transfer-img-preview" class="img-preview"/>
       </div>
       <div class="form-group"><label>Caractéristiques (séparées par virgule)</label><input type="text" class="form-control" id="transfer-features" placeholder="Climatisé, Wifi, 2 valises"/></div>
@@ -1204,6 +1204,54 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // Enter key for login
 document.getElementById('login-token').addEventListener('keypress', e => { if(e.key==='Enter') doLogin(); });
+
+/* ════════════════════════════════════════
+   IMAGE UPLOAD — upload from device to repo
+   ════════════════════════════════════════ */
+async function uploadImage(fieldId, previewId) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/jpeg,image/png,image/webp,image/gif';
+  input.onchange = async () => {
+    const file = input.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { toast('Image must be under 5 MB', 'error'); return; }
+    const reader = new FileReader();
+    reader.onload = async (ev) => {
+      try {
+        toast('Uploading image…', 'info');
+        const base64 = ev.target.result.split(',')[1];
+        const ext = file.name.split('.').pop().toLowerCase() || 'jpg';
+        const safeName = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9._-]/g, '-').toLowerCase();
+        const repoPath = 'assets/images/' + safeName;
+        const repo = sessionStorage.getItem('repo') || 'Maroc-Excursion/Ochre-Morocco';
+        const res = await fetch(`https://api.github.com/repos/${repo}/contents/${repoPath}`, {
+          method: 'PUT',
+          headers: {
+            Authorization: `token ${TOKEN()}`,
+            Accept: 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'Admin: Upload image ' + safeName,
+            content: base64
+          })
+        });
+        if (!res.ok) { const e = await res.json(); throw new Error(e.message || 'Upload failed'); }
+        // Set URL field to relative path
+        const field = document.getElementById(fieldId);
+        if (field) {
+          field.value = repoPath;
+          const prev = document.getElementById(previewId);
+          if (prev) { prev.src = '../' + repoPath; prev.className = 'img-preview show'; }
+        }
+        toast('✓ Image uploaded successfully!', 'success');
+      } catch (err) { toast('Upload failed: ' + err.message, 'error'); }
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+}
 </script>
 </body>
 </html>
