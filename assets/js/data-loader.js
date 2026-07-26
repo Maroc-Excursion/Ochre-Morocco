@@ -447,11 +447,16 @@
         if (!res.error && res.data && res.data.length) {
           s = {};
           res.data.forEach(function(row) {
-            if (row.key === 'whatsapp')   { s.contact = s.contact || {}; s.contact.whatsapp = row.value; }
-            if (row.key === 'owner_email'){ s.contact = s.contact || {}; s.contact.email    = row.value; }
-            if (row.key === 'currency')   { s.currency = row.value; }
+            if (row.key === 'whatsapp')        { s.contact = s.contact || {}; s.contact.whatsapp   = row.value; }
+            if (row.key === 'owner_email')     { s.contact = s.contact || {}; s.contact.email       = row.value; }
+            if (row.key === 'phone')           { s.contact = s.contact || {}; s.contact.phone       = row.value; }
+            if (row.key === 'currency')        { s.currency = row.value; }
             if (row.key === 'cancellation_policy') { s.cancellation_policy = row.value; }
-            if (row.key === 'card_enabled')         { s.card_enabled = row.value; }
+            if (row.key === 'card_enabled')    { s.card_enabled = row.value; }
+            if (row.key === 'social_facebook') { s.social = s.social || {}; s.social.facebook  = row.value; }
+            if (row.key === 'social_instagram'){ s.social = s.social || {}; s.social.instagram = row.value; }
+            if (row.key === 'social_tiktok')   { s.social = s.social || {}; s.social.tiktok    = row.value; }
+            if (row.key === 'social_youtube')  { s.social = s.social || {}; s.social.youtube   = row.value; }
           });
         }
       }
@@ -470,6 +475,13 @@
         document.querySelectorAll('a[href^="mailto:"]').forEach(function(a) {
           a.href = 'mailto:' + em;
           if (a.textContent.indexOf('@') > -1) a.textContent = em;
+        });
+      }
+      if (s.contact && s.contact.phone) {
+        var ph = s.contact.phone;
+        document.querySelectorAll('a[href^="tel:"]').forEach(function(a) {
+          a.href = 'tel:' + ph.replace(/[^+\d]/g, '');
+          if (a.textContent.match(/^\+?\d[\d\s]+$/)) a.textContent = ph;
         });
       }
       if (s.social) {
