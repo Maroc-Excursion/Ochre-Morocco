@@ -1,32 +1,65 @@
 [
   {
-    "id": "berline",
-    "type": "Sedan",
-    "model": "Mercedes E-Class",
-    "capacity": "1–3 passengers",
-    "price": 18,
+    "id": "transfer-standard",
+    "title": "Airport Transfer – Sedan (Mercedes E-Class)",
     "image": "assets/images/vehicule-berline-aeroport.jpg",
-    "features": ["A/C", "Wi-Fi", "2 bags"],
-    "popular": false
+    "price": 18,
+    "oldPrice": null,
+    "duration": "30–60 min",
+    "category": "marrakech transfer",
+    "tags": [],
+    "badge": null,
+    "freeCancel": true,
+    "rating": 5,
+    "reviews": 412,
+    "meta": [
+      "fas fa-users|1–3 passengers",
+      "fas fa-snowflake|A/C",
+      "fas fa-wifi|Wi-Fi"
+    ],
+    "active": true,
+    "order": 1
   },
   {
-    "id": "minibus",
-    "type": "Minibus",
-    "model": "Mercedes Sprinter 8",
-    "capacity": "4–8 passengers",
-    "price": 35,
+    "id": "transfer-minibus",
+    "title": "Airport Transfer – Minibus (Mercedes Sprinter)",
     "image": "assets/images/vehicule-minibus.jpg",
-    "features": ["A/C", "Wi-Fi", "8 bags"],
-    "popular": true
+    "price": 35,
+    "oldPrice": null,
+    "duration": "30–60 min",
+    "category": "marrakech transfer",
+    "tags": ["Popular"],
+    "badge": null,
+    "freeCancel": true,
+    "rating": 5,
+    "reviews": 287,
+    "meta": [
+      "fas fa-users|4–8 passengers",
+      "fas fa-snowflake|A/C",
+      "fas fa-wifi|Wi-Fi"
+    ],
+    "active": true,
+    "order": 2
   },
   {
-    "id": "4x4",
-    "type": "Luxury 4×4",
-    "model": "Toyota Land Cruiser",
-    "capacity": "1–6 passengers",
-    "price": 55,
+    "id": "transfer-vip",
+    "title": "Airport Transfer – Luxury 4×4 (Toyota Land Cruiser)",
     "image": "assets/images/vehicule-4x4-desert.jpg",
-    "features": ["Off-road", "A/C", "Premium comfort"],
-    "popular": false
+    "price": 55,
+    "oldPrice": null,
+    "duration": "30–60 min",
+    "category": "marrakech transfer",
+    "tags": ["VIP"],
+    "badge": null,
+    "freeCancel": true,
+    "rating": 5,
+    "reviews": 198,
+    "meta": [
+      "fas fa-users|1–6 passengers",
+      "fas fa-star|Premium comfort",
+      "fas fa-snowflake|A/C"
+    ],
+    "active": true,
+    "order": 3
   }
 ]
