@@ -9,7 +9,7 @@
   'use strict';
 
   var SUPABASE_URL = 'https://zuwvqoxurgwjyjgtnlmm.supabase.co';
-  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp1d3Zxb3h1cmd3anlqZ3RubG1tIiwiaWF0IjoxNzg1MDIwNDk2LCJleHAiOjIxMDA1OTY0OTZ9.TJNM2ywcsGVNOKy9sVyr-OKXaA4OAZ5fG3dTFApixgQ';
+  var SUPABASE_ANON_KEY = 'sb_publishable_fXNJdsJcuVQyq_u2BXOZwQ_6pg295dS';
 
   if (!window.supabase || typeof window.supabase.createClient !== 'function') {
     window.supabaseClientError = 'The Supabase library could not be loaded.';
