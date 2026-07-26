@@ -45,6 +45,17 @@ CREATE TABLE IF NOT EXISTS excursions (
   updated_at  timestamptz DEFAULT now()
 );
 
+-- أعمدة إضافية للعرض — آمنة للتشغيل على قواعد موجودة مسبقاً
+ALTER TABLE excursions ADD COLUMN IF NOT EXISTS badge          text;
+ALTER TABLE excursions ADD COLUMN IF NOT EXISTS old_price      numeric(10,2);
+ALTER TABLE excursions ADD COLUMN IF NOT EXISTS tags           jsonb DEFAULT '[]';
+ALTER TABLE excursions ADD COLUMN IF NOT EXISTS meta           jsonb DEFAULT '[]';
+ALTER TABLE excursions ADD COLUMN IF NOT EXISTS free_cancel    boolean DEFAULT false;
+ALTER TABLE excursions ADD COLUMN IF NOT EXISTS rating         numeric(2,1) DEFAULT 5.0;
+ALTER TABLE excursions ADD COLUMN IF NOT EXISTS reviews        int DEFAULT 0;
+ALTER TABLE excursions ADD COLUMN IF NOT EXISTS display_order  int DEFAULT 0;
+ALTER TABLE excursions ADD COLUMN IF NOT EXISTS pay_link       text;
+
 -- ── 4. جدول الحجوزات (مُحسَّن) ───────────────────────────────
 CREATE TABLE IF NOT EXISTS bookings (
   id                uuid PRIMARY KEY DEFAULT gen_random_uuid(),
