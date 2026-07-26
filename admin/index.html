@@ -1240,7 +1240,12 @@ document.querySelectorAll('.modal-overlay').forEach(m => {
 function imgSrc(path) {
   if (!path) return '';
   if (path.startsWith('http') || path.startsWith('//')) return path;
-  return '../' + path.replace(/^\.\.\//, '');
+  const cleanPath = path.replace(/^\.\.\//, '');
+  if (cleanPath.startsWith('assets/images/') && /\.(jpe?g|png)$/i.test(cleanPath)) {
+    const filename = cleanPath.split('/').pop().replace(/\.(jpe?g|png)$/i, '');
+    return '../assets/images/webp/' + filename + '.webp';
+  }
+  return '../' + cleanPath;
 }
 
 function previewImg(input, previewId) {

@@ -19,6 +19,7 @@
     // Reset Ken Burns by forcing reflow on the incoming slide image
     const nextImg = slides[current].querySelector('img');
     if (nextImg) {
+      if (!nextImg.getAttribute('src') && nextImg.dataset.src) nextImg.src = nextImg.dataset.src;
       nextImg.style.animation = 'none';
       void nextImg.offsetWidth; // reflow
       nextImg.style.animation = '';

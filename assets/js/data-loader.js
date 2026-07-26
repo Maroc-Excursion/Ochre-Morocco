@@ -41,8 +41,21 @@
   function imageSrc(path) {
     var value = String(path || '').trim();
     if (/^https?:\/\//i.test(value)) return value;
-    if (/^(?:javascript|data|vbscript):/i.test(value)) return 'assets/images/agafay-coucher-soleil.jpg';
-    return value || 'assets/images/agafay-coucher-soleil.jpg';
+    if (/^(?:javascript|data|vbscript):/i.test(value)) return 'assets/images/webp/agafay-coucher-soleil.webp';
+    if (!value) return 'assets/images/webp/agafay-coucher-soleil.webp';
+    // Keep editable JPG paths in the JSON, but serve the optimized WebP copy publicly.
+    if (value.indexOf('assets/images/') === 0 && /\.(?:jpe?g|png)$/i.test(value)) {
+      var filename = value.split('/').pop().replace(/\.(?:jpe?g|png)$/i, '');
+      return 'assets/images/webp/' + filename + '.webp';
+    }
+    return value;
+  }
+
+  function imageFallback(path, fallback) {
+    var value = String(path || '').trim();
+    if (/^https?:\/\//i.test(value)) return value;
+    if (/^(?:javascript|data|vbscript):/i.test(value) || !value) return fallback;
+    return value;
   }
 
   function validYoutubeId(value) {
@@ -56,9 +69,10 @@
     var tags = (circuit.tags || []).slice(0, 2).map(function (tag) {
       return '<span class="badge-tag">' + escapeHTML(tag) + '</span>';
     }).join('');
+    var originalImage = imageFallback(circuit.image, 'assets/images/webp/desert-nuit-etoiles.webp');
     return '<article class="card circuit-card">' +
       '<div class="card-img">' +
-        '<img src="' + escapeHTML(imageSrc(circuit.image)) + '" alt="' + escapeHTML(circuit.title) + '" loading="lazy" onerror="this.src=\'assets/images/desert-nuit-etoiles.jpg\'"/>' +
+        '<img src="' + escapeHTML(imageSrc(circuit.image)) + '" alt="' + escapeHTML(circuit.title) + '" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'' + escapeHTML(originalImage) + '\'"/>' +
         tags +
         '<div class="card-price-overlay"><span class="price-new">&euro;' + escapeHTML(circuit.price) + '</span></div>' +
       '</div>' +
@@ -84,7 +98,7 @@
   }
 
   async function fetchJSON(path) {
-    const r = await fetch(path + '?_t=' + Date.now());
+    const r = await fetch(path);
     if (!r.ok) throw new Error('Could not load ' + path);
     return r.json();
   }
@@ -101,10 +115,11 @@
     const oldPrice = exc.oldPrice ? '<span class="price-old">&euro;' + escapeHTML(exc.oldPrice) + '</span>' : '';
     const svcType  = (exc.category || '').includes('transfer') ? 'transfer' : 'excursion';
     const imgSrc   = imageSrc(exc.image);
+    const originalImage = imageFallback(exc.image, 'assets/images/webp/agafay-coucher-soleil.webp');
 
     return '<div class="card" data-exc-id="' + escapeHTML(exc.id) + '">' +
       '<div class="card-img">' +
-        '<img src="' + escapeHTML(imgSrc) + '" alt="' + escapeHTML(exc.title) + '" loading="lazy" onerror="this.src=\'assets/images/agafay-coucher-soleil.jpg\'"/>' +
+        '<img src="' + escapeHTML(imgSrc) + '" alt="' + escapeHTML(exc.title) + '" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'' + escapeHTML(originalImage) + '\'"/>' +
         discount + tag +
         '<div class="card-price-overlay">' +
           '<span class="price-new">&euro;' + escapeHTML(exc.price) + '</span>' + oldPrice +
