@@ -230,7 +230,7 @@
     '</div>',<!-- /bk-body -->
 
     '<div class="bk-footer-bar">',
-    '<i class="fas fa-lock"></i> Secure &nbsp;|&nbsp; <i class="fas fa-shield-halved"></i> Encrypted &nbsp;|&nbsp; <i class="fas fa-undo"></i> Free Cancellation',
+    '<i class="fas fa-lock"></i> Secure &nbsp;|&nbsp; <i class="fas fa-shield-halved"></i> Encrypted &nbsp;|&nbsp; <i class="fas fa-undo"></i> Flexible Booking',
     '</div>',
 
     '</div>',<!-- /bk-modal -->
@@ -397,6 +397,7 @@
     btn.disabled = true;
     btn.querySelector('strong').textContent = 'Processing\u2026';
     var total = calcTotal();
+    saveToSupabase('cash');
     sendEmail('Cash on Arrival').then(function() {
        setStep(3);
        G('bk-s3ico').innerHTML = '<i class="fas fa-check-circle" style="color:#1e6b3c"></i>';
@@ -420,6 +421,7 @@
     btn.disabled = true;
     btn.querySelector('strong').textContent = 'Processing\u2026';
     var total = calcTotal();
+    saveToSupabase('card');
     sendEmail('Card Payment').then(function() {
       setStep(3);
       G('bk-s3ico').innerHTML = '<i class="fas fa-credit-card" style="color:#c8922b"></i>';

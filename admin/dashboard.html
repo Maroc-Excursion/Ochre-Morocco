@@ -207,7 +207,7 @@
         var experienceResult = await client.from('excursions').select('*').order('created_at', { ascending: false });
         if (experienceResult.error) throw experienceResult.error;
         experiences = experienceResult.data || [];
-        var bookingResult = await client.from('bookings').select('*').order('created_at', { ascending: false });
+        var bookingResult = await client.from('bookings').select('id,excursion_id,service_name,client_name,client_email,client_phone,booking_date,people_count,amount,currency,payment_method,payment_status,payment_reference,status,notes,created_at,updated_at').order('created_at', { ascending: false });
         if (bookingResult.error) {
           bookings = [];
           toast('Bookings could not be loaded: ' + bookingResult.error.message, 'error');

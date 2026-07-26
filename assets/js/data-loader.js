@@ -433,7 +433,24 @@
 
   async function applySettings() {
     try {
-      var s = await fetchJSON('data/settings.json');
+      var s = null;
+      /* Try Supabase site_settings first */
+      var db = window.supabaseClient;
+      if (db) {
+        var res = await db.from('site_settings').select('key,value');
+        if (!res.error && res.data && res.data.length) {
+          s = {};
+          res.data.forEach(function(row) {
+            if (row.key === 'whatsapp')   { s.contact = s.contact || {}; s.contact.whatsapp = row.value; }
+            if (row.key === 'owner_email'){ s.contact = s.contact || {}; s.contact.email    = row.value; }
+            if (row.key === 'currency')   { s.currency = row.value; }
+            if (row.key === 'cancellation_policy') { s.cancellation_policy = row.value; }
+            if (row.key === 'card_enabled')         { s.card_enabled = row.value; }
+          });
+        }
+      }
+      /* Fallback to local JSON */
+      if (!s) s = await fetchJSON('data/settings.json');
       if (!s) return;
       window.dispatchEvent(new CustomEvent('ochre:settings', { detail: s }));
       if (s.contact && s.contact.whatsapp) {
