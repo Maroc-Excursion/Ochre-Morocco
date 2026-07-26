@@ -231,6 +231,11 @@
       blog_sub:       'Tips, guides and inspiration for your trip',
       book_now:       'Book Now',
       read_more:      'Read More',
+      cat_activities: 'Activities & Adventures',
+      cat_day:        'Day Excursions',
+      cat_desert:     'Desert Tours',
+      cat_transfers:  'Airport Transfers',
+      included:       'Included',
     },
     fr: {
       nav_home:       'Accueil',
@@ -265,6 +270,50 @@
       blog_sub:       'Conseils, guides et inspiration pour votre séjour',
       book_now:       'Réserver',
       read_more:      'Lire la suite',
+      cat_activities: 'Activités et Aventures',
+      cat_day:        'Excursions à la Journée',
+      cat_desert:     'Tours dans le Désert',
+      cat_transfers:  'Transferts Aéroport',
+      included:       'Inclus',
+    },
+    es: {
+      nav_home:       'Inicio',
+      nav_exc:        'Excursiones',
+      nav_circ:       'Circuitos',
+      nav_trans:      'Traslados',
+      nav_desert:     'Desierto Agafay',
+      nav_about:      'Sobre nosotros',
+      nav_contact:    'Contacto',
+      nav_blog:       'Blog',
+      hero_badge:     '#1 Agencia de Excursiones en Marruecos',
+      hero_title:     'Descubre la Magia<br>de <span>Marruecos</span>',
+      hero_sub:       'Excursiones premium, circuitos inolvidables y aventuras auténticas en el corazón del Reino de Marruecos',
+      hero_btn1:      'Ver nuestras Excursiones',
+      hero_btn2:      'Contáctanos',
+      wa_btn:         'WhatsApp',
+      search_tab1:    'Excursiones',
+      search_tab2:    'Circuitos',
+      search_tab3:    'Traslados',
+      free_cancel:    'Cancelación gratuita',
+      about_title:    'Sobre Ochre Morocco',
+      about_sub:      'Tu socio de confianza para experiencias premium en Marruecos',
+      contact_title:  'Contáctanos',
+      contact_sub:    'Nuestro equipo está disponible 7 días a la semana para responder tus preguntas',
+      exc_title:      'Nuestras Excursiones',
+      exc_sub:        'Descubre todas nuestras experiencias desde Marrakech',
+      circ_title:     'Nuestros Circuitos',
+      circ_sub:       'Aventuras de varios días a través del Reino',
+      trans_title:    'Traslados al Aeropuerto',
+      trans_sub:      'Traslados rápidos y fiables hasta tu hotel',
+      blog_title:     'Blog de Viajes por Marruecos',
+      blog_sub:       'Consejos, guías e inspiración para tu viaje',
+      book_now:       'Reservar',
+      read_more:      'Leer más',
+      cat_activities: 'Actividades y Aventuras',
+      cat_day:        'Excursiones de Día',
+      cat_desert:     'Tours por el Desierto',
+      cat_transfers:  'Traslados al Aeropuerto',
+      included:       'Incluido',
     },
     ar: {
       nav_home:       'الرئيسية',
@@ -328,15 +377,10 @@
     });
 
     document.documentElement.lang = lang;
-    if (lang === 'ar') {
-      document.documentElement.dir = 'rtl';
-      document.body.style.fontFamily = "'Cairo', 'Poppins', sans-serif";
-    } else {
-      document.documentElement.dir = 'ltr';
-      document.body.style.fontFamily = "'Poppins', sans-serif";
-    }
+    document.documentElement.dir = 'ltr';
+    document.body.style.fontFamily = "'Poppins', sans-serif";
 
-    const labelMap = { en: 'EN', fr: 'FR', ar: 'AR' };
+    const labelMap = { en: 'EN', fr: 'FR', es: 'ES' };
     const lbl = document.getElementById('activeLangLabel');
     if (lbl) lbl.textContent = labelMap[lang] || lang.toUpperCase();
 
@@ -344,6 +388,9 @@
       el.textContent = t.free_cancel || 'Annulation gratuite';
     });
   }
+
+  /* Expose globally so data-loader can re-translate after dynamic render */
+  window.__applyCurrentLang = function () { applyLanguage(currentLang); };
 
   document.querySelectorAll('.lang-option').forEach(btn => {
     btn.addEventListener('click', () => {
