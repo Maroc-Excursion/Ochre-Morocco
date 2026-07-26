@@ -282,29 +282,31 @@
       search_tab3:    'Transferts',
       free_cancel:    'Annulation gratuite',
     },
-    ar: {
-      nav_home:       'الرئيسية',
-      nav_exc:        'الرحلات',
-      nav_circ:       'الجولات',
-      nav_trans:      'النقل',
-      nav_desert:     'صحراء أكافاي',
-      nav_about:      'من نحن',
-      nav_contact:    'اتصل بنا',
-      nav_blog:       'المدونة',
-      hero_badge:     '#1 وكالة رحلات في المغرب',
-      hero_title:     'اكتشف سحر<br><span>المغرب</span>',
-      hero_sub:       'رحلات مميزة وجولات لا تُنسى ومغامرات أصيلة في قلب المملكة المغربية',
-      hero_btn1:      'استكشف رحلاتنا',
-      hero_btn2:      'تواصل معنا',
-      wa_btn:         'واتساب',
-      search_tab1:    'الرحلات',
-      search_tab2:    'الجولات',
-      search_tab3:    'النقل',
-      free_cancel:    'إلغاء مجاني',
+    es: {
+      nav_home:       'Inicio',
+      nav_exc:        'Excursiones',
+      nav_circ:       'Circuitos',
+      nav_trans:      'Traslados',
+      nav_desert:     'Desierto Agafay',
+      nav_about:      'Sobre nosotros',
+      nav_contact:    'Contacto',
+      nav_blog:       'Blog',
+      hero_badge:     '#1 Agencia de Excursiones en Marruecos',
+      hero_title:     'Descubre la Magia<br>de <span>Marruecos</span>',
+      hero_sub:       'Excursiones premium, circuitos inolvidables y aventuras auténticas en el corazón del Reino Alauí',
+      hero_btn1:      'Ver nuestras Excursiones',
+      hero_btn2:      'Contáctanos',
+      wa_btn:         'WhatsApp',
+      search_tab1:    'Excursiones',
+      search_tab2:    'Circuitos',
+      search_tab3:    'Traslados',
+      free_cancel:    'Cancelación gratuita',
     }
   };
 
   let currentLang = localStorage.getItem('me_lang') || 'en';
+  // Migrate old 'ar' language preference to 'es'
+  if (currentLang === 'ar') { currentLang = 'es'; localStorage.setItem('me_lang', 'es'); }
 
   function applyLanguage(lang) {
     if (!translations[lang]) return;
@@ -332,15 +334,13 @@
 
     // Update html lang attribute + direction
     document.documentElement.lang = lang;
-    document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.dir  = 'ltr';
 
-    // Switch body font for Arabic
-    document.body.style.fontFamily = lang === 'ar'
-      ? "'Cairo', 'Poppins', sans-serif"
-      : "'Poppins', sans-serif";
+    // Font: always Poppins for EN/FR/ES
+    document.body.style.fontFamily = "'Poppins', sans-serif";
 
     // Update visible label in the switcher button
-    const labelMap = { en: 'EN', fr: 'FR', ar: 'AR' };
+    const labelMap = { en: 'EN', fr: 'FR', es: 'ES' };
     const lbl = document.getElementById('activeLangLabel');
     if (lbl) lbl.textContent = labelMap[lang] || lang.toUpperCase();
 

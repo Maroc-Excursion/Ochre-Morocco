@@ -228,10 +228,9 @@
     G('bk-bprice').textContent = 'From \u20ac' + svc.price + ' / person';
     renderFields();
     setStep(1);
-    /* Show card only when a Stripe payLink is configured for this service */
-    var hasPayLink = !!(CFG.payLinks[svc.id || ''] || '').trim();
+    /* Always show card payment option */
     var cardBtn = G('bk-opt-card');
-    if (cardBtn) { cardBtn.style.display = hasPayLink ? '' : 'none'; }
+    if (cardBtn) { cardBtn.style.display = ''; }
     overlay.classList.add('bk-open');
     document.body.style.overflow = 'hidden';
   }

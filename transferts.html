@@ -122,12 +122,18 @@
 </head>
 <body>
 
-<div class="topbar">
+<div class="topbar" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
   <div>
     <a href="tel:+212694170004"><i class="fas fa-phone-alt"></i> +212 694 170 004</a>
     <a href="https://wa.me/212694170004" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
     <a href="mailto:ochremorocco@gmail.com"><i class="fas fa-envelope"></i> ochremorocco@gmail.com</a>
   </div>
+  <select class="currency-select" aria-label="Currency" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);padding:4px 10px;border-radius:6px;color:#fff;font-size:.78rem;cursor:pointer;font-family:inherit;outline:none">
+    <option value="EUR">€ EUR</option>
+    <option value="USD">$ USD</option>
+    <option value="GBP">£ GBP</option>
+    <option value="MAD">MAD</option>
+  </select>
 </div>
 
 <header>
@@ -151,9 +157,9 @@
         <i class="fas fa-chevron-down" style="font-size:.55rem"></i>
       </button>
       <div class="lang-dropdown">
-        <button class="lang-option active" data-lang="en">🇬🇧 English</button>
-        <button class="lang-option" data-lang="fr">🇫🇷 Français</button>
-        <button class="lang-option" data-lang="ar">🇲🇦 العربية</button>
+        <button class="lang-option active" data-lang="en">EN · English</button>
+        <button class="lang-option" data-lang="fr">FR · Français</button>
+        <button class="lang-option" data-lang="es">ES · Español</button>
       </div>
     </div>
     <a href="https://wa.me/212694170004" class="btn-wa-header hide-sm" target="_blank" rel="noopener">
@@ -271,11 +277,6 @@
 
 </div>
 
-<section class="booking-cta">
-  <h2><i class="fab fa-whatsapp"></i> Book Your Transfer Now</h2>
-  <p>Send us your flight number, date & hotel. We'll confirm immediately.</p>
-  <button type="button" class="btn-book btn-wa-big" style="border:none;cursor:pointer;font-family:inherit;font-size:1rem;font-weight:700;display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:50px;background:linear-gradient(135deg,#c8922b,#a87020);color:#fff" data-service="Airport Transfer – Hotel ↔ Airport" data-price="5" data-type="transfer" data-id="airport-transfer"><i class="fas fa-calendar-check"></i> Book Your Transfer Now</button>
-</section>
 
 
 <!-- LOCATION SECTION -->
