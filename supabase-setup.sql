@@ -22,7 +22,12 @@ INSERT INTO site_settings (key, value) VALUES
   ('cancellation_policy',  'Cancellation accepted up to 48h before the excursion.'),
   ('booking_methods',      'whatsapp,cash,card'),
   ('card_enabled',         'false'),
-  ('owner_email',          'ochremorocco@gmail.com')
+  ('owner_email',          'ochremorocco@gmail.com'),
+  ('phone',                '+212 694 170 004'),
+  ('social_facebook',      'https://www.facebook.com/OchreMorocco'),
+  ('social_instagram',     'https://www.instagram.com/ochre.morocco'),
+  ('social_tiktok',        'https://www.tiktok.com/@ochremorocco'),
+  ('social_youtube',       'https://www.youtube.com/@OchreMorocco')
 ON CONFLICT (key) DO NOTHING;
 
 -- ── 3. جدول الرحلات ──────────────────────────────────────────

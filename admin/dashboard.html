@@ -64,8 +64,13 @@
             <div class="table-toolbar"><h3>General Settings</h3></div>
             <form id="settings-form" style="padding:20px 24px;display:grid;gap:16px">
               <div class="field">
-                <label style="display:block;margin-bottom:6px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">Currency</label>
-                <input id="setting-currency" class="control" value="EUR" placeholder="EUR">
+                <label style="display:block;margin-bottom:6px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">Default Currency</label>
+                <select id="setting-currency" class="control">
+                  <option value="EUR">€ EUR — Euro</option>
+                  <option value="USD">$ USD — US Dollar</option>
+                  <option value="GBP">£ GBP — British Pound</option>
+                  <option value="MAD">MAD — Moroccan Dirham</option>
+                </select>
               </div>
               <div class="field">
                 <label style="display:block;margin-bottom:6px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">WhatsApp Number</label>
@@ -85,6 +90,26 @@
                   <option value="false">Disabled (WhatsApp &amp; Cash only)</option>
                   <option value="true">Enabled (show card option in booking form)</option>
                 </select>
+              </div>
+              <div class="field">
+                <label style="display:block;margin-bottom:6px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">Facebook URL</label>
+                <input id="setting-facebook" class="control" type="url" placeholder="https://www.facebook.com/OchreMorocco">
+              </div>
+              <div class="field">
+                <label style="display:block;margin-bottom:6px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">Instagram URL</label>
+                <input id="setting-instagram" class="control" type="url" placeholder="https://www.instagram.com/ochre.morocco">
+              </div>
+              <div class="field">
+                <label style="display:block;margin-bottom:6px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">TikTok URL</label>
+                <input id="setting-tiktok" class="control" type="url" placeholder="https://www.tiktok.com/@ochremorocco">
+              </div>
+              <div class="field">
+                <label style="display:block;margin-bottom:6px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">YouTube Channel URL</label>
+                <input id="setting-youtube" class="control" type="url" placeholder="https://www.youtube.com/@OchreMorocco">
+              </div>
+              <div class="field">
+                <label style="display:block;margin-bottom:6px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">Phone Number</label>
+                <input id="setting-phone" class="control" type="tel" placeholder="+212 694 170 004">
               </div>
               <div>
                 <button type="submit" class="button"><i class="fa-solid fa-floppy-disk"></i> Save Settings</button>
@@ -308,21 +333,31 @@
         var res = await client.from('site_settings').select('key,value');
         if (res.error || !res.data) return;
         res.data.forEach(function(row) {
-          if (row.key === 'currency')             { var el = $('setting-currency');     if (el) el.value = row.value || ''; }
+          if (row.key === 'currency')             { var el = $('setting-currency');     if (el) el.value = row.value || 'EUR'; }
           if (row.key === 'whatsapp')             { var el = $('setting-whatsapp');    if (el) el.value = row.value || ''; }
           if (row.key === 'owner_email')          { var el = $('setting-email');        if (el) el.value = row.value || ''; }
           if (row.key === 'cancellation_policy')  { var el = $('setting-cancellation'); if (el) el.value = row.value || ''; }
           if (row.key === 'card_enabled')         { var el = $('setting-card-enabled'); if (el) el.value = row.value || 'false'; }
+          if (row.key === 'social_facebook')      { var el = $('setting-facebook');    if (el) el.value = row.value || ''; }
+          if (row.key === 'social_instagram')     { var el = $('setting-instagram');   if (el) el.value = row.value || ''; }
+          if (row.key === 'social_tiktok')        { var el = $('setting-tiktok');      if (el) el.value = row.value || ''; }
+          if (row.key === 'social_youtube')       { var el = $('setting-youtube');     if (el) el.value = row.value || ''; }
+          if (row.key === 'phone')                { var el = $('setting-phone');        if (el) el.value = row.value || ''; }
         });
       }
       async function saveSettings(e) {
         e.preventDefault();
         var updates = [
-          { key: 'currency',            value: $('setting-currency').value.trim() },
+          { key: 'currency',            value: $('setting-currency').value },
           { key: 'whatsapp',            value: $('setting-whatsapp').value.trim() },
           { key: 'owner_email',         value: $('setting-email').value.trim() },
           { key: 'cancellation_policy', value: $('setting-cancellation').value.trim() },
-          { key: 'card_enabled',        value: $('setting-card-enabled').value }
+          { key: 'card_enabled',        value: $('setting-card-enabled').value },
+          { key: 'social_facebook',     value: $('setting-facebook').value.trim() },
+          { key: 'social_instagram',    value: $('setting-instagram').value.trim() },
+          { key: 'social_tiktok',       value: $('setting-tiktok').value.trim() },
+          { key: 'social_youtube',      value: $('setting-youtube').value.trim() },
+          { key: 'phone',               value: $('setting-phone').value.trim() }
         ];
         var errors = [];
         for (var i = 0; i < updates.length; i++) {
