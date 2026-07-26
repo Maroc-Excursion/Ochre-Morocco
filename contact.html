@@ -298,9 +298,9 @@
       </form>
 
       <div class="success-msg" id="successMsg">
-        <i class="fas fa-check-circle" style="font-size:1.5rem;margin-bottom:8px;display:block"></i>
-        Message sent! We'll reply within 2 hours.<br>
-        For faster response, <a href="https://wa.me/212694170004" target="_blank" rel="noopener" style="color:var(--green)">chat on WhatsApp</a>.
+         <i class="fas fa-check-circle" style="font-size:1.5rem;margin-bottom:8px;display:block"></i>
+         Your WhatsApp message is ready. Send it in the new WhatsApp window and we'll reply as soon as possible.<br>
+         <a href="https://wa.me/212694170004" target="_blank" rel="noopener" style="color:var(--green)">Open WhatsApp directly</a>.
       </div>
     </div>
 
@@ -336,6 +336,19 @@ function handleSubmit(e) {
   e.preventDefault();
   const form = document.getElementById('contactForm');
   const msg = document.getElementById('successMsg');
+  const values = new FormData(form);
+  const lines = [
+    'Hello Ochre Morocco! I would like to ask about a trip.',
+    '',
+    'Name: ' + values.get('firstname') + ' ' + values.get('lastname'),
+    'Email: ' + values.get('email'),
+    'Phone: ' + (values.get('phone') || 'Not provided'),
+    'Service: ' + (values.get('service') || 'Not selected'),
+    'Preferred date: ' + (values.get('date') || 'Not selected'),
+    'People: ' + (values.get('people') || 'Not specified'),
+    'Message: ' + (values.get('message') || 'No additional message')
+  ];
+  window.open('https://wa.me/212694170004?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
   form.style.display = 'none';
   msg.style.display = 'block';
 }

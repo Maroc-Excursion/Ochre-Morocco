@@ -108,6 +108,16 @@
   var svc = null;
   var fd  = {};
 
+  window.addEventListener('ochre:settings', function (event) {
+    var settings = event.detail || {};
+    if (settings.contact && settings.contact.whatsapp) {
+      CFG.whatsapp = String(settings.contact.whatsapp).replace(/\D/g, '') || CFG.whatsapp;
+    }
+    if (settings.contact && settings.contact.email) {
+      CFG.ownerEmail = settings.contact.email;
+    }
+  });
+
   /* ── INJECT MODAL ────────────────────────────────────────── */
   document.body.insertAdjacentHTML('beforeend', [
     '<div id="bk-overlay" class="bk-overlay" role="dialog" aria-modal="true" aria-label="Book this service">',
@@ -345,16 +355,18 @@
     btn.querySelector('strong').textContent = 'Processing\u2026';
     var total = calcTotal();
     sendEmail('Cash on Arrival').then(function() {
-      setStep(3);
-      G('bk-s3ico').innerHTML = '<i class="fas fa-check-circle" style="color:#1e6b3c"></i>';
-      G('bk-s3title').textContent = 'Reservation Confirmed!';
-      G('bk-s3msg').textContent = 'Your reservation has been received. Our team will contact you shortly to confirm all details.';
+       setStep(3);
+       G('bk-s3ico').innerHTML = '<i class="fas fa-check-circle" style="color:#1e6b3c"></i>';
+       G('bk-s3title').textContent = 'Booking request ready';
+       G('bk-s3msg').textContent = 'Your details are ready. Send them to our team on WhatsApp to confirm availability and finalize your reservation.';
       G('bk-s3box').innerHTML =
         '<div class="bk-confirm-row"><i class="fas fa-user"></i> ' + (fd.name || '') + '</div>' +
         '<div class="bk-confirm-row"><i class="fas fa-tag"></i> ' + svc.name + '</div>' +
         '<div class="bk-confirm-row bk-confirm-total"><i class="fas fa-money-bill-wave"></i> \u20ac' + total + ' \u2014 Pay on Arrival</div>' +
-        '<div class="bk-confirm-row"><i class="fab fa-whatsapp"></i> We\'ll contact you at: ' + (fd.phone || fd.email || '') + '</div>';
-      G('bk-paybtn').innerHTML = '';
+         '<div class="bk-confirm-row"><i class="fab fa-whatsapp"></i> We\'ll contact you at: ' + (fd.phone || fd.email || '') + '</div>';
+       G('bk-paybtn').innerHTML =
+         '<a href="https://wa.me/' + CFG.whatsapp + '?text=' + buildWA() + '" class="bk-btn-pay" target="_blank" rel="noopener">' +
+         '<i class="fab fa-whatsapp"></i> Send request on WhatsApp</a>';
       btn.disabled = false;
     });
   });
