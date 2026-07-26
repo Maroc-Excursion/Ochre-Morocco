@@ -1,49 +1,37 @@
-/* ============================================================
-   OCHRE MOROCCO — Booking System v1.0
-   ============================================================ */
 (function () {
   'use strict';
 
-  /* ── CONFIGURATION ───────────────────────────────────────── */
   var CFG = {
     whatsapp: '212694170004',
-
-    /* ── STRIPE ─────────────────────────────────────────────────────────────
-       1. Go to https://dashboard.stripe.com → Products → Add product for each service
-       2. Copy the Payment Link URL (not the price ID) and paste it below.
-       3. Replace STRIPE_PUBLISHABLE_KEY with your pk_live_… or pk_test_… key.
-       Leave stripeKey empty '' and payLinks empty '' to fall back to WhatsApp. */
-    stripeKey: '',   /* e.g. 'pk_live_xxxxxxxxxxxxxxxxxxxx' */
-
+    stripeKey: '',
     payLinks: {
-      'airport-transfer':    '',   /* paste Stripe Payment Link URL here */
-      'agafay-desert-pack':  '',
-      'hot-air-balloon':     '',
-      'paragliding':         '',
-      'petit-buggy':         '',
-      'grand-buggy':         '',
-      'quad-palmeraie':      '',
-      'camel-ride':          '',
-      'essaouira':           '',
-      'ouzoud':              '',
-      'ourika':              '',
-      'ait-ben-haddou':      '',
-      'zagora-desert':       '',
-      'merzouga-desert':     '',
-      'transfer-standard':   '',
-      'transfer-minibus':    '',
-      'transfer-vip':        ''
+      'airport-transfer':   '',
+      'agafay-desert-pack': '',
+      'hot-air-balloon':    '',
+      'paragliding':        '',
+      'petit-buggy':        '',
+      'grand-buggy':        '',
+      'quad-palmeraie':     '',
+      'camel-ride':         '',
+      'essaouira':          '',
+      'ouzoud':             '',
+      'ourika':             '',
+      'ait-ben-haddou':     '',
+      'zagora-desert':      '',
+      'merzouga-desert':    '',
+      'transfer-standard':  '',
+      'transfer-minibus':   '',
+      'transfer-vip':       ''
     }
   };
 
-  /* ── FIELD SETS per service type ─────────────────────────── */
   var FIELDS = {
     transfer: [
       {id:'name',   label:'Full Name',                    type:'text',           req:true,  ph:'Your full name'},
       {id:'phone',  label:'Phone / WhatsApp',             type:'tel',            req:true,  ph:'+1 234 567 890'},
       {id:'dir',    label:'Transfer Direction',           type:'select',         req:true,
        opts:[{v:'',l:'— Select direction —'},{v:'Airport \u2192 Hotel',l:'\u2708  Airport \u2192 Hotel'},{v:'Hotel \u2192 Airport',l:'\uD83C\uDFE8  Hotel \u2192 Airport'}]},
-      {id:'flight', label:'Flight Number',                type:'text',           req:true,  ph:'e.g. AT 500'},
+      {id:'flight', label:'Flight Number',                type:'text',           req:true,  ph:'AT 500'},
       {id:'dt',     label:'Flight Date & Time',           type:'datetime-local', req:true},
       {id:'hotel',  label:'Hotel / Address in Marrakech', type:'text',           req:true,  ph:'Hotel name or full address'},
       {id:'pax',    label:'Number of Passengers',         type:'number',         req:true,  min:1, max:20, def:1},

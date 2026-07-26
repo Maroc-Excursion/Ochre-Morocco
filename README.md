@@ -1,57 +1,54 @@
-# Maroc Excursion – Discover the Magic of Morocco
+# Ochre Morocco
 
-> Premium Moroccan travel & tourism website — excursions, circuits, desert experiences and private transfers.
+Tourism website for Ochre Morocco — private excursions, desert circuits and airport transfers from Marrakech.
 
-**Website:** [maroc-excursion.github.io](https://maroc-excursion.github.io)
+**Website:** [ochremorocco.com](https://ochremorocco.com)
 
 ---
 
-## 🌍 About
+## Pages
 
-**Maroc Excursion** is a luxury Moroccan travel agency based in Marrakech, offering premium excursions, multi-day circuits, Agafay Desert experiences, and private airport transfers across Morocco since 2015.
+| File | Description |
+|------|-------------|
+| `index.html` | Homepage |
+| `excursions.html` | Excursions catalogue |
+| `circuits.html` | Multi-day circuits |
+| `desert-agafay.html` | Agafay Desert page |
+| `transferts.html` | Airport transfers |
+| `about.html` | About us |
+| `contact.html` | Contact |
+| `blog.html` | Blog |
 
-- 12,500+ satisfied clients
-- 150+ excursions & circuits
-- 10+ years of expertise
-- 98% satisfaction rate
-- Tripadvisor recommended
+## Admin
 
-## 🗂️ Website Structure
+Access at `/admin/` — requires a Supabase account set up as admin.  
+Run `supabase-setup.sql` once in the Supabase SQL editor to create tables and RLS policies.
+
+## Assets
 
 ```
-/
-├── index.html            — Homepage (hero, search, excursions, circuits, stats, testimonials)
-├── excursions.html       — All excursions catalog with filters
-├── circuits.html         — Multi-day circuits (Imperial, Sahara, North Morocco)
-├── desert-agafay.html    — Agafay Desert dedicated page with packages
-├── transferts.html       — Airport & private transfers booking
-├── about.html            — About us, team, values, partners
-├── contact.html          — Contact form & WhatsApp CTA
-├── assets/
-│   ├── css/style.css     — Main stylesheet (brand colors, components, responsive)
-│   ├── js/main.js        — Slider, scroll reveal, countup, interactions
-│   └── images/logo.png   — Maroc Excursion brand logo
-└── README.md
+assets/
+  css/style.css       — main stylesheet
+  css/booking.css     — booking modal styles
+  js/main.js          — interactions, language & currency switchers
+  js/booking.js       — booking modal
+  js/data-loader.js   — loads excursions from Supabase or JSON fallback
+  js/supabase-client.js
+data/
+  excursions.json     — fallback data
+  settings.json       — site config
 ```
 
-## 🎨 Brand Identity
+## Languages
 
-| Element | Value |
-|---------|-------|
-| Deep Emerald Green | `#0E5A47` |
-| Royal Gold | `#C89B3C` |
-| Dark Navy | `#0F2238` |
-| Sand Beige | `#E8D9B5` |
-| Tagline | *Discover the Magic of Morocco* |
-| Fonts | Playfair Display (headings) + Poppins (body) |
+English · Français · Español
 
-## 📞 Contact
+## Contact
 
-- **Phone:** +212 524 370 878
-- **WhatsApp:** +212 661 223 962
-- **Email:** booking@marocexcursion.com
+- **WhatsApp:** +212 694 170 004
+- **Email:** ochremorocco@gmail.com
 - **Location:** Marrakech, Morocco
 
 ---
 
-© 2025 Maroc Excursion. All rights reserved.
+© 2026 Ochre Morocco. All rights reserved.

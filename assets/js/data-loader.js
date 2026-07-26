@@ -1,7 +1,4 @@
-/* ============================================================
-   OCHRE MOROCCO — Dynamic Data Loader v3.0
-   المصدر الأول: Supabase | المصدر الاحتياطي: data/*.json
-   ============================================================ */
+/* Ochre Morocco — data-loader.js */
 
 (function () {
   'use strict';

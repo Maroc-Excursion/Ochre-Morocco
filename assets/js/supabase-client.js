@@ -1,10 +1,4 @@
-/*
- * Ochre Morocco — public Supabase client
- *
- * This file intentionally contains only the Supabase anon key.
- * The anon key is designed for browser use; database and storage access
- * must be protected by Supabase RLS policies.
- */
+/* Ochre Morocco — supabase-client.js */
 (function () {
   'use strict';
 

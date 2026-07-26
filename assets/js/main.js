@@ -1,13 +1,9 @@
-/* ============================================================
-   MAROC EXCURSION — Main JavaScript
-   ============================================================ */
+/* Ochre Morocco — main.js */
 
 (function () {
   'use strict';
 
-  /* ================================================================
-     1. HERO SLIDER
-  ================================================================ */
+  /* --- Hero slider --- */
   const slides = document.querySelectorAll('.hero-slide');
   const dots   = document.querySelectorAll('.hero-dot');
   let current  = 0, timer;
@@ -40,18 +36,14 @@
     dots.forEach((d, i) => d.addEventListener('click', () => { stopAuto(); goTo(i); startAuto(); }));
   }
 
-  /* ================================================================
-     2. STICKY HEADER
-  ================================================================ */
+  /* --- Sticky header --- */
   const header = document.querySelector('.site-header');
   window.addEventListener('scroll', () => {
     header && header.classList.toggle('scrolled', window.scrollY > 60);
     updateBackToTop();
   }, { passive: true });
 
-  /* ================================================================
-     3. CARDS SLIDER
-  ================================================================ */
+  /* --- Cards slider --- */
   function initCardsSlider(trackId, prevId, nextId) {
     const track    = document.querySelector(trackId);
     const prevBtn  = document.querySelector(prevId);
@@ -79,9 +71,7 @@
   initCardsSlider('#excursionsTrack', '#excPrev', '#excNext');
   initCardsSlider('#transfersTrack',  '#trfPrev', '#trfNext');
 
-  /* ================================================================
-     4. SEARCH TABS
-  ================================================================ */
+  /* --- Search tabs --- */
   document.querySelectorAll('.search-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
@@ -98,9 +88,7 @@
     searchToggle.classList.toggle('is-hidden', isOpen);
   });
 
-  /* ================================================================
-     5. MOBILE NAV
-  ================================================================ */
+  /* --- Mobile nav --- */
   const hamburger   = document.querySelector('.hamburger');
   const mobileNav   = document.querySelector('.mobile-nav');
   const mobileClose = document.querySelector('.mobile-nav-close');
@@ -116,18 +104,14 @@
     document.body.style.overflow = '';
   });
 
-  /* ================================================================
-     6. BACK TO TOP
-  ================================================================ */
+  /* --- Back to top --- */
   const btt = document.querySelector('.back-to-top');
   function updateBackToTop() {
     btt && btt.classList.toggle('visible', window.scrollY > 500);
   }
   btt?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-  /* ================================================================
-     7. SCROLL REVEAL (AOS-like)
-  ================================================================ */
+  /* --- Scroll reveal --- */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (e.isIntersecting) {
@@ -138,9 +122,7 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('[data-aos]').forEach(el => observer.observe(el));
 
-  /* ================================================================
-     8. COUNT UP STATS
-  ================================================================ */
+  /* --- Count-up stats --- */
   function countUp(el) {
     const target = parseInt(el.dataset.count, 10);
     const suffix = el.dataset.suffix || '';
@@ -164,9 +146,7 @@
   }, { threshold: 0.3 });
   document.querySelector('.stats-grid') && statsObs.observe(document.querySelector('.stats-grid'));
 
-  /* ================================================================
-     9. WISHLIST HEART TOGGLE
-  ================================================================ */
+  /* --- Wishlist --- */
   document.querySelectorAll('.card-wishlist').forEach(btn => {
     btn.addEventListener('click', () => {
       const icon = btn.querySelector('i');
@@ -182,9 +162,7 @@
     });
   });
 
-  /* ================================================================
-     10. CURRENCY SWITCHER
-  ================================================================ */
+  /* --- Currency switcher --- */
   const rates = { EUR: 1, USD: 1.09, GBP: 0.86, MAD: 10.85 };
   const symbols = { EUR: '€', USD: '$', GBP: '£', MAD: 'MAD ' };
   let currentCurrency = localStorage.getItem('me_currency') || 'EUR';
@@ -195,52 +173,27 @@
     const rate   = rates[currency];
     const symbol = symbols[currency];
 
-    // Convert .amount elements
     document.querySelectorAll('[data-eur]').forEach(el => {
-      const base = parseFloat(el.dataset.eur);
-      const converted = Math.round(base * rate);
-      el.textContent = symbol + converted;
+      el.textContent = symbol + Math.round(parseFloat(el.dataset.eur) * rate);
     });
-    // Convert .old price elements
     document.querySelectorAll('[data-eur-old]').forEach(el => {
-      const base = parseFloat(el.dataset.eurOld);
-      const converted = Math.round(base * rate);
-      el.textContent = symbol + converted;
+      el.textContent = symbol + Math.round(parseFloat(el.dataset.eurOld) * rate);
     });
-    // Convert circuit prices
     document.querySelectorAll('[data-eur-circuit]').forEach(el => {
-      const base = parseFloat(el.dataset.eurCircuit);
-      const converted = Math.round(base * rate);
-      // Show sup symbol if EUR, else just prefix
-      el.innerHTML = currency === 'EUR'
-        ? `<sup>${symbol}</sup>${converted}`
-        : `<sup style="font-size:.6rem">${symbol}</sup>${converted}`;
+      const v = Math.round(parseFloat(el.dataset.eurCircuit) * rate);
+      el.innerHTML = `<sup style="font-size:.6rem">${symbol}</sup>${v}`;
     });
-    // Update currency switcher display
-    document.querySelectorAll('.currency-select').forEach(sel => {
-      sel.value = currency;
-    });
+    document.querySelectorAll('.currency-select').forEach(sel => { sel.value = currency; });
   }
 
-  // Init currency on page load
-  document.addEventListener('DOMContentLoaded', () => {
-    convertPrices(currentCurrency);
-  });
-
-  // Bind currency selectors
+  document.addEventListener('DOMContentLoaded', () => convertPrices(currentCurrency));
   document.querySelectorAll('.currency-select').forEach(sel => {
     sel.value = currentCurrency;
     sel.addEventListener('change', e => convertPrices(e.target.value));
   });
+  if (document.readyState !== 'loading') convertPrices(currentCurrency);
 
-  // Run immediately too (in case DOM already loaded)
-  if (document.readyState !== 'loading') {
-    convertPrices(currentCurrency);
-  }
-
-  /* ================================================================
-     11. LANGUAGE SWITCHER
-  ================================================================ */
+  /* --- Language switcher --- */
   const translations = {
     en: {
       nav_home:       'Home',
@@ -305,7 +258,6 @@
   };
 
   let currentLang = localStorage.getItem('me_lang') || 'en';
-  // Migrate old 'ar' language preference to 'es'
   if (currentLang === 'ar') { currentLang = 'es'; localStorage.setItem('me_lang', 'es'); }
 
   function applyLanguage(lang) {
@@ -327,24 +279,18 @@
       }
     });
 
-    // Update lang switcher buttons
     document.querySelectorAll('.lang-option').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
 
-    // Update html lang attribute + direction
     document.documentElement.lang = lang;
     document.documentElement.dir  = 'ltr';
-
-    // Font: always Poppins for EN/FR/ES
     document.body.style.fontFamily = "'Poppins', sans-serif";
 
-    // Update visible label in the switcher button
     const labelMap = { en: 'EN', fr: 'FR', es: 'ES' };
     const lbl = document.getElementById('activeLangLabel');
     if (lbl) lbl.textContent = labelMap[lang] || lang.toUpperCase();
 
-    // Re-apply free cancel labels
     document.querySelectorAll('.badge-free-cancel').forEach(el => {
       el.textContent = t.free_cancel || 'Annulation gratuite';
     });
@@ -372,9 +318,7 @@
     document.addEventListener('DOMContentLoaded', () => applyLanguage(currentLang));
   }
 
-  /* ================================================================
-     12. URGENCY NOTIFICATIONS (Social Proof)
-  ================================================================ */
+  /* --- Urgency notifications --- */
   function showUrgencyNotif() {
     const notif = document.querySelector('.urgency-notif');
     if (!notif) return;
@@ -402,23 +346,18 @@
       setTimeout(() => notif.classList.remove('show'), 4500);
     }
 
-    // First show after 6s, then every 18s
     setTimeout(() => { showRandom(); setInterval(showRandom, 18000); }, 6000);
   }
   showUrgencyNotif();
 
-  /* ================================================================
-     13. VIEWING COUNT BADGES
-  ================================================================ */
+  /* --- Viewing badges --- */
   document.querySelectorAll('.tour-card').forEach(card => {
     const v = Math.floor(Math.random() * 18) + 3;
     const badge = card.querySelector('.viewing-badge');
     if (badge) badge.textContent = v + ' people viewing';
   });
 
-  /* ================================================================
-     14. NEWSLETTER FORM
-  ================================================================ */
+  /* --- Newsletter --- */
   document.querySelector('.newsletter-form')?.addEventListener('submit', function(e) {
     e.preventDefault();
     const email = this.querySelector('input[type="email"]').value;
@@ -429,9 +368,7 @@
     </div>`;
   });
 
-  /* ================================================================
-     15. CHAT WIDGET
-  ================================================================ */
+  /* --- Chat widget --- */
   const chatBtn  = document.querySelector('.chat-fab');
   const chatMenu = document.querySelector('.chat-menu');
 
@@ -446,25 +383,4 @@
     chatBtn?.classList.remove('active');
   });
 
-  /* ================================================================
-     16. MOBILE NAV SUB-MENU TOGGLE
-  ================================================================ */
-  // Make the parent link of each .mobile-sub act as a toggle
-  document.querySelectorAll('.mobile-nav .mobile-sub').forEach(sub => {
-    const prev = sub.previousElementSibling;
-    if (!prev || prev.tagName !== 'A') return;
-    prev.style.cursor = 'pointer';
-    const arrow = document.createElement('span');
-    arrow.innerHTML = ' <i class="fas fa-chevron-down" style="font-size:.65rem;transition:transform .3s"></i>';
-    prev.appendChild(arrow);
-    sub.style.display = 'none';
-    prev.addEventListener('click', e => {
-      e.preventDefault();
-      const open = sub.style.display !== 'none';
-      sub.style.display = open ? 'none' : 'block';
-      const icon = arrow.querySelector('i');
-      if (icon) icon.style.transform = open ? '' : 'rotate(180deg)';
-    });
-  });
-
-})();
+  /* --- Mobile sub-menu --- */
