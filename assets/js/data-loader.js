@@ -16,10 +16,10 @@
     'transfert':            'transfers'
   };
   var CAT_LABELS = {
-    activities: { icon: 'fa-bolt',       label: 'Activities & Adventures' },
-    day:        { icon: 'fa-sun',        label: 'Day Excursions' },
-    desert:     { icon: 'fa-campground', label: 'Desert Tours' },
-    transfers:  { icon: 'fa-car',        label: 'Airport Transfers' }
+    activities: { icon: 'fa-bolt',       label: 'Activities & Adventures', i18n: 'cat_activities' },
+    day:        { icon: 'fa-sun',        label: 'Day Excursions',          i18n: 'cat_day' },
+    desert:     { icon: 'fa-campground', label: 'Desert Tours',            i18n: 'cat_desert' },
+    transfers:  { icon: 'fa-car',        label: 'Airport Transfers',       i18n: 'cat_transfers' }
   };
 
   function mapCat(cat) { return CAT_MAP[cat] || 'activities'; }
@@ -176,7 +176,7 @@
       '<div class="card-body">' +
         '<div class="card-title">' + escapeHTML(exc.title) + '</div>' +
         (exc.description ? '<p style="font-size:.78rem;color:var(--muted);margin:6px 0;line-height:1.5">' + escapeHTML(exc.description.substring(0,100)) + (exc.description.length > 100 ? '…' : '') + '</p>' : '') +
-        '<ul class="card-features">' + (features || '<li><i class="fas fa-check-circle"></i> Included</li>') + '</ul>' +
+        '<ul class="card-features">' + (features || '<li><i class="fas fa-check-circle"></i> <span data-i18n="included">Included</span></li>') + '</ul>' +
       '</div>' +
       '<div class="card-footer-btn">' +
         '<button type="button" class="btn-book"' +
@@ -184,7 +184,8 @@
           ' data-price="' + escapeHTML(String(exc.price || 0)) + '"' +
           ' data-type="' + svcType + '"' +
           ' data-id="' + escapeHTML(String(exc.id)) + '">' +
-          '<i class="fas fa-calendar-check"></i> Book &ndash; &euro;' + escapeHTML(String(exc.price || 0)) +
+          '<i class="fas fa-calendar-check"></i> <span data-i18n="book_now">Book Now</span> &ndash; ' +
+          '<span class="btn-price" data-eur="' + escapeHTML(String(exc.price || 0)) + '">&euro;' + escapeHTML(String(exc.price || 0)) + '</span>' +
         '</button>' +
       '</div>' +
     '</div>';
@@ -214,7 +215,8 @@
         '<button type="button" class="btn-book" data-service="' + escapeHTML(circuit.title) + '"' +
           ' data-price="' + escapeHTML(String(circuit.price || 0)) + '" data-type="circuit"' +
           ' data-id="' + escapeHTML(String(circuit.id)) + '">' +
-          '<i class="fas fa-calendar-check"></i> Book from &euro;' + escapeHTML(String(circuit.price || 0)) +
+          '<i class="fas fa-calendar-check"></i> <span data-i18n="book_now">Book Now</span> &ndash; ' +
+          '<span class="btn-price" data-eur-circuit="' + escapeHTML(String(circuit.price || 0)) + '">&euro;' + escapeHTML(String(circuit.price || 0)) + '</span>' +
         '</button>' +
       '</div>' +
     '</article>';
@@ -225,8 +227,9 @@
     container.innerHTML = active.length
       ? '<div class="services-grid">' + active.map(renderer).join('') + '</div>'
       : '<p class="empty-results" style="text-align:center;padding:40px;color:var(--muted)">' + escapeHTML(emptyMessage) + '</p>';
-    /* Re-apply current currency after dynamic render */
+    /* Re-apply current currency + language after dynamic render */
     if (typeof window.__applyCurrentCurrency === 'function') window.__applyCurrentCurrency();
+    if (typeof window.__applyCurrentLang === 'function') window.__applyCurrentLang();
   }
 
   async function fetchJSON(path) {
@@ -259,7 +262,7 @@
       var items = groups[cat];
       if (!items || !items.length) return;
       var cl = CAT_LABELS[cat] || { icon: 'fa-star', label: cat };
-      html += '<div class="cat-label cat-section" data-cat="' + cat + '">' +
+      html += '<div class="cat-label cat-section" data-cat="' + cat + '"' + (cl.i18n ? ' data-i18n="' + cl.i18n + '"' : '') + '>' +
         '<i class="fas ' + cl.icon + '"></i> ' + cl.label + '</div>' +
         '<div class="services-grid cat-section" data-cat="' + cat + '">' +
         items.map(cardHTML).join('') + '</div>';
@@ -288,6 +291,8 @@
         '<p style="text-align:center;padding:40px;color:#666">No services available at the moment.</p>';
       reattachFilterTabs();
       if (typeof window.__initBookingBtns === 'function') window.__initBookingBtns();
+      if (typeof window.__applyCurrentCurrency === 'function') window.__applyCurrentCurrency();
+      if (typeof window.__applyCurrentLang === 'function') window.__applyCurrentLang();
     } catch (err) {
       // Supabase failed — try JSON fallback
       if (hasSupabase()) {
@@ -297,6 +302,8 @@
           container.innerHTML = html2 || '<p style="text-align:center;padding:40px;color:#666">No services available.</p>';
           reattachFilterTabs();
           if (typeof window.__initBookingBtns === 'function') window.__initBookingBtns();
+          if (typeof window.__applyCurrentCurrency === 'function') window.__applyCurrentCurrency();
+          if (typeof window.__applyCurrentLang === 'function') window.__applyCurrentLang();
           return;
         } catch (_) {}
       }
@@ -322,11 +329,15 @@
       container.innerHTML = html ||
         '<p style="text-align:center;padding:40px;color:#666">No services available.</p>';
       if (typeof window.__initBookingBtns === 'function') window.__initBookingBtns();
+      if (typeof window.__applyCurrentCurrency === 'function') window.__applyCurrentCurrency();
+      if (typeof window.__applyCurrentLang === 'function') window.__applyCurrentLang();
     } catch (err) {
       try {
         var exc2 = await fetchJSON('data/excursions.json');
         container.innerHTML = buildGroupedHTML(exc2) || '';
         if (typeof window.__initBookingBtns === 'function') window.__initBookingBtns();
+        if (typeof window.__applyCurrentCurrency === 'function') window.__applyCurrentCurrency();
+        if (typeof window.__applyCurrentLang === 'function') window.__applyCurrentLang();
       } catch (_) {}
     }
   }
@@ -407,6 +418,7 @@
       container.innerHTML = '<div class="services-grid">' + items.map(cardHTML).join('') + '</div>';
       if (typeof window.__initBookingBtns === 'function') window.__initBookingBtns();
       if (typeof window.__applyCurrentCurrency === 'function') window.__applyCurrentCurrency();
+      if (typeof window.__applyCurrentLang === 'function') window.__applyCurrentLang();
     } catch (err) {
       container.style.display = 'none';
     }
