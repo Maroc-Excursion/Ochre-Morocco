@@ -26,6 +26,63 @@
 
   function mapCat(cat) { return CAT_MAP[cat] || 'activities'; }
 
+  function escapeHTML(value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
+      return {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[char];
+    });
+  }
+
+  function imageSrc(path) {
+    var value = String(path || '').trim();
+    if (/^https?:\/\//i.test(value)) return value;
+    if (/^(?:javascript|data|vbscript):/i.test(value)) return 'assets/images/agafay-coucher-soleil.jpg';
+    return value || 'assets/images/agafay-coucher-soleil.jpg';
+  }
+
+  function validYoutubeId(value) {
+    return /^[a-zA-Z0-9_-]{11}$/.test(String(value || ''));
+  }
+
+  function circuitCardHTML(circuit) {
+    var includes = (circuit.includes || []).slice(0, 4).map(function (item) {
+      return '<li><i class="fas fa-check-circle"></i> ' + escapeHTML(item) + '</li>';
+    }).join('');
+    var tags = (circuit.tags || []).slice(0, 2).map(function (tag) {
+      return '<span class="badge-tag">' + escapeHTML(tag) + '</span>';
+    }).join('');
+    return '<article class="card circuit-card">' +
+      '<div class="card-img">' +
+        '<img src="' + escapeHTML(imageSrc(circuit.image)) + '" alt="' + escapeHTML(circuit.title) + '" loading="lazy" onerror="this.src=\'assets/images/desert-nuit-etoiles.jpg\'"/>' +
+        tags +
+        '<div class="card-price-overlay"><span class="price-new">&euro;' + escapeHTML(circuit.price) + '</span></div>' +
+      '</div>' +
+      '<div class="card-body">' +
+        '<div class="card-title">' + escapeHTML(circuit.title) + '</div>' +
+        '<div class="circuit-duration"><i class="fas fa-calendar-days"></i> ' + escapeHTML(circuit.duration) + '</div>' +
+        '<p class="circuit-description">' + escapeHTML(circuit.description || '') + '</p>' +
+        '<ul class="card-features">' + includes + '</ul>' +
+      '</div>' +
+      '<div class="card-footer-btn">' +
+        '<button type="button" class="btn-book" data-service="' + escapeHTML(circuit.title) + '" data-price="' + escapeHTML(circuit.price) + '" data-type="circuit" data-id="' + escapeHTML(circuit.id) + '">' +
+          '<i class="fas fa-calendar-check"></i> Book from &euro;' + escapeHTML(circuit.price) +
+        '</button>' +
+      '</div>' +
+    '</article>';
+  }
+
+  function renderCards(container, items, emptyMessage, renderer) {
+    var active = (items || []).filter(function (item) { return item.active !== false; });
+    container.innerHTML = active.length
+      ? '<div class="services-grid">' + active.map(renderer).join('') + '</div>'
+      : '<p class="empty-results">' + escapeHTML(emptyMessage) + '</p>';
+  }
+
   async function fetchJSON(path) {
     const r = await fetch(path + '?_t=' + Date.now());
     if (!r.ok) throw new Error('Could not load ' + path);
@@ -36,38 +93,36 @@
   function cardHTML(exc) {
     const features = (exc.meta || []).map(m => {
       const parts = m.split('|');
-      const label = parts[1] || parts[0] || '';
+      const label = escapeHTML(parts[1] || parts[0] || '');
       return '<li><i class="fas fa-check-circle"></i> ' + label + '</li>';
     }).join('');
-    const discount = exc.badge ? '<span class="badge-discount">' + exc.badge + '</span>' : '';
-    const tag      = exc.tags && exc.tags[0] ? '<span class="badge-tag">' + exc.tags[0] + '</span>' : '';
-    const oldPrice = exc.oldPrice ? '<span class="price-old">&euro;' + exc.oldPrice + '</span>' : '';
+    const discount = exc.badge ? '<span class="badge-discount">' + escapeHTML(exc.badge) + '</span>' : '';
+    const tag      = exc.tags && exc.tags[0] ? '<span class="badge-tag">' + escapeHTML(exc.tags[0]) + '</span>' : '';
+    const oldPrice = exc.oldPrice ? '<span class="price-old">&euro;' + escapeHTML(exc.oldPrice) + '</span>' : '';
     const svcType  = (exc.category || '').includes('transfer') ? 'transfer' : 'excursion';
-    const imgSrc   = exc.image
-      ? (exc.image.startsWith('http') ? exc.image : exc.image)
-      : 'assets/images/agafay-coucher-soleil.jpg';
+    const imgSrc   = imageSrc(exc.image);
 
-    return '<div class="card" data-exc-id="' + exc.id + '">' +
+    return '<div class="card" data-exc-id="' + escapeHTML(exc.id) + '">' +
       '<div class="card-img">' +
-        '<img src="' + imgSrc + '" alt="' + exc.title + '" loading="lazy" onerror="this.src=\'assets/images/agafay-coucher-soleil.jpg\'"/>' +
+        '<img src="' + escapeHTML(imgSrc) + '" alt="' + escapeHTML(exc.title) + '" loading="lazy" onerror="this.src=\'assets/images/agafay-coucher-soleil.jpg\'"/>' +
         discount + tag +
         '<div class="card-price-overlay">' +
-          '<span class="price-new">&euro;' + exc.price + '</span>' + oldPrice +
+          '<span class="price-new">&euro;' + escapeHTML(exc.price) + '</span>' + oldPrice +
         '</div>' +
       '</div>' +
       '<div class="card-body">' +
-        '<div class="card-title">' + exc.title + '</div>' +
+        '<div class="card-title">' + escapeHTML(exc.title) + '</div>' +
         '<ul class="card-features">' +
           (features || '<li><i class="fas fa-check-circle"></i> Included</li>') +
         '</ul>' +
       '</div>' +
       '<div class="card-footer-btn">' +
         '<button type="button" class="btn-book"' +
-          ' data-service="' + exc.title + '"' +
-          ' data-price="' + exc.price + '"' +
+          ' data-service="' + escapeHTML(exc.title) + '"' +
+          ' data-price="' + escapeHTML(exc.price) + '"' +
           ' data-type="' + svcType + '"' +
-          ' data-id="' + exc.id + '">' +
-          '<i class="fas fa-calendar-check"></i> Book &ndash; &euro;' + exc.price +
+          ' data-id="' + escapeHTML(exc.id) + '">' +
+          '<i class="fas fa-calendar-check"></i> Book &ndash; &euro;' + escapeHTML(exc.price) +
         '</button>' +
       '</div>' +
     '</div>';
@@ -139,6 +194,36 @@
     }
   }
 
+  async function renderCircuitsPage() {
+    var container = document.getElementById('circuits-dynamic');
+    if (!container) return;
+    container.innerHTML = '<div class="dynamic-loading"><i class="fas fa-spinner fa-spin"></i> Loading circuits&hellip;</div>';
+    try {
+      var circuits = await fetchJSON('data/circuits.json');
+      renderCards(container, circuits, 'No circuits are available at the moment.', circuitCardHTML);
+    } catch (err) {
+      console.error('[data-loader] circuits:', err);
+      container.innerHTML = '<p class="empty-results">Unable to load circuits. Please try again.</p>';
+    }
+  }
+
+  async function renderAgafayPage() {
+    var container = document.getElementById('agafay-dynamic');
+    if (!container) return;
+    container.innerHTML = '<div class="dynamic-loading"><i class="fas fa-spinner fa-spin"></i> Loading Agafay experiences&hellip;</div>';
+    try {
+      var excursions = await fetchJSON('data/excursions.json');
+      var agafayItems = excursions.filter(function (item) {
+        return item.active !== false && item.category === 'marrakech desert';
+      });
+      renderCards(container, agafayItems, 'No Agafay experiences are available at the moment.', cardHTML);
+      if (typeof window.__initBookingBtns === 'function') window.__initBookingBtns();
+    } catch (err) {
+      console.error('[data-loader] agafay:', err);
+      container.innerHTML = '<p class="empty-results">Unable to load Agafay experiences. Please try again.</p>';
+    }
+  }
+
   /* ── Render YouTube video section ── */
   async function renderYouTubeSection() {
     var section = document.getElementById('youtube-section');
@@ -146,12 +231,12 @@
     try {
       var settings = await fetchJSON('data/settings.json');
       var yt = settings && settings.youtube_video;
-      if (!yt || !yt.active || !yt.videoId) {
+      if (!yt || !yt.active || !validYoutubeId(yt.videoId)) {
         section.style.display = 'none';
         return;
       }
-      var title    = yt.title    || 'Discover Morocco';
-      var subtitle = yt.subtitle || 'Watch our video and feel the magic';
+      var title    = escapeHTML(yt.title || 'Discover Morocco');
+      var subtitle = escapeHTML(yt.subtitle || 'Watch our video and feel the magic');
       section.innerHTML =
         '<div class="yt-section-inner">' +
           '<span class="section-kicker"><i class="fab fa-youtube"></i> Video</span>' +
@@ -159,7 +244,7 @@
           (subtitle ? '<p class="section-sub">' + subtitle + '</p>' : '') +
           '<div class="divider"></div>' +
           '<div class="yt-embed-wrap">' +
-            '<iframe src="https://www.youtube.com/embed/' + yt.videoId + '?rel=0&modestbranding=1"' +
+           '<iframe src="https://www.youtube.com/embed/' + encodeURIComponent(yt.videoId) + '?rel=0&modestbranding=1"' +
               ' title="' + title + '" frameborder="0" allowfullscreen loading="lazy"' +
               ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">' +
             '</iframe>' +
@@ -173,7 +258,7 @@
 
   /* ── Re-attach filter tab buttons ── */
   function reattachFilterTabs() {
-    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+       document.querySelectorAll('.filter-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
         document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
         btn.classList.add('active');
@@ -190,6 +275,7 @@
     try {
       var s = await fetchJSON('data/settings.json');
       if (!s) return;
+       window.dispatchEvent(new CustomEvent('ochre:settings', { detail: s }));
       /* WhatsApp */
       if (s.contact && s.contact.whatsapp) {
         var wa = s.contact.whatsapp;
@@ -228,12 +314,16 @@
     applySettings();
     renderIndexServices();
     renderExcursionsPage();
+    renderCircuitsPage();
+    renderAgafayPage();
     renderYouTubeSection();
   });
 
   window.OchreDataLoader = {
     renderIndexServices:    renderIndexServices,
     renderExcursionsPage:   renderExcursionsPage,
+    renderCircuitsPage:     renderCircuitsPage,
+    renderAgafayPage:       renderAgafayPage,
     renderYouTubeSection:   renderYouTubeSection,
     applySettings:          applySettings
   };

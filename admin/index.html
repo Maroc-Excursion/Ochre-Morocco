@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
@@ -208,42 +208,15 @@ textarea.form-control{resize:vertical;min-height:80px}
   <div class="auth-card">
     <div class="auth-logo"><i class="fas fa-map-marked-alt"></i></div>
     <h2>Ochre Morocco</h2>
-    <p>لوحة التحكم الإدارية</p>
+    <p>لوحة التحكم الإدارية — دخول آمن عبر GitHub</p>
     <div id="login-error" class="alert alert-danger" style="display:none"></div>
     <div class="form-group">
-      <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
-      <input type="email" id="inp-email" class="form-control" placeholder="admin@ochremorocco.com" autocomplete="email"/>
-    </div>
-    <div class="form-group">
-      <label><i class="fas fa-lock"></i> كلمة السر</label>
-      <input type="password" id="inp-pass" class="form-control" placeholder="••••••••" autocomplete="current-password"/>
+      <label><i class="fas fa-key"></i> GitHub Personal Access Token</label>
+      <input type="password" id="inp-pass" class="form-control" placeholder="ghp_ أو github_pat_..." autocomplete="off" spellcheck="false"/>
+      <div class="form-hint">يُستخدم للتحقق من صلاحية إدارة هذا المستودع، ويُحفظ في جلسة المتصفح الحالية فقط.</div>
     </div>
     <button class="btn btn-primary btn-block" onclick="doLogin()">
       <i class="fas fa-sign-in-alt"></i> دخول
-    </button>
-  </div>
-</div>
-
-<!-- Screen 2: Token Setup (first time only) -->
-<div id="screen-token" class="auth-screen" style="display:none">
-  <div class="auth-card">
-    <div class="auth-logo"><i class="fas fa-key"></i></div>
-    <h2>إعداد أول مرة</h2>
-    <p>أدخل GitHub Token مرة واحدة فقط — سيُحفظ بشكل دائم ولن يُطلب منك مرة أخرى.</p>
-    <div class="alert alert-info" style="margin-bottom:20px">
-      <i class="fas fa-info-circle"></i>
-      اذهب إلى <strong>GitHub → Settings → Developer settings → Personal access tokens</strong> وأنشئ token بصلاحية <strong>repo</strong>
-    </div>
-    <div id="token-error" class="alert alert-danger" style="display:none"></div>
-    <div class="form-group">
-      <label><i class="fas fa-key"></i> GitHub Personal Access Token</label>
-      <input type="password" id="inp-token" class="form-control" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"/>
-    </div>
-    <button class="btn btn-primary btn-block" onclick="doSaveToken()">
-      <i class="fas fa-save"></i> حفظ وإطلاق لوحة التحكم
-    </button>
-    <button class="btn btn-ghost btn-block" style="margin-top:8px" onclick="doLogout()">
-      <i class="fas fa-arrow-left"></i> رجوع
     </button>
   </div>
 </div>
@@ -632,14 +605,13 @@ textarea.form-control{resize:vertical;min-height:80px}
 // ════════════════════════════════════════
 // CONFIG — بيانات الدخول ورابط المستودع
 // ════════════════════════════════════════
-const ADMIN_EMAIL    = 'admin@ochremorocco.com';
-const ADMIN_PASSWORD = 'Ochre@2025';
 const REPO           = 'Maroc-Excursion/Ochre-Morocco';
 const BRANCH         = 'main';
 const BASE_API       = `https://api.github.com/repos/${REPO}/contents`;
 
-// الحصول على Token من localStorage
-function getToken() { return localStorage.getItem('ochre_gh_token') || ''; }
+// The token is deliberately session-scoped. A static GitHub Pages admin cannot
+// keep a GitHub token server-side, so never persist it in localStorage.
+function getToken() { return sessionStorage.getItem('ochre_gh_token') || ''; }
 
 let DATA       = { excursions: [], circuits: [], transfers: [], settings: {} };
 let FILE_SHAS  = {};
@@ -648,70 +620,55 @@ let currentPage = 'dashboard';
 // ════════════════════════════════════════
 // AUTH: LOGIN & TOKEN SETUP
 // ════════════════════════════════════════
-function doLogin() {
-  const email = document.getElementById('inp-email').value.trim();
-  const pass  = document.getElementById('inp-pass').value;
+async function doLogin() {
+  const token = document.getElementById('inp-pass').value.trim();
   const errEl = document.getElementById('login-error');
   errEl.style.display = 'none';
 
-  if (!email || !pass) {
-    errEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> أدخل البريد الإلكتروني وكلمة السر.';
-    errEl.style.display = 'flex'; return;
-  }
-  if (email !== ADMIN_EMAIL || pass !== ADMIN_PASSWORD) {
-    errEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> البريد الإلكتروني أو كلمة السر غير صحيحة.';
-    errEl.style.display = 'flex'; return;
-  }
-
-  // بيانات الدخول صحيحة — هل يوجد token محفوظ؟
-  const token = getToken();
   if (!token) {
-    // عرض شاشة إدخال Token (مرة واحدة فقط)
-    document.getElementById('screen-login').style.display = 'none';
-    document.getElementById('screen-token').style.display = 'flex';
-  } else {
-    // لوحة التحكم مباشرة
-    launchAdmin();
-  }
-}
-
-async function doSaveToken() {
-  const token = document.getElementById('inp-token').value.trim();
-  const errEl = document.getElementById('token-error');
-  errEl.style.display = 'none';
-  if (!token) {
-    errEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> أدخل الـ Token.';
+    errEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> أدخل GitHub Token.';
     errEl.style.display = 'flex'; return;
   }
-  // التحقق من صحة التوكن
+  const button = document.querySelector('#screen-login .btn-primary');
+  button.disabled = true;
+  button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جارٍ التحقق...';
   try {
     const res = await fetch(`https://api.github.com/repos/${REPO}`, {
-      headers: { Authorization: `token ${token}` }
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/vnd.github+json'
+      }
     });
-    if (!res.ok) throw new Error('Token غير صالح أو لا يملك صلاحية الوصول للمستودع.');
-    // حفظ في localStorage — يبقى دائماً حتى يُمسح يدوياً
-    localStorage.setItem('ochre_gh_token', token);
+    const details = await res.json();
+    if (!res.ok) throw new Error('التوكن غير صالح أو لا يملك صلاحية الوصول للمستودع.');
+    if (!details.permissions || (!details.permissions.push && !details.permissions.admin)) {
+      throw new Error('التوكن يتيح القراءة فقط. يلزم تفعيل صلاحية الكتابة للمستودع.');
+    }
+    sessionStorage.setItem('ochre_gh_token', token);
     launchAdmin();
   } catch (e) {
     errEl.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${e.message}`;
     errEl.style.display = 'flex';
+  } finally {
+    button.disabled = false;
+    button.innerHTML = '<i class="fas fa-sign-in-alt"></i> دخول';
   }
 }
 
 function launchAdmin() {
   sessionStorage.setItem('ochre_authed', '1');
   document.getElementById('screen-login').style.display = 'none';
-  document.getElementById('screen-token').style.display = 'none';
   document.getElementById('admin-layout').style.display = 'flex';
   loadAllData();
 }
 
 function doLogout() {
   sessionStorage.removeItem('ochre_authed');
+  sessionStorage.removeItem('ochre_gh_token');
   document.getElementById('admin-layout').style.display = 'none';
   document.getElementById('screen-login').style.display = 'flex';
-  document.getElementById('inp-email').value = '';
   document.getElementById('inp-pass').value = '';
+  document.getElementById('login-error').style.display = 'none';
 }
 
 // ════════════════════════════════════════
@@ -727,16 +684,14 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // Enter key for login
-document.getElementById('inp-email').addEventListener('keypress', e => { if(e.key==='Enter') document.getElementById('inp-pass').focus(); });
 document.getElementById('inp-pass').addEventListener('keypress', e => { if(e.key==='Enter') doLogin(); });
-document.getElementById('inp-token').addEventListener('keypress', e => { if(e.key==='Enter') doSaveToken(); });
 
 // ════════════════════════════════════════
 // GITHUB API
 // ════════════════════════════════════════
 async function ghGet(path) {
   const res = await fetch(`${BASE_API}/${path}?ref=${BRANCH}`, {
-    headers: { Authorization: `token ${getToken()}`, Accept: 'application/vnd.github.v3+json' }
+      headers: { Authorization: `Bearer ${getToken()}`, Accept: 'application/vnd.github+json' }
   });
   if (!res.ok) throw new Error(`فشل جلب ${path}: ${res.status}`);
   const d = await res.json();
@@ -755,8 +710,8 @@ async function ghPut(path, data, sha, message) {
   const res = await fetch(`${BASE_API}/${path}`, {
     method: 'PUT',
     headers: {
-      Authorization: `token ${getToken()}`,
-      Accept: 'application/vnd.github.v3+json',
+      Authorization: `Bearer ${getToken()}`,
+      Accept: 'application/vnd.github+json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
@@ -1329,8 +1284,8 @@ async function uploadImage(fieldId, previewId) {
         const res = await fetch(`${BASE_API}/${repoPath}`, {
           method: 'PUT',
           headers: {
-            Authorization: `token ${getToken()}`,
-            Accept: 'application/vnd.github.v3+json',
+             Authorization: `Bearer ${getToken()}`,
+             Accept: 'application/vnd.github+json',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
