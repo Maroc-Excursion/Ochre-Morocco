@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="icon" type="image/webp" href="assets/images/webp/logo.webp" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --gold: #c8922b; --green: #1e6b3c; --dark: #1a1a1a; --light: #f7f3ee; --white: #fff; --muted: #666; }
@@ -82,6 +83,18 @@
       .hero h1 { font-size: 1.6rem; }
       .btn-wa-header { display: none; }
     }
+
+    /* HEADER RIGHT */
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    /* LANG SWITCHER */
+    .lang-switcher { position: relative; }
+    .lang-switcher-btn { background: #f4f0ea; border: 1.5px solid #e0d4c0; color: var(--dark); padding: 6px 12px; border-radius: 20px; font-size: .78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 5px; font-family: inherit; transition: background .18s; }
+    .lang-switcher-btn:hover { background: #ede5d8; }
+    .lang-switcher-btn i.fa-globe { color: var(--gold); }
+    .lang-dropdown { position: absolute; right: 0; top: calc(100% + 8px); background: #fff; border-radius: 12px; box-shadow: 0 6px 28px rgba(0,0,0,.16); padding: 6px; min-width: 140px; display: none; z-index: 9999; border: 1px solid #f0e8d8; }
+    .lang-dropdown.open { display: flex; flex-direction: column; }
+    .lang-option { background: none; border: none; padding: 9px 14px; border-radius: 8px; cursor: pointer; font-size: .84rem; font-weight: 500; color: #333; text-align: left; transition: background .15s; width: 100%; }
+    .lang-option:hover, .lang-option.active { background: #f7f0e6; color: var(--gold); font-weight: 700; }
   </style>
 </head>
 <body>
@@ -100,18 +113,33 @@
     <span class="logo-text">Ochre <span>Morocco</span></span>
   </a>
   <nav>
-    <a href="index.html">Home</a>
-    <a href="excursions.html">Excursions</a>
-    <a href="transferts.html">Transfers</a>
-    <a href="contact.html">Contact</a>
-      <a href="about.html" class="active">About</a>
+    <a href="index.html" data-i18n="nav_home">Home</a>
+    <a href="excursions.html" data-i18n="nav_exc">Excursions</a>
+    <a href="transferts.html" data-i18n="nav_trans">Transfers</a>
+    <a href="contact.html" data-i18n="nav_contact">Contact</a>
+    <a href="about.html" class="active" data-i18n="nav_about">About</a>
+    <a href="blog.html" data-i18n="nav_blog">Blog</a>
   </nav>
-  <a href="https://wa.me/212694170004" class="btn-wa-header" target="_blank" rel="noopener">
-    <i class="fab fa-whatsapp"></i> Book on WhatsApp
-  </a>
-  <button class="hamburger" aria-label="Menu" onclick="document.getElementById('mobileNav').classList.add('open')">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="header-right">
+    <div class="lang-switcher">
+      <button class="lang-switcher-btn" aria-label="Select language">
+        <i class="fas fa-globe"></i>
+        <span id="activeLangLabel">EN</span>
+        <i class="fas fa-chevron-down" style="font-size:.55rem"></i>
+      </button>
+      <div class="lang-dropdown">
+        <button class="lang-option active" data-lang="en">🇬🇧 English</button>
+        <button class="lang-option" data-lang="fr">🇫🇷 Français</button>
+        <button class="lang-option" data-lang="ar">🇲🇦 العربية</button>
+      </div>
+    </div>
+    <a href="https://wa.me/212694170004" class="btn-wa-header" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Book Now
+    </a>
+    <button class="hamburger" aria-label="Menu" onclick="document.getElementById('mobileNav').classList.add('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
 
 <div class="mobile-nav" id="mobileNav" onclick="this.classList.remove('open')">
@@ -122,6 +150,7 @@
     <a href="transferts.html">Transfers</a>
     <a href="contact.html">Contact</a>
     <a href="about.html" class="active">About</a>
+    <a href="blog.html">Blog</a>
     <a href="https://wa.me/212694170004" target="_blank" rel="noopener" style="color:#25d366"><i class="fab fa-whatsapp"></i> Book on WhatsApp</a>
   </div>
 </div>
@@ -195,5 +224,6 @@
 <a href="https://wa.me/212694170004" class="float-wa" target="_blank" rel="noopener" aria-label="WhatsApp">
   <i class="fab fa-whatsapp"></i>
 </a>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
