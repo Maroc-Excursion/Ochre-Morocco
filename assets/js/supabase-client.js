@@ -1,22 +1,30 @@
-/* ============================================================
-   OCHRE MOROCCO — Supabase Client
-   ملف مشترك يُستدعى من جميع الصفحات بعد تحميل مكتبة supabase-js
-   ============================================================ */
-
+/*
+ * Ochre Morocco — public Supabase client
+ *
+ * This file intentionally contains only the Supabase anon key.
+ * The anon key is designed for browser use; database and storage access
+ * must be protected by Supabase RLS policies.
+ */
 (function () {
   'use strict';
 
   var SUPABASE_URL = 'https://zuwvqoxurgwjyjgtnlmm.supabase.co';
-  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp1d3Zxb3h1cmd3anlqZ3RubG1tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUwMjA0OTYsImV4cCI6MjEwMDU5NjQ5Nn0.TJNM2ywcsGVNOKy9sVyr-OKXaA4OAZ5fG3dTFApixgQ';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp1d3Zxb3h1cmd3anlqZ3RubG1tIiwiaWF0IjoxNzg1MDIwNDk2LCJleHAiOjIxMDA1OTY0OTZ9.TJNM2ywcsGVNOKy9sVyr-OKXaA4OAZ5fG3dTFApixgQ';
 
-  if (typeof window.supabase === 'undefined') {
-    console.warn('[supabase-client] مكتبة Supabase غير محملة بعد. تأكد من تحميل CDN أولاً.');
+  if (!window.supabase || typeof window.supabase.createClient !== 'function') {
+    window.supabaseClientError = 'The Supabase library could not be loaded.';
     return;
   }
 
-  try {
-    window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  } catch (e) {
-    console.error('[supabase-client] خطأ في تهيئة العميل:', e);
-  }
+  window.supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
+    {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+      },
+    }
+  );
 })();
