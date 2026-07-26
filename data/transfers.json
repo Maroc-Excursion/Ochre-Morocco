@@ -1,32 +1,32 @@
 [
   {
     "id": "berline",
-    "type": "بيرلين",
-    "model": "Mercedes Classe E",
-    "capacity": "1–3 أشخاص",
+    "type": "Sedan",
+    "model": "Mercedes E-Class",
+    "capacity": "1–3 passengers",
     "price": 18,
     "image": "assets/images/vehicule-berline-aeroport.jpg",
-    "features": ["مكيف", "Wifi", "2 حقائب"],
+    "features": ["A/C", "Wi-Fi", "2 bags"],
     "popular": false
   },
   {
     "id": "minibus",
-    "type": "ميني باص",
+    "type": "Minibus",
     "model": "Mercedes Sprinter 8",
-    "capacity": "4–8 أشخاص",
+    "capacity": "4–8 passengers",
     "price": 35,
     "image": "assets/images/vehicule-minibus.jpg",
-    "features": ["مكيف", "Wifi", "8 حقائب"],
+    "features": ["A/C", "Wi-Fi", "8 bags"],
     "popular": true
   },
   {
     "id": "4x4",
-    "type": "4×4 فاخرة",
+    "type": "Luxury 4×4",
     "model": "Toyota Land Cruiser",
-    "capacity": "1–6 أشخاص",
+    "capacity": "1–6 passengers",
     "price": 55,
     "image": "assets/images/vehicule-4x4-desert.jpg",
-    "features": ["مسالك وعرة", "مكيف", "راحة فاخرة"],
+    "features": ["Off-road", "A/C", "Premium comfort"],
     "popular": false
   }
 ]
