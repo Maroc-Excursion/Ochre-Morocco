@@ -396,7 +396,18 @@
         /* Verify admin privileges — must explicitly return true from is_admin() */
         var adminCheck = await client.rpc('is_admin');
         if (adminCheck.error || adminCheck.data !== true) {
-          document.body.innerHTML = '<div style="padding:60px;color:#fff;text-align:center"><h2 style="color:#ed8585">Access Denied</h2><p style="color:#9ea8a4">Your account does not have administrator privileges.<br>Contact the site owner to be added as an admin.</p><a href="login.html" style="color:#42ba91">← Back to Login</a></div>';
+          var diagReason = adminCheck.error
+            ? '<b>RPC Error:</b> ' + (adminCheck.error.message || JSON.stringify(adminCheck.error)) +
+              '<br><br>This usually means the <code>is_admin()</code> function does not exist in your Supabase project yet.<br>Go to <b>Supabase → SQL Editor</b> and run <code>supabase-setup.sql</code> in full.'
+            : '<b>is_admin() returned false.</b><br><br>Your user ID is not in the <code>admin_users</code> table.<br>Go to <b>Supabase → SQL Editor</b> and run:<br><br><code>INSERT INTO admin_users (user_id) VALUES (auth.uid());</code><br><br><small>Run this while logged in won\'t work from SQL Editor — use your UUID instead:<br>Authentication → Users → copy your UUID → INSERT INTO admin_users (user_id) VALUES (\'your-uuid-here\');</small>';
+          document.body.innerHTML =
+            '<div style="padding:60px;max-width:620px;margin:auto;color:#fff;text-align:center;font-family:sans-serif">' +
+            '<h2 style="color:#ed8585">Access Denied</h2>' +
+            '<div style="background:#1a2a2a;border:1px solid #ed858566;border-radius:12px;padding:24px;text-align:left;color:#c8d8d4;font-size:14px;line-height:1.7;margin:24px 0">' +
+            diagReason +
+            '</div>' +
+            '<a href="login.html" style="color:#42ba91">← Back to Login</a>' +
+            '</div>';
           return;
         }
         bindEvents();
