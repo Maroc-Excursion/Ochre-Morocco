@@ -4,6 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Multi-day Morocco circuits from Marrakech with local guides, transport and memorable desert stays." />
+  <link rel="canonical" href="https://ochremorocco.com/circuits.html" />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://ochremorocco.com/circuits.html" />
+  <meta property="og:title"       content="Morocco Circuits – Ochre Morocco" />
+  <meta property="og:description" content="Multi-day Morocco circuits from Marrakech: Imperial Cities, Sahara Desert, Southern Morocco and more." />
+  <meta property="og:image"       content="https://ochremorocco.com/assets/images/webp/desert-nuit-etoiles.webp" />
+  <meta property="og:locale"      content="en_GB" />
+  <meta property="og:site_name"   content="Ochre Morocco" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Morocco Circuits – Ochre Morocco" />
+  <meta name="twitter:description" content="Multi-day Morocco circuits from Marrakech: Imperial Cities, Sahara Desert, Southern Morocco and more." />
+  <meta name="twitter:image"       content="https://ochremorocco.com/assets/images/webp/desert-nuit-etoiles.webp" />
   <title>Morocco Circuits – Ochre Morocco</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -38,6 +52,11 @@
     .lang-dropdown.open { display: flex; flex-direction: column; }
     .lang-option { background: none; border: none; padding: 9px 14px; border-radius: 8px; cursor: pointer; font-size: .84rem; font-weight: 500; color: #333; text-align: left; transition: background .15s; width: 100%; }
     .lang-option:hover, .lang-option.active { background: #f7f0e6; color: var(--gold); font-weight: 700; }
+    footer { background: var(--dark); color: rgba(255,255,255,.7); text-align: center; padding: 28px 24px; font-size: .85rem; }
+    footer a { color: var(--gold); }
+    .footer-social { display: flex; justify-content: center; gap: 16px; margin-bottom: 12px; }
+    .footer-social a { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.1); color: #fff; display: flex; align-items: center; justify-content: center; transition: background .2s; font-size: .9rem; }
+    .footer-social a:hover { background: var(--gold); }
   </style>
 </head>
 <body>
@@ -64,7 +83,16 @@
   <section class="hero"><img src="assets/images/webp/desert-nuit-etoiles.webp" alt="Morocco desert circuit" fetchpriority="high" decoding="async" /><div class="hero-content"><span class="hero-badge"><i class="fas fa-route"></i> Multi-day journeys</span><h1>Travel deeper into <span>Morocco</span></h1><p>Thoughtfully planned circuits through imperial cities, mountain roads, kasbahs and the Sahara.</p></div></section>
   <main class="section"><span class="section-kicker">Go beyond Marrakech</span><h2 class="section-title">Our Morocco circuits</h2><p class="section-sub">Choose a route, then send us your dates so our team can confirm availability.</p><div id="circuits-dynamic"></div></main>
   <section class="cta"><h2>Need a private itinerary?</h2><p>Tell us your dates, group size and travel style. We will shape the route with you.</p><a href="https://wa.me/212694170004?text=Hello%20Ochre%20Morocco%2C%20I%20would%20like%20a%20custom%20circuit." target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Plan my journey</a></section>
-  <footer><p>&copy; 2026 <a href="index.html">Ochre Morocco</a> &ndash; Marrakech Excursions &amp; Tours</p><p style="margin-top:6px"><a href="contact.html">Contact</a> &middot; <a href="mailto:ochremorocco@gmail.com">ochremorocco@gmail.com</a></p></footer>
+  <footer>
+  <div class="footer-social">
+    <a href="https://www.facebook.com/OchreMorocco" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://www.instagram.com/ochre.morocco" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@ochremorocco" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+    <a href="https://www.youtube.com/@OchreMorocco" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+  </div>
+  <p>© 2026 <a href="index.html">Ochre Morocco</a> – All rights reserved. Marrakech, Morocco.</p>
+  <p style="margin-top:6px"><a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms &amp; Conditions</a></p>
+</footer>
   <a href="https://wa.me/212694170004" class="float-wa" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="assets/js/supabase-client.js"></script>
