@@ -227,14 +227,14 @@
     '<button class="bk-btn-primary" id="bk-done">Close</button>',
     '</div>',
 
-    '</div>',<!-- /bk-body -->
+    '</div>', // /bk-body
 
     '<div class="bk-footer-bar">',
     '<i class="fas fa-lock"></i> Secure &nbsp;|&nbsp; <i class="fas fa-shield-halved"></i> Encrypted &nbsp;|&nbsp; <i class="fas fa-undo"></i> Flexible Booking',
     '</div>',
 
-    '</div>',<!-- /bk-modal -->
-    '</div>'  <!-- /bk-overlay -->
+    '</div>', // /bk-modal
+    '</div>'  // /bk-overlay
   ].join(''));
 
   /* ── HELPERS ─────────────────────────────────────────────── */

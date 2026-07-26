@@ -284,7 +284,7 @@
       }
       container.innerHTML = '<p style="text-align:center;padding:60px 20px;color:#999">' +
         '<i class="fas fa-exclamation-triangle"></i>&nbsp; Unable to load services. ' +
-        '<a href="javascript:location.reload()" style="color:var(--gold,#c8922b)">Retry</a></p>';
+        '<button onclick="location.reload()" style="background:none;border:none;color:var(--gold,#c8922b);cursor:pointer;padding:0;font:inherit;text-decoration:underline">Retry</button></p>';
     }
   }
 
