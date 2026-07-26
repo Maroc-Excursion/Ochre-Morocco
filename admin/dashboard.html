@@ -39,6 +39,7 @@
         <button class="nav-button" data-view="services"><i class="fa-solid fa-route"></i> Experiences <span id="nav-experiences" class="nav-count">0</span></button>
         <button class="nav-button" data-view="bookings"><i class="fa-regular fa-calendar-check"></i> Bookings <span id="nav-bookings" class="nav-count">0</span></button>
         <button class="nav-button" data-view="settings"><i class="fa-solid fa-gear"></i> Settings</button>
+        <button class="nav-button" data-view="emailjs"><i class="fa-solid fa-envelope-open-text"></i> Email Setup</button>
       </nav>
       <div class="account"><div id="avatar" class="avatar">O</div><div class="account-copy"><div id="account-email" class="account-email">Loading…</div><div class="account-role">Supabase account</div></div><button id="logout-button" class="logout" title="Sign out"><i class="fa-solid fa-arrow-right-from-bracket"></i></button></div>
     </aside>
@@ -47,7 +48,7 @@
       <div class="content">
         <section id="view-overview" class="view active">
           <div class="page-heading"><div><h2>Good to see you.</h2><p>Your Morocco experiences at a glance.</p></div><button class="button" data-open-form><i class="fa-solid fa-plus"></i> New experience</button></div>
-          <div class="stats"><div class="stat"><div class="stat-top">Total experiences <span class="stat-icon"><i class="fa-solid fa-route"></i></span></div><div id="stat-total" class="stat-value">—</div></div><div class="stat"><div class="stat-top">Published <span class="stat-icon"><i class="fa-solid fa-eye"></i></span></div><div id="stat-active" class="stat-value">—</div></div><div class="stat"><div class="stat-top">Bookings <span class="stat-icon"><i class="fa-regular fa-calendar-check"></i></span></div><div id="stat-bookings" class="stat-value">—</div></div><div class="stat"><div class="stat-top">Pending <span class="stat-icon"><i class="fa-regular fa-clock"></i></span></div><div id="stat-pending" class="stat-value">—</div></div></div>
+          <div class="stats" style="grid-template-columns:repeat(5,1fr)"><div class="stat"><div class="stat-top">Total experiences <span class="stat-icon"><i class="fa-solid fa-route"></i></span></div><div id="stat-total" class="stat-value">—</div></div><div class="stat"><div class="stat-top">Published <span class="stat-icon"><i class="fa-solid fa-eye"></i></span></div><div id="stat-active" class="stat-value">—</div></div><div class="stat"><div class="stat-top">Bookings <span class="stat-icon"><i class="fa-regular fa-calendar-check"></i></span></div><div id="stat-bookings" class="stat-value">—</div></div><div class="stat"><div class="stat-top">Pending <span class="stat-icon"><i class="fa-regular fa-clock"></i></span></div><div id="stat-pending" class="stat-value">—</div></div><div class="stat"><div class="stat-top">Total Revenue <span class="stat-icon" style="color:var(--green-light);background:rgba(66,186,145,.14)"><i class="fa-solid fa-euro-sign"></i></span></div><div id="stat-revenue" class="stat-value" style="color:var(--green-light)">—</div></div></div>
           <div class="table-card"><div class="table-toolbar"><h3>Latest experiences</h3><button class="button secondary small" data-view-link="services">View all</button></div><div id="recent-table"></div></div>
         </section>
         <section id="view-services" class="view">
@@ -55,7 +56,7 @@
           <div class="table-card"><div class="table-toolbar"><h3>All experiences</h3><select id="category-filter" class="control"><option value="">All categories</option><option value="excursion">Excursions</option><option value="circuit">Circuits</option><option value="transfert">Transfers</option></select><input id="experience-search" class="control search" type="search" placeholder="Search experiences"></div><div id="experiences-table"></div></div>
         </section>
         <section id="view-bookings" class="view">
-          <div class="page-heading"><div><h2>Bookings</h2><p>Review customer requests and update their status.</p></div></div>
+          <div class="page-heading"><div><h2>Bookings</h2><p>Review customer requests and update their status.</p></div><button id="export-csv-btn" class="button secondary"><i class="fa-solid fa-file-csv"></i> Export CSV</button></div>
           <div class="table-card"><div class="table-toolbar"><h3>Booking requests</h3><select id="booking-filter" class="control"><option value="">All statuses</option><option value="pending">Pending</option><option value="confirmed">Confirmed</option><option value="cancelled">Cancelled</option></select><input id="booking-search" class="control search" type="search" placeholder="Search by name or email"></div><div id="bookings-table"></div></div>
         </section>
         <section id="view-settings" class="view">
@@ -90,6 +91,43 @@
                 <button type="submit" class="button"><i class="fa-solid fa-floppy-disk"></i> Save Settings</button>
               </div>
             </form>
+          </div>
+        <section id="view-emailjs" class="view">
+          <div class="page-heading"><h2>Email Setup</h2></div>
+          <div class="table-card" style="max-width:680px">
+            <div class="table-toolbar"><h3>EmailJS Configuration</h3></div>
+            <div style="padding:20px 24px">
+              <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:20px">
+                EmailJS lets you send booking confirmations directly from the browser — no backend needed.<br>
+                <strong style="color:var(--ink)">Setup:</strong> Create a free account at <a href="https://www.emailjs.com" target="_blank" rel="noopener" style="color:var(--green-light)">emailjs.com</a>, add your email service (Gmail / Outlook), create two templates (<code>ownerTpl</code> and <code>clientTpl</code>), then paste your IDs below into <code>assets/js/booking.js</code>.
+              </p>
+              <div style="background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:16px 20px;font-size:12px;line-height:2">
+                <div style="display:grid;grid-template-columns:160px 1fr;gap:6px 14px;align-items:center">
+                  <span style="color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em">enabled</span><span style="color:var(--gold)">false → <strong>true</strong> once IDs are set</span>
+                  <span style="color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em">publicKey</span><span style="color:var(--ink)">Your EmailJS public key (Account → API Keys)</span>
+                  <span style="color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em">serviceId</span><span style="color:var(--ink)">Email service ID (e.g. <code>service_abc123</code>)</span>
+                  <span style="color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em">ownerTpl</span><span style="color:var(--ink)">Template that notifies you of new bookings</span>
+                  <span style="color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em">clientTpl</span><span style="color:var(--ink)">Template sent to the customer as confirmation</span>
+                </div>
+              </div>
+              <p style="color:var(--muted);font-size:12px;margin-top:16px">
+                <i class="fa-solid fa-circle-info" style="color:var(--blue)"></i>
+                Edit <code>assets/js/booking.js</code> lines 5–16 and replace <code>YOUR_PUBLIC_KEY</code> etc. with your real IDs, then set <code>enabled: true</code>.
+              </p>
+            </div>
+          </div>
+          <div class="table-card" style="max-width:680px;margin-top:20px">
+            <div class="table-toolbar"><h3>Payment Links (Stripe)</h3></div>
+            <div style="padding:20px 24px">
+              <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:16px">
+                Create a <a href="https://stripe.com" target="_blank" rel="noopener" style="color:var(--green-light)">Stripe Payment Link</a> for each service and paste the URL in <code>assets/js/booking.js</code> under <code>payLinks</code>. Leaving a service URL empty routes the customer to WhatsApp instead.
+              </p>
+              <div style="background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:14px 20px;font-size:12px;color:var(--muted)">
+                <code style="color:var(--ink)">'airport-transfer': ''</code> → paste Stripe URL here<br>
+                <code style="color:var(--ink)">'agafay-desert-pack': ''</code> → paste Stripe URL here<br>
+                <span style="opacity:.6">…one entry per service in <code>booking.js</code></span>
+              </div>
+            </div>
           </div>
         </section>
       </div>
@@ -200,8 +238,29 @@
         $('stat-active').textContent = experiences.filter(function (item) { return item.is_active; }).length;
         $('stat-bookings').textContent = bookings.length;
         $('stat-pending').textContent = bookings.filter(function (item) { return item.status === 'pending'; }).length;
+        var revenue = bookings.reduce(function (sum, b) { return sum + (parseFloat(b.amount) || 0); }, 0);
+        $('stat-revenue').textContent = '€' + revenue.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
         $('nav-experiences').textContent = experiences.length;
         $('nav-bookings').textContent = bookings.length;
+      }
+      function exportBookingsCSV() {
+        var headers = ['ID','Client Name','Email','Phone','Service','Date','Guests','Amount','Currency','Payment Method','Payment Status','Booking Status','Notes','Created At'];
+        var rows = bookings.map(function (b) {
+          return [
+            b.id, b.client_name, b.client_email, b.client_phone,
+            b.service_name || '', b.booking_date || '', b.people_count || 1,
+            b.amount || 0, b.currency || 'EUR', b.payment_method || '',
+            b.payment_status || '', b.status || '', (b.notes || '').replace(/"/g,'""'),
+            b.created_at || ''
+          ].map(function (v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; }).join(',');
+        });
+        var csv = [headers.join(',')].concat(rows).join('\n');
+        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url; a.download = 'ochre-bookings-' + new Date().toISOString().slice(0,10) + '.csv';
+        a.click(); URL.revokeObjectURL(url);
+        toast('CSV exported — ' + bookings.length + ' bookings', 'success');
       }
       async function loadData() {
         var experienceResult = await client.from('excursions').select('*').order('created_at', { ascending: false });
@@ -313,7 +372,7 @@
       function showView(name) {
         document.querySelectorAll('.view').forEach(function (view) { view.classList.toggle('active', view.id === 'view-' + name); });
         document.querySelectorAll('.nav-button').forEach(function (button) { button.classList.toggle('active', button.dataset.view === name); });
-        $('page-title').textContent = ({ overview:'Overview', services:'Experiences', bookings:'Bookings', settings:'Settings' })[name] || 'Overview';
+        $('page-title').textContent = ({ overview:'Overview', services:'Experiences', bookings:'Bookings', settings:'Settings', emailjs:'Email Setup' })[name] || 'Overview';
       }
       function bindEvents() {
         document.querySelectorAll('.nav-button').forEach(function (button) { button.addEventListener('click', function () { showView(button.dataset.view); }); });
@@ -327,6 +386,7 @@
         $('experiences-table').addEventListener('click', function (event) { var edit = event.target.closest('[data-edit]'); var remove = event.target.closest('[data-delete]'); if (edit) openForm(experiences.find(function (item) { return item.id === edit.dataset.edit; })); if (remove) { deleteId = remove.dataset.delete; var record = experiences.find(function (item) { return item.id === deleteId; }); $('delete-name').textContent = record ? record.title : ''; $('confirm-modal').classList.add('open'); } });
         $('confirm-delete').addEventListener('click', deleteExperience);
         $('settings-form').addEventListener('submit', saveSettings);
+        $('export-csv-btn').addEventListener('click', exportBookingsCSV);
         $('bookings-table').addEventListener('change', function (event) { if (event.target.dataset.bookingStatus) updateBookingStatus(event.target.dataset.bookingStatus, event.target.value); if (event.target.dataset.paymentStatus) updatePaymentStatus(event.target.dataset.paymentStatus, event.target.value); });
         $('logout-button').addEventListener('click', async function () { await client.auth.signOut(); window.location.replace('login.html'); });
         document.addEventListener('keydown', function (event) { if (event.key === 'Escape') { closeForm(); $('confirm-modal').classList.remove('open'); } });
