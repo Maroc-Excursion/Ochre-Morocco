@@ -28,14 +28,34 @@
     });
   }
 
+  /* Maps generic/missing image names → actual existing webp files */
+  var IMG_ALIAS = {
+    'agafay':     'agafay-coucher-soleil',
+    'merzouga':   'merzouga-camp-coucher',
+    'transfert':  'vehicule-berline-aeroport',
+    'ourika':     'ourika-randonnee',
+    'fes':        'fes-riad-interieur',
+    'essaouira':  'essaouira-remparts-vagues',
+    'sahara':     'sahara-caravane-coucher',
+    'desert':     'desert-nuit-etoiles',
+    'atlas':      'atlas-randonnee-groupe',
+    'imlil':      'imlil-village',
+    'dades':      'dades-gorges',
+    'ouzoud':     'ouzoud-cascades',
+    'casablanca': 'casablanca-hassan2',
+    'zagora':     'zagora-route-palmiers',
+    'marrakech':  'marrakech-koutoubia-coucher',
+  };
+
   function imageSrc(path) {
     var value = String(path || '').trim();
     if (/^https?:\/\//i.test(value)) return value;
     if (/^(?:javascript|data|vbscript):/i.test(value)) return 'assets/images/webp/agafay-coucher-soleil.webp';
     if (!value) return 'assets/images/webp/agafay-coucher-soleil.webp';
-    if (value.indexOf('assets/images/') === 0 && /\.(?:jpe?g|png)$/i.test(value)) {
-      var filename = value.split('/').pop().replace(/\.(?:jpe?g|png)$/i, '');
-      return 'assets/images/webp/' + filename + '.webp';
+    if (value.indexOf('assets/images/') === 0 && /\.(?:jpe?g|png|webp)$/i.test(value)) {
+      var filename = value.split('/').pop().replace(/\.(?:jpe?g|png|webp)$/i, '');
+      var resolved = IMG_ALIAS[filename] || filename;
+      return 'assets/images/webp/' + resolved + '.webp';
     }
     return value;
   }
