@@ -255,7 +255,7 @@
         $('experiences-table').addEventListener('click', function (event) { var edit = event.target.closest('[data-edit]'); var remove = event.target.closest('[data-delete]'); if (edit) openForm(experiences.find(function (item) { return item.id === edit.dataset.edit; })); if (remove) { deleteId = remove.dataset.delete; var record = experiences.find(function (item) { return item.id === deleteId; }); $('delete-name').textContent = record ? record.title : ''; $('confirm-modal').classList.add('open'); } });
         $('confirm-delete').addEventListener('click', deleteExperience);
         $('bookings-table').addEventListener('change', function (event) { if (event.target.dataset.bookingStatus) updateBookingStatus(event.target.dataset.bookingStatus, event.target.value); });
-        $('logout-button').addEventListener('click', async function () { await client.auth.signOut(); window.location.replace('index.html'); });
+        $('logout-button').addEventListener('click', async function () { await client.auth.signOut(); window.location.replace('login.html'); });
         document.addEventListener('keydown', function (event) { if (event.key === 'Escape') { closeForm(); $('confirm-modal').classList.remove('open'); } });
       }
       async function init() {

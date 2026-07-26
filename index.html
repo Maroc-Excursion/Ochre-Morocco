@@ -414,6 +414,7 @@
     <a href="excursions.html" data-i18n="nav_exc">Excursions</a>
     <a href="transferts.html" data-i18n="nav_trans">Transfers</a>
     <a href="contact.html" data-i18n="nav_contact">Contact</a>
+    <a href="about.html" data-i18n="nav_about">About</a>
   </nav>
   <div class="header-right">
     <div class="lang-switcher">
@@ -431,11 +432,23 @@
     <a href="https://wa.me/212694170004" class="btn-wa-header hide-sm" target="_blank" rel="noopener">
       <i class="fab fa-whatsapp"></i> Book Now
     </a>
-    <button class="hamburger" aria-label="Menu">
+    <button class="hamburger" aria-label="Menu" onclick="document.getElementById('mobileNav').classList.add('open')">
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav" onclick="this.classList.remove('open')">
+  <div class="mobile-nav-panel" onclick="event.stopPropagation()">
+    <button class="mobile-nav-close" onclick="document.getElementById('mobileNav').classList.remove('open')" style="background:none;border:none;font-size:1.4rem;cursor:pointer;align-self:flex-end;color:#1a1a1a;margin-bottom:8px">✕</button>
+    <a href="index.html" style="font-weight:600;font-size:1rem;color:#1a1a1a;text-decoration:none">Home</a>
+    <a href="excursions.html" style="font-weight:600;font-size:1rem;color:#1a1a1a;text-decoration:none">Excursions</a>
+    <a href="transferts.html" style="font-weight:600;font-size:1rem;color:#1a1a1a;text-decoration:none">Transfers</a>
+    <a href="contact.html" style="font-weight:600;font-size:1rem;color:#1a1a1a;text-decoration:none">Contact</a>
+    <a href="about.html" style="font-weight:600;font-size:1rem;color:#1a1a1a;text-decoration:none">About</a>
+    <a href="https://wa.me/212694170004" target="_blank" rel="noopener" style="color:#25d366;font-weight:600;font-size:1rem;text-decoration:none"><i class="fab fa-whatsapp"></i> Book on WhatsApp</a>
+  </div>
+</div>
 
 <!-- TRUST STRIP -->
 <div class="trust-strip">

@@ -17,7 +17,8 @@
   var CAT_LABELS = {
     activities: { icon: 'fa-bolt',       label: 'Activities & Adventures' },
     day:        { icon: 'fa-sun',        label: 'Day Excursions' },
-    desert:     { icon: 'fa-campground', label: 'Desert Tours' }
+    desert:     { icon: 'fa-campground', label: 'Desert Tours' },
+    transfers:  { icon: 'fa-car',        label: 'Airport Transfers' }
   };
 
   function mapCat(cat) { return CAT_MAP[cat] || 'activities'; }
@@ -216,19 +217,21 @@
       .filter(function(e) { return e.active !== false && e.is_active !== false; })
       .sort(function(a, b) { return (a.order || 99) - (b.order || 99); });
 
-    var groups = { activities: [], day: [], desert: [] };
+    var groups = { activities: [], day: [], desert: [], transfers: [] };
     active.forEach(function(e) {
-      var cat = e.category === 'excursion' || e.category === 'transfert'
+      var cat = e.category === 'excursion'
         ? 'activities'
         : e.category === 'circuit'
           ? 'day'
-          : mapCat(e.category || '');
+          : e.category === 'transfert'
+            ? 'transfers'
+            : mapCat(e.category || '');
       if (!groups[cat]) groups[cat] = [];
       groups[cat].push(e);
     });
 
     var html = '';
-    ['activities', 'day', 'desert'].forEach(function(cat) {
+    ['activities', 'day', 'desert', 'transfers'].forEach(function(cat) {
       var items = groups[cat];
       if (!items || !items.length) return;
       var cl = CAT_LABELS[cat] || { icon: 'fa-star', label: cat };
