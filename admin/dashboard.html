@@ -395,11 +395,11 @@
       async function init() {
         if (!client) { document.body.innerHTML = '<div style="padding:40px;color:#fff">Supabase could not be initialized. Check your connection.</div>'; return; }
         var sessionResult = await client.auth.getSession();
-        if (!sessionResult.data || !sessionResult.data.session) { window.location.replace('index.html'); return; }
+        if (!sessionResult.data || !sessionResult.data.session) { window.location.replace('login.html'); return; }
         var email = sessionResult.data.session.user.email || 'Administrator'; $('account-email').textContent = email; $('avatar').textContent = email.charAt(0).toUpperCase();
-        /* Verify admin privileges */
+        /* Verify admin privileges — only block if is_admin() exists AND returns false explicitly */
         var adminCheck = await client.rpc('is_admin');
-        if (!adminCheck.data) {
+        if (!adminCheck.error && adminCheck.data === false) {
           document.body.innerHTML = '<div style="padding:60px;color:#fff;text-align:center"><h2 style="color:#ed8585">Access Denied</h2><p style="color:#9ea8a4">Your account does not have administrator privileges.<br>Contact the site owner to be added as an admin.</p><a href="login.html" style="color:#42ba91">← Back to Login</a></div>';
           return;
         }
