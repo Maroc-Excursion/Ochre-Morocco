@@ -8,11 +8,15 @@
   var CFG = {
     whatsapp: '212694170004',
 
-    /* Stripe / PayPal payment links (optional).
-       Create a Stripe Payment Link at stripe.com, paste URL here per service.
-       Leave empty '' to use WhatsApp fallback for card payments.             */
+    /* ── STRIPE ─────────────────────────────────────────────────────────────
+       1. Go to https://dashboard.stripe.com → Products → Add product for each service
+       2. Copy the Payment Link URL (not the price ID) and paste it below.
+       3. Replace STRIPE_PUBLISHABLE_KEY with your pk_live_… or pk_test_… key.
+       Leave stripeKey empty '' and payLinks empty '' to fall back to WhatsApp. */
+    stripeKey: '',   /* e.g. 'pk_live_xxxxxxxxxxxxxxxxxxxx' */
+
     payLinks: {
-      'airport-transfer':    '',
+      'airport-transfer':    '',   /* paste Stripe Payment Link URL here */
       'agafay-desert-pack':  '',
       'hot-air-balloon':     '',
       'paragliding':         '',
