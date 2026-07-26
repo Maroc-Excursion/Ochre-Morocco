@@ -139,7 +139,7 @@
     }
     var discount  = exc.badge ? '<span class="badge-discount">' + escapeHTML(exc.badge) + '</span>' : '';
     var tag       = exc.tags && exc.tags[0] ? '<span class="badge-tag">' + escapeHTML(exc.tags[0]) + '</span>' : '';
-    var oldPrice  = exc.oldPrice ? '<span class="price-old">&euro;' + escapeHTML(String(exc.oldPrice)) + '</span>' : '';
+    var oldPrice  = exc.oldPrice ? '<span class="price-old" data-eur-old="' + escapeHTML(String(exc.oldPrice)) + '">&euro;' + escapeHTML(String(exc.oldPrice)) + '</span>' : '';
     var svcType   = (exc.category || '').includes('transfer') || exc.category === 'transfert' ? 'transfer' : 'excursion';
     var imgRaw    = exc.image || exc.image_url || '';
     var imgSrc2   = imageSrc(imgRaw) || DEFAULT_IMG;
@@ -151,7 +151,7 @@
           ' onerror="this.onerror=null;this.src=\'' + escapeHTML(imgFall) + '\'"/>' +
         discount + tag +
         '<div class="card-price-overlay">' +
-          '<span class="price-new">&euro;' + escapeHTML(String(exc.price || 0)) + '</span>' + oldPrice +
+          '<span class="price-new" data-eur="' + escapeHTML(String(exc.price || 0)) + '">&euro;' + escapeHTML(String(exc.price || 0)) + '</span>' + oldPrice +
         '</div>' +
       '</div>' +
       '<div class="card-body">' +
@@ -183,7 +183,7 @@
       '<div class="card-img">' +
         '<img src="' + escapeHTML(imgSrc2) + '" alt="' + escapeHTML(circuit.title) + '" loading="lazy" decoding="async"' +
           ' onerror="this.onerror=null;this.src=\'' + escapeHTML(imgFall) + '\'"/>' +
-        '<div class="card-price-overlay"><span class="price-new">&euro;' + escapeHTML(String(circuit.price || 0)) + '</span></div>' +
+        '<div class="card-price-overlay"><span class="price-new" data-eur-circuit="' + escapeHTML(String(circuit.price || 0)) + '">&euro;' + escapeHTML(String(circuit.price || 0)) + '</span></div>' +
       '</div>' +
       '<div class="card-body">' +
         '<div class="card-title">' + escapeHTML(circuit.title) + '</div>' +
@@ -206,6 +206,8 @@
     container.innerHTML = active.length
       ? '<div class="services-grid">' + active.map(renderer).join('') + '</div>'
       : '<p class="empty-results" style="text-align:center;padding:40px;color:var(--muted)">' + escapeHTML(emptyMessage) + '</p>';
+    /* Re-apply current currency after dynamic render */
+    if (typeof window.__applyCurrentCurrency === 'function') window.__applyCurrentCurrency();
   }
 
   async function fetchJSON(path) {
@@ -385,6 +387,7 @@
       }
       container.innerHTML = '<div class="services-grid">' + items.map(cardHTML).join('') + '</div>';
       if (typeof window.__initBookingBtns === 'function') window.__initBookingBtns();
+      if (typeof window.__applyCurrentCurrency === 'function') window.__applyCurrentCurrency();
     } catch (err) {
       container.style.display = 'none';
     }

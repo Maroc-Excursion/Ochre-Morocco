@@ -186,6 +186,9 @@
     document.querySelectorAll('.currency-select').forEach(sel => { sel.value = currency; });
   }
 
+  /* Expose globally so data-loader can call after dynamic render */
+  window.__applyCurrentCurrency = function() { convertPrices(currentCurrency); };
+
   document.addEventListener('DOMContentLoaded', () => convertPrices(currentCurrency));
   document.querySelectorAll('.currency-select').forEach(sel => {
     sel.value = currentCurrency;
@@ -214,6 +217,20 @@
       search_tab2:    'Tours',
       search_tab3:    'Transfers',
       free_cancel:    'Free cancellation',
+      about_title:    'About Ochre Morocco',
+      about_sub:      'Your trusted partner for premium experiences in Morocco',
+      contact_title:  'Contact Us',
+      contact_sub:    'Our team is available 7 days a week to answer your questions',
+      exc_title:      'Our Excursions',
+      exc_sub:        'Discover all our experiences from Marrakech',
+      circ_title:     'Our Tours & Circuits',
+      circ_sub:       'Multi-day adventures across the Kingdom',
+      trans_title:    'Airport Transfers',
+      trans_sub:      'Fast, reliable transfers to your hotel and back',
+      blog_title:     'Morocco Travel Blog',
+      blog_sub:       'Tips, guides and inspiration for your trip',
+      book_now:       'Book Now',
+      read_more:      'Read More',
     },
     fr: {
       nav_home:       'Accueil',
@@ -234,6 +251,20 @@
       search_tab2:    'Circuits',
       search_tab3:    'Transferts',
       free_cancel:    'Annulation gratuite',
+      about_title:    'À propos d'Ochre Morocco',
+      about_sub:      'Votre partenaire de confiance pour des expériences premium au Maroc',
+      contact_title:  'Contactez-nous',
+      contact_sub:    'Notre équipe est disponible 7j/7 pour répondre à vos questions',
+      exc_title:      'Nos Excursions',
+      exc_sub:        'Découvrez toutes nos expériences depuis Marrakech',
+      circ_title:     'Nos Circuits & Voyages',
+      circ_sub:       'Aventures multi-jours à travers le Royaume',
+      trans_title:    'Transferts Aéroport',
+      trans_sub:      'Transferts rapides et fiables vers votre hôtel',
+      blog_title:     'Blog Voyage Maroc',
+      blog_sub:       'Conseils, guides et inspiration pour votre séjour',
+      book_now:       'Réserver',
+      read_more:      'Lire la suite',
     },
     ar: {
       nav_home:       'الرئيسية',
@@ -254,6 +285,20 @@
       search_tab2:    'الجولات',
       search_tab3:    'النقل',
       free_cancel:    'إلغاء مجاني',
+      about_title:    'عن أوكر موروكو',
+      about_sub:      'شريكك الموثوق للتجارب الفاخرة في المغرب',
+      contact_title:  'تواصل معنا',
+      contact_sub:    'فريقنا متاح 7 أيام في الأسبوع للرد على استفساراتك',
+      exc_title:      'رحلاتنا',
+      exc_sub:        'اكتشف جميع تجاربنا من مراكش',
+      circ_title:     'جولاتنا ومساراتنا',
+      circ_sub:       'مغامرات متعددة الأيام عبر المملكة',
+      trans_title:    'نقل المطار',
+      trans_sub:      'نقل سريع وموثوق إلى فندقك والعودة',
+      blog_title:     'مدونة السفر إلى المغرب',
+      blog_sub:       'نصائح وأدلة وإلهام لرحلتك',
+      book_now:       'احجز الآن',
+      read_more:      'اقرأ المزيد',
     }
   };
 

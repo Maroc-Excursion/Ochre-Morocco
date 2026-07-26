@@ -1,6 +1,14 @@
 (function () {
   'use strict';
 
+  /* Currency rates kept in sync with main.js */
+  var RATES   = { EUR: 1, USD: 1.09, GBP: 0.86, MAD: 10.85 };
+  var SYMBOLS = { EUR: '€', USD: '$', GBP: '£', MAD: 'MAD ' };
+  function currInfo() {
+    var c = localStorage.getItem('me_currency') || 'EUR';
+    return { rate: RATES[c] || 1, sym: SYMBOLS[c] || '€' };
+  }
+
   var CFG = {
     whatsapp: '212694170004',
     stripeKey: '',
@@ -379,16 +387,18 @@
       G('bk-s3box').innerHTML =
         '<div class="bk-confirm-row"><i class="fas fa-user"></i> ' + (fd.name || '') + '</div>' +
         '<div class="bk-confirm-row"><i class="fas fa-tag"></i> ' + svc.name + '</div>' +
-        '<div class="bk-confirm-row bk-confirm-total"><i class="fas fa-credit-card"></i> Total to pay: <strong>\u20ac' + total + '</strong></div>' +
+        (function(){ var ci = currInfo(); return '<div class="bk-confirm-row bk-confirm-total"><i class="fas fa-credit-card"></i> Total to pay: <strong>' + ci.sym + Math.round(total * ci.rate) + '</strong></div>'; })() +
         '';
 
       var link = CFG.payLinks[svc.id] || '';
       if (link) {
+        var ci2 = currInfo(); var ctotal = Math.round(total * ci2.rate);
         G('bk-paybtn').innerHTML =
           '<a href="' + link + '" class="bk-btn-pay" target="_blank" rel="noopener">' +
-          '<i class="fas fa-lock"></i> Pay \u20ac' + total + ' Securely Now</a>';
+          '<i class="fas fa-lock"></i> Pay ' + ci2.sym + ctotal + ' Securely Now</a>';
       } else {
-        var waMsg = encodeURIComponent('I want to pay by card for: ' + svc.name + ' \u2014 Total: \u20ac' + total + '. Name: ' + (fd.name||'') + ', Phone: ' + (fd.phone||''));
+        var ci3 = currInfo(); var wa_total = Math.round(total * ci3.rate);
+        var waMsg = encodeURIComponent('I want to pay by card for: ' + svc.name + ' \u2014 Total: ' + ci3.sym + wa_total + '. Name: ' + (fd.name||'') + ', Phone: ' + (fd.phone||''));
         G('bk-paybtn').innerHTML =
           '<p class="bk-pay-alt"><i class="fab fa-whatsapp"></i> ' +
           '<a href="https://wa.me/' + CFG.whatsapp + '?text=' + waMsg + '" target="_blank" rel="noopener">' +
