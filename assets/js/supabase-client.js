@@ -30,6 +30,7 @@
     imageUrl: function (path) {
       if (!path) return '';
       if (/^https?:\/\//i.test(path)) return path;
+      if (/^(?:\.\/)?assets\//i.test(path)) return path.replace(/^\.\/+/, '');
       return window.ochreSupabase.storage.from('excursion-images').getPublicUrl(path).data.publicUrl;
     },
     slugify: function (value) {
