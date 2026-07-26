@@ -342,10 +342,37 @@
     return p.catch(function(err) { console.warn('EmailJS error:', err); return true; });
   }
 
+  /* ── SUPABASE BOOKING PERSISTENCE ───────────────────────── */
+  function persistBooking(status) {
+    var client = window.OchreSupabase && window.OchreSupabase.client;
+    var uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!client || !svc || !uuid.test(String(svc.id || ''))) return Promise.resolve(null);
+    var people = parseInt(fd.adults || fd.pax || 1, 10) || 1;
+    var date = fd.date || (fd.dt ? fd.dt.slice(0, 10) : '');
+    return client.from('bookings').insert({
+      excursion_id: svc.id,
+      client_name: fd.name || '',
+      client_email: fd.email || '',
+      client_phone: fd.phone || '',
+      booking_date: date || new Date().toISOString().slice(0, 10),
+      people_count: people,
+      status: status || 'pending',
+      notes: [fd.notes, fd.hotel, fd.flight, fd.dir].filter(Boolean).join(' | ')
+    }).then(function (result) {
+      if (result.error) console.warn('[booking] Supabase save failed:', result.error.message);
+      return result.data || null;
+    });
+  }
+
   /* ── PAYMENT OPTION: WHATSAPP ────────────────────────────── */
   G('bk-opt-wa').addEventListener('click', function() {
-    window.open('https://wa.me/' + CFG.whatsapp + '?text=' + buildWA(), '_blank');
-    closeModal();
+    var btn = this;
+    btn.disabled = true;
+    persistBooking('pending').then(function () {
+      window.open('https://wa.me/' + CFG.whatsapp + '?text=' + buildWA(), '_blank');
+      closeModal();
+      btn.disabled = false;
+    });
   });
 
   /* ── PAYMENT OPTION: CASH ────────────────────────────────── */
@@ -354,7 +381,7 @@
     btn.disabled = true;
     btn.querySelector('strong').textContent = 'Processing\u2026';
     var total = calcTotal();
-    sendEmail('Cash on Arrival').then(function() {
+    persistBooking('pending').then(function() { return sendEmail('Cash on Arrival'); }).then(function() {
        setStep(3);
        G('bk-s3ico').innerHTML = '<i class="fas fa-check-circle" style="color:#1e6b3c"></i>';
        G('bk-s3title').textContent = 'Booking request ready';
@@ -377,7 +404,7 @@
     btn.disabled = true;
     btn.querySelector('strong').textContent = 'Processing\u2026';
     var total = calcTotal();
-    sendEmail('Card Payment').then(function() {
+    persistBooking('pending').then(function() { return sendEmail('Card Payment'); }).then(function() {
       setStep(3);
       G('bk-s3ico').innerHTML = '<i class="fas fa-credit-card" style="color:#c8922b"></i>';
       G('bk-s3title').textContent = 'Almost There!';

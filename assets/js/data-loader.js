@@ -1,6 +1,7 @@
 /* ============================================================
    OCHRE MOROCCO — Dynamic Data Loader v2.0
-   Loads content from data/*.json and renders it live.
+   Loads content from Supabase and renders it live.
+   Local JSON remains a safe fallback while the database is empty/unavailable.
    ▸ Services on index.html  (#services-dynamic)
    ▸ Services on excursions.html (#excursions-dynamic)
    ▸ YouTube video section   (#youtube-section)
@@ -103,6 +104,35 @@
     return r.json();
   }
 
+  function supabaseRecord(record) {
+    return {
+      id: record.id,
+      slug: record.slug,
+      title: record.title,
+      description: record.description || '',
+      price: record.price,
+      duration: record.duration || '',
+      category: record.category,
+      image: record.image_url ? (window.OchreSupabase.imageUrl(record.image_url) || record.image_url) : '',
+      image_url: record.image_url || '',
+      active: record.is_active !== false,
+      is_active: record.is_active !== false,
+      tags: [],
+      meta: record.duration ? ['fas fa-clock|' + record.duration] : [],
+      includes: []
+    };
+  }
+
+  async function fetchSupabaseExcursions(category) {
+    var client = window.OchreSupabase && window.OchreSupabase.client;
+    if (!client) throw new Error('Supabase is not available');
+    var query = client.from('excursions').select('*').eq('is_active', true).order('created_at', { ascending: false });
+    if (category) query = query.eq('category', category);
+    var result = await query;
+    if (result.error) throw result.error;
+    return (result.data || []).map(supabaseRecord);
+  }
+
   /* ── Render single excursion card ── */
   function cardHTML(exc) {
     const features = (exc.meta || []).map(m => {
@@ -113,7 +143,7 @@
     const discount = exc.badge ? '<span class="badge-discount">' + escapeHTML(exc.badge) + '</span>' : '';
     const tag      = exc.tags && exc.tags[0] ? '<span class="badge-tag">' + escapeHTML(exc.tags[0]) + '</span>' : '';
     const oldPrice = exc.oldPrice ? '<span class="price-old">&euro;' + escapeHTML(exc.oldPrice) + '</span>' : '';
-    const svcType  = (exc.category || '').includes('transfer') ? 'transfer' : 'excursion';
+    const svcType  = /transfer|transfert/i.test(exc.category || '') ? 'transfer' : 'excursion';
     const imgSrc   = imageSrc(exc.image);
     const originalImage = imageFallback(exc.image, 'assets/images/webp/agafay-coucher-soleil.webp');
 
@@ -176,7 +206,13 @@
     container.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--muted,#666)">' +
       '<i class="fas fa-spinner fa-spin" style="font-size:2rem;display:block;margin-bottom:12px"></i>Loading services&hellip;</div>';
     try {
-      var excursions = await fetchJSON('data/excursions.json');
+      var excursions;
+      try {
+        excursions = await fetchSupabaseExcursions('excursion');
+      } catch (remoteError) {
+        console.warn('[data-loader] Supabase unavailable, using local excursions:', remoteError.message);
+        excursions = await fetchJSON('data/excursions.json');
+      }
       var html = buildGroupedHTML(excursions);
       container.innerHTML = html ||
         '<p style="text-align:center;padding:40px;color:#666">No services available at the moment.</p>';
@@ -198,7 +234,13 @@
     container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted,#666)">' +
       '<i class="fas fa-spinner fa-spin" style="font-size:1.5rem;display:block;margin-bottom:10px"></i>Loading&hellip;</div>';
     try {
-      var excursions = await fetchJSON('data/excursions.json');
+      var excursions;
+      try {
+        excursions = await fetchSupabaseExcursions();
+      } catch (remoteError) {
+        console.warn('[data-loader] Supabase unavailable, using local excursions:', remoteError.message);
+        excursions = await fetchJSON('data/excursions.json');
+      }
       var html = buildGroupedHTML(excursions);
       container.innerHTML = html ||
         '<p style="text-align:center;padding:40px;color:#666">No services available at the moment.</p>';
@@ -214,7 +256,13 @@
     if (!container) return;
     container.innerHTML = '<div class="dynamic-loading"><i class="fas fa-spinner fa-spin"></i> Loading circuits&hellip;</div>';
     try {
-      var circuits = await fetchJSON('data/circuits.json');
+      var circuits;
+      try {
+        circuits = await fetchSupabaseExcursions('circuit');
+      } catch (remoteError) {
+        console.warn('[data-loader] Supabase unavailable, using local circuits:', remoteError.message);
+        circuits = await fetchJSON('data/circuits.json');
+      }
       renderCards(container, circuits, 'No circuits are available at the moment.', circuitCardHTML);
     } catch (err) {
       console.error('[data-loader] circuits:', err);
@@ -227,15 +275,41 @@
     if (!container) return;
     container.innerHTML = '<div class="dynamic-loading"><i class="fas fa-spinner fa-spin"></i> Loading Agafay experiences&hellip;</div>';
     try {
-      var excursions = await fetchJSON('data/excursions.json');
-      var agafayItems = excursions.filter(function (item) {
-        return item.active !== false && item.category === 'marrakech desert';
-      });
+      var agafayItems;
+      try {
+        agafayItems = await fetchSupabaseExcursions('excursion');
+        agafayItems = agafayItems.filter(function (item) {
+          return /agafay|quad|camel|dinner/i.test(item.title + ' ' + item.description);
+        });
+      } catch (remoteError) {
+        console.warn('[data-loader] Supabase unavailable, using local Agafay data:', remoteError.message);
+        var excursions = await fetchJSON('data/excursions.json');
+        agafayItems = excursions.filter(function (item) {
+          return item.active !== false && item.category === 'marrakech desert';
+        });
+      }
       renderCards(container, agafayItems, 'No Agafay experiences are available at the moment.', cardHTML);
       if (typeof window.__initBookingBtns === 'function') window.__initBookingBtns();
     } catch (err) {
       console.error('[data-loader] agafay:', err);
       container.innerHTML = '<p class="empty-results">Unable to load Agafay experiences. Please try again.</p>';
+    }
+  }
+
+  async function renderTransfersPage() {
+    var container = document.getElementById('transfers-dynamic');
+    if (!container) return;
+    container.innerHTML = '<div class="dynamic-loading"><i class="fas fa-spinner fa-spin"></i> Loading transfers&hellip;</div>';
+    try {
+      var transfers = await fetchSupabaseExcursions('transfert');
+      if (!transfers.length) throw new Error('No remote transfers');
+      container.innerHTML = '<div class="services-grid">' + transfers.map(cardHTML).join('') + '</div>';
+      var fallback = document.getElementById('transfers-static');
+      if (fallback) fallback.style.display = 'none';
+      if (typeof window.__initBookingBtns === 'function') window.__initBookingBtns();
+    } catch (remoteError) {
+      console.warn('[data-loader] Supabase unavailable, keeping local transfer content:', remoteError.message);
+      container.innerHTML = '';
     }
   }
 
@@ -331,6 +405,7 @@
     renderExcursionsPage();
     renderCircuitsPage();
     renderAgafayPage();
+    renderTransfersPage();
     renderYouTubeSection();
   });
 
@@ -339,6 +414,7 @@
     renderExcursionsPage:   renderExcursionsPage,
     renderCircuitsPage:     renderCircuitsPage,
     renderAgafayPage:       renderAgafayPage,
+    renderTransfersPage:    renderTransfersPage,
     renderYouTubeSection:   renderYouTubeSection,
     applySettings:          applySettings
   };
