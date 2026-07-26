@@ -135,13 +135,13 @@
       <div class="nav-item"><a href="contact.html" data-i18n="nav_contact">Contact</a></div>
     </nav>
     <div class="nav-cta"><a href="https://wa.me/212694170004" class="btn-whatsapp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> <span data-i18n="wa_btn">WhatsApp</span></a></div>
-    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" aria-label="Menu" onclick="document.querySelector('.mobile-nav').classList.add('open')"><span></span><span></span><span></span></button>
   </div></div>
 </header>
 
 <!-- MOBILE NAV -->
-<nav class="mobile-nav">
-  <button class="mobile-nav-close"><i class="fas fa-times"></i></button>
+<nav class="mobile-nav" onclick="if(event.target===this)this.classList.remove('open')">
+  <button class="mobile-nav-close" onclick="this.closest('.mobile-nav').classList.remove('open')"><i class="fas fa-times"></i></button>
   <a href="index.html">Accueil</a>
   <a href="excursions.html">Excursions</a>
   <a href="circuits.html">Circuits</a>
