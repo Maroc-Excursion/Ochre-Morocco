@@ -404,6 +404,29 @@
     @media (max-width: 480px) {
       .services-grid { grid-template-columns: 1fr 1fr; }
     }
+
+    /* ── MOBILE NAV OVERLAY ── */
+    .mobile-nav { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 500; }
+    .mobile-nav.open { display: flex; justify-content: flex-end; }
+    .mobile-nav-panel { background: #fff; width: 280px; max-width: 85vw; padding: 28px 24px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
+    .mobile-nav-close { background: none; border: none; font-size: 1.4rem; cursor: pointer; align-self: flex-end; color: var(--dark); }
+    .mobile-nav-panel a { font-weight: 600; font-size: 1rem; color: var(--dark); text-decoration: none; padding: 6px 0; border-bottom: 1px solid #f0ebe4; }
+    .mobile-nav-panel a:hover { color: var(--gold); }
+
+    /* ── LOCATION SECTION ── */
+    .loc-section { background: #f7f3ee; padding: 60px 24px; }
+    .loc-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .loc-title { font-size: 1.7rem; font-weight: 800; margin-bottom: 24px; color: var(--dark); }
+    .loc-cards { display: flex; flex-direction: column; gap: 16px; margin-bottom: 28px; }
+    .loc-card { display: flex; align-items: flex-start; gap: 14px; }
+    .loc-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(200,146,43,.12); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.1rem; flex-shrink: 0; }
+    .loc-icon-green { background: rgba(37,211,102,.12) !important; color: #25d366 !important; }
+    .loc-text strong { display: block; font-size: .85rem; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+    .loc-text span, .loc-text a { display: block; font-size: .83rem; color: var(--muted); text-decoration: none; line-height: 1.5; }
+    .loc-text a:hover { color: var(--gold); }
+    .btn-directions { display: inline-flex; align-items: center; gap: 8px; background: var(--gold); color: #fff; padding: 12px 24px; border-radius: 50px; font-weight: 700; font-size: .88rem; text-decoration: none; transition: background .2s; }
+    .btn-directions:hover { background: #b07d20; }
+    @media (max-width: 768px) { .loc-inner { grid-template-columns: 1fr; gap: 32px; } }
   </style>
   <link rel="stylesheet" href="assets/css/booking.css" />
   <script type="application/ld+json">

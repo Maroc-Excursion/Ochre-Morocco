@@ -118,14 +118,25 @@
         });
       }
       function friendlyError(error) {
+        var code = (error && error.code) ? error.code : '';
         var message = error && error.message ? error.message : 'Unable to sign in. Please try again.';
-        if (/invalid login credentials/i.test(message)) return 'The email or password is incorrect.';
-        if (/email not confirmed/i.test(message)) return 'Please confirm your email address before signing in.';
-        return message;
+        if (/invalid login credentials/i.test(message) || code === 'invalid_credentials') {
+          return 'Incorrect email or password. Make sure your account exists in the Supabase dashboard under Authentication → Users.';
+        }
+        if (/email not confirmed/i.test(message) || code === 'email_not_confirmed') {
+          return 'Please confirm your email address first. Check your inbox for a confirmation email from Supabase.';
+        }
+        if (/invalid api key/i.test(message) || /no api key/i.test(message) || /apikey/i.test(message)) {
+          return 'Supabase API key is invalid. Update SUPABASE_ANON_KEY in assets/js/supabase-client.js with the correct key from your Supabase dashboard → Project Settings → API.';
+        }
+        if (/fetch/i.test(message) || /network/i.test(message)) {
+          return 'Network error: unable to reach Supabase. Check your internet connection.';
+        }
+        return message + (code ? ' [code: ' + code + ']' : '');
       }
 
       if (!client) {
-        showError(window.supabaseClientError || 'Supabase could not be initialized. Check your connection.');
+        showError(window.supabaseClientError || 'Supabase could not be initialized. Verify that the Supabase JS library loaded (check your internet connection) and that supabase-client.js is correct.');
         return;
       }
 
