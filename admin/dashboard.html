@@ -39,7 +39,6 @@
         <button class="nav-button" data-view="services"><i class="fa-solid fa-route"></i> Experiences <span id="nav-experiences" class="nav-count">0</span></button>
         <button class="nav-button" data-view="bookings"><i class="fa-regular fa-calendar-check"></i> Bookings <span id="nav-bookings" class="nav-count">0</span></button>
         <button class="nav-button" data-view="settings"><i class="fa-solid fa-gear"></i> Settings</button>
-        <button class="nav-button" data-view="emailjs"><i class="fa-solid fa-envelope-open-text"></i> Email Setup</button>
       </nav>
       <div class="account"><div id="avatar" class="avatar">O</div><div class="account-copy"><div id="account-email" class="account-email">Loading…</div><div class="account-role">Supabase account</div></div><button id="logout-button" class="logout" title="Sign out"><i class="fa-solid fa-arrow-right-from-bracket"></i></button></div>
     </aside>
@@ -91,44 +90,6 @@
                 <button type="submit" class="button"><i class="fa-solid fa-floppy-disk"></i> Save Settings</button>
               </div>
             </form>
-          </div>
-        </section>
-        <section id="view-emailjs" class="view">
-          <div class="page-heading"><h2>Email Setup</h2></div>
-          <div class="table-card" style="max-width:680px">
-            <div class="table-toolbar"><h3>EmailJS Configuration</h3></div>
-            <div style="padding:20px 24px">
-              <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:20px">
-                EmailJS lets you send booking confirmations directly from the browser — no backend needed.<br>
-                <strong style="color:var(--ink)">Setup:</strong> Create a free account at <a href="https://www.emailjs.com" target="_blank" rel="noopener" style="color:var(--green-light)">emailjs.com</a>, add your email service (Gmail / Outlook), create two templates (<code>ownerTpl</code> and <code>clientTpl</code>), then paste your IDs below into <code>assets/js/booking.js</code>.
-              </p>
-              <div style="background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:16px 20px;font-size:12px;line-height:2">
-                <div style="display:grid;grid-template-columns:160px 1fr;gap:6px 14px;align-items:center">
-                  <span style="color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em">enabled</span><span style="color:var(--gold)">false → <strong>true</strong> once IDs are set</span>
-                  <span style="color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em">publicKey</span><span style="color:var(--ink)">Your EmailJS public key (Account → API Keys)</span>
-                  <span style="color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em">serviceId</span><span style="color:var(--ink)">Email service ID (e.g. <code>service_abc123</code>)</span>
-                  <span style="color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em">ownerTpl</span><span style="color:var(--ink)">Template that notifies you of new bookings</span>
-                  <span style="color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em">clientTpl</span><span style="color:var(--ink)">Template sent to the customer as confirmation</span>
-                </div>
-              </div>
-              <p style="color:var(--muted);font-size:12px;margin-top:16px">
-                <i class="fa-solid fa-circle-info" style="color:var(--blue)"></i>
-                Edit <code>assets/js/booking.js</code> lines 5–16 and replace <code>YOUR_PUBLIC_KEY</code> etc. with your real IDs, then set <code>enabled: true</code>.
-              </p>
-            </div>
-          </div>
-          <div class="table-card" style="max-width:680px;margin-top:20px">
-            <div class="table-toolbar"><h3>Payment Links (Stripe)</h3></div>
-            <div style="padding:20px 24px">
-              <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:16px">
-                Create a <a href="https://stripe.com" target="_blank" rel="noopener" style="color:var(--green-light)">Stripe Payment Link</a> for each service and paste the URL in <code>assets/js/booking.js</code> under <code>payLinks</code>. Leaving a service URL empty routes the customer to WhatsApp instead.
-              </p>
-              <div style="background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:14px 20px;font-size:12px;color:var(--muted)">
-                <code style="color:var(--ink)">'airport-transfer': ''</code> → paste Stripe URL here<br>
-                <code style="color:var(--ink)">'agafay-desert-pack': ''</code> → paste Stripe URL here<br>
-                <span style="opacity:.6">…one entry per service in <code>booking.js</code></span>
-              </div>
-            </div>
           </div>
         </section>
       </div>
@@ -373,7 +334,7 @@
       function showView(name) {
         document.querySelectorAll('.view').forEach(function (view) { view.classList.toggle('active', view.id === 'view-' + name); });
         document.querySelectorAll('.nav-button').forEach(function (button) { button.classList.toggle('active', button.dataset.view === name); });
-        $('page-title').textContent = ({ overview:'Overview', services:'Experiences', bookings:'Bookings', settings:'Settings', emailjs:'Email Setup' })[name] || 'Overview';
+        $('page-title').textContent = ({ overview:'Overview', services:'Experiences', bookings:'Bookings', settings:'Settings' })[name] || 'Overview';
       }
       function bindEvents() {
         document.querySelectorAll('.nav-button').forEach(function (button) { button.addEventListener('click', function () { showView(button.dataset.view); }); });

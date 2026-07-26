@@ -7,21 +7,6 @@
   /* ── CONFIGURATION ───────────────────────────────────────── */
   var CFG = {
     whatsapp: '212694170004',
-    ownerEmail: 'ochremorocco@gmail.com',
-
-    /* EmailJS — sign up FREE at https://www.emailjs.com
-       1. Create an account and add your email service (Gmail, Outlook, etc.)
-       2. Create TWO templates:
-            ownerTpl  — sends to {{owner_email}} with all booking details
-            clientTpl — sends to {{email}} as customer confirmation
-       3. Set enabled: true and fill in your IDs below                       */
-    emailjs: {
-      enabled: false,
-      publicKey: 'YOUR_PUBLIC_KEY',
-      serviceId: 'YOUR_SERVICE_ID',
-      ownerTpl:  'YOUR_OWNER_TEMPLATE_ID',
-      clientTpl: 'YOUR_CLIENT_TEMPLATE_ID'
-    },
 
     /* Stripe / PayPal payment links (optional).
        Create a Stripe Payment Link at stripe.com, paste URL here per service.
@@ -51,7 +36,6 @@
   var FIELDS = {
     transfer: [
       {id:'name',   label:'Full Name',                    type:'text',           req:true,  ph:'Your full name'},
-      {id:'email',  label:'Email Address',                type:'email',          req:true,  ph:'your@email.com'},
       {id:'phone',  label:'Phone / WhatsApp',             type:'tel',            req:true,  ph:'+1 234 567 890'},
       {id:'dir',    label:'Transfer Direction',           type:'select',         req:true,
        opts:[{v:'',l:'— Select direction —'},{v:'Airport \u2192 Hotel',l:'\u2708  Airport \u2192 Hotel'},{v:'Hotel \u2192 Airport',l:'\uD83C\uDFE8  Hotel \u2192 Airport'}]},
@@ -63,7 +47,6 @@
     ],
     excursion: [
       {id:'name',    label:'Full Name',                   type:'text',   req:true,  ph:'Your full name'},
-      {id:'email',   label:'Email Address',               type:'email',  req:true,  ph:'your@email.com'},
       {id:'phone',   label:'Phone / WhatsApp',            type:'tel',    req:true,  ph:'+1 234 567 890'},
       {id:'date',    label:'Date of Excursion',           type:'date',   req:true},
       {id:'adults',  label:'Adults',                      type:'number', req:true,  min:1, max:50, def:1},
@@ -73,7 +56,6 @@
     ],
     desert: [
       {id:'name',    label:'Full Name',                    type:'text',   req:true,  ph:'Your full name'},
-      {id:'email',   label:'Email Address',                type:'email',  req:true,  ph:'your@email.com'},
       {id:'phone',   label:'Phone / WhatsApp',             type:'tel',    req:true,  ph:'+1 234 567 890'},
       {id:'date',    label:'Departure Date',               type:'date',   req:true},
       {id:'adults',  label:'Adults',                       type:'number', req:true,  min:1, max:20, def:2},
@@ -83,7 +65,6 @@
     ],
     circuit: [
       {id:'name',    label:'Full Name',                    type:'text',   req:true,  ph:'Your full name'},
-      {id:'email',   label:'Email Address',                type:'email',  req:true,  ph:'your@email.com'},
       {id:'phone',   label:'Phone / WhatsApp',             type:'tel',    req:true,  ph:'+1 234 567 890'},
       {id:'date',    label:'Start Date',                   type:'date',   req:true},
       {id:'adults',  label:'Adults',                       type:'number', req:true,  min:1, max:20, def:2},
@@ -96,7 +77,7 @@
 
   /* ── FIELD LABELS for WhatsApp message ──────────────────── */
   var LABELS = {
-    name:'\uD83D\uDC64 Name', email:'\uD83D\uDCE7 Email', phone:'\uD83D\uDCF1 Phone',
+    name:'\uD83D\uDC64 Name', phone:'\uD83D\uDCF1 Phone',
     dir:'\u21D5 Direction', flight:'\u2708 Flight No.', dt:'\uD83D\uDCC5 Date & Time',
     date:'\uD83D\uDCC5 Date', hotel:'\uD83C\uDFE8 Hotel/Address',
     pax:'\uD83D\uDC65 Passengers', adults:'\uD83D\uDC65 Adults',
@@ -150,9 +131,6 @@
     var settings = event.detail || {};
     if (settings.contact && settings.contact.whatsapp) {
       CFG.whatsapp = String(settings.contact.whatsapp).replace(/\D/g, '') || CFG.whatsapp;
-    }
-    if (settings.contact && settings.contact.email) {
-      CFG.ownerEmail = settings.contact.email;
     }
   });
 
@@ -363,26 +341,6 @@
     return encodeURIComponent(msg);
   }
 
-  /* ── EMAILJS SENDER ──────────────────────────────────────── */
-  function sendEmail(payMethod) {
-    if (!CFG.emailjs.enabled) return Promise.resolve(true);
-    var total = calcTotal();
-    var params = {};
-    Object.keys(fd).forEach(function(k){ params[k] = fd[k]; });
-    params.service_name   = svc.name;
-    params.service_price  = '\u20ac' + svc.price + ' / person';
-    params.total_amount   = '\u20ac' + total;
-    params.payment_method = payMethod;
-    params.owner_email    = CFG.ownerEmail;
-
-    var p = emailjs.send(CFG.emailjs.serviceId, CFG.emailjs.ownerTpl, params, CFG.emailjs.publicKey);
-    if (fd.email && CFG.emailjs.clientTpl) {
-      p = p.then(function() {
-        return emailjs.send(CFG.emailjs.serviceId, CFG.emailjs.clientTpl, params, CFG.emailjs.publicKey);
-      });
-    }
-    return p.catch(function(err) { console.warn('EmailJS error:', err); return true; });
-  }
 
   /* ── PAYMENT OPTION: WHATSAPP ────────────────────────────── */
   G('bk-opt-wa').addEventListener('click', function() {
@@ -398,7 +356,7 @@
     btn.querySelector('strong').textContent = 'Processing\u2026';
     var total = calcTotal();
     saveToSupabase('cash');
-    sendEmail('Cash on Arrival').then(function() {
+    (function() {
        setStep(3);
        G('bk-s3ico').innerHTML = '<i class="fas fa-check-circle" style="color:#1e6b3c"></i>';
        G('bk-s3title').textContent = 'Booking request ready';
@@ -412,7 +370,7 @@
          '<a href="https://wa.me/' + CFG.whatsapp + '?text=' + buildWA() + '" class="bk-btn-pay" target="_blank" rel="noopener">' +
          '<i class="fab fa-whatsapp"></i> Send request on WhatsApp</a>';
       btn.disabled = false;
-    });
+    })();
   });
 
   /* ── PAYMENT OPTION: CARD ────────────────────────────────── */
@@ -422,7 +380,7 @@
     btn.querySelector('strong').textContent = 'Processing\u2026';
     var total = calcTotal();
     saveToSupabase('card');
-    sendEmail('Card Payment').then(function() {
+    (function() {
       setStep(3);
       G('bk-s3ico').innerHTML = '<i class="fas fa-credit-card" style="color:#c8922b"></i>';
       G('bk-s3title').textContent = 'Almost There!';
@@ -431,7 +389,7 @@
         '<div class="bk-confirm-row"><i class="fas fa-user"></i> ' + (fd.name || '') + '</div>' +
         '<div class="bk-confirm-row"><i class="fas fa-tag"></i> ' + svc.name + '</div>' +
         '<div class="bk-confirm-row bk-confirm-total"><i class="fas fa-credit-card"></i> Total to pay: <strong>\u20ac' + total + '</strong></div>' +
-        '<div class="bk-confirm-row"><i class="fas fa-envelope"></i> Confirmation will be sent to: ' + (fd.email || '') + '</div>';
+        '';
 
       var link = CFG.payLinks[svc.id] || '';
       if (link) {
@@ -439,14 +397,14 @@
           '<a href="' + link + '" class="bk-btn-pay" target="_blank" rel="noopener">' +
           '<i class="fas fa-lock"></i> Pay \u20ac' + total + ' Securely Now</a>';
       } else {
-        var waMsg = encodeURIComponent('I want to pay by card for: ' + svc.name + ' \u2014 Total: \u20ac' + total + '. Name: ' + (fd.name||'') + ', Email: ' + (fd.email||'') + ', Phone: ' + (fd.phone||''));
+        var waMsg = encodeURIComponent('I want to pay by card for: ' + svc.name + ' \u2014 Total: \u20ac' + total + '. Name: ' + (fd.name||'') + ', Phone: ' + (fd.phone||''));
         G('bk-paybtn').innerHTML =
           '<p class="bk-pay-alt"><i class="fab fa-whatsapp"></i> ' +
           '<a href="https://wa.me/' + CFG.whatsapp + '?text=' + waMsg + '" target="_blank" rel="noopener">' +
           'Contact us on WhatsApp to complete card payment</a></p>';
       }
       btn.disabled = false;
-    });
+    })();
   });
 
   /* ── NAV CONTROLS ────────────────────────────────────────── */
