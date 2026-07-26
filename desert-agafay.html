@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="icon" type="image/webp" href="assets/images/webp/logo.webp" />
   <link rel="stylesheet" href="assets/css/booking.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{--gold:#c8922b;--green:#1e6b3c;--dark:#1a1a1a;--light:#f7f3ee;--muted:#666}
@@ -41,11 +42,30 @@
     .footer-social { display: flex; justify-content: center; gap: 16px; margin-bottom: 12px; }
     .footer-social a { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.1); color: #fff; display: flex; align-items: center; justify-content: center; transition: background .2s; font-size: .9rem; }
     .footer-social a:hover { background: var(--gold); }
+  
+    .lang-switcher{position:relative}
+    .lang-switcher-btn{background:#f4f0ea;border:1.5px solid #e0d4c0;color:var(--dark);padding:6px 12px;border-radius:20px;font-size:.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:inherit;transition:background .18s}
+    .lang-switcher-btn:hover{background:#ede5d8}
+    .lang-switcher-btn i.fa-globe{color:var(--gold)}
+    .lang-dropdown{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1.5px solid #e0d4c0;border-radius:12px;padding:6px;min-width:150px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:200;display:none}
+    .lang-dropdown.open{display:block}
+    .lang-option{background:none;border:none;padding:9px 14px;border-radius:8px;cursor:pointer;font-size:.84rem;font-weight:500;color:#333;text-align:left;transition:background .15s;width:100%}
+    .lang-option:hover,.lang-option.active{background:#f7f0e6;color:var(--gold);font-weight:700}
   </style>
 </head>
 <body>
   <div class="topbar" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap"><div><a href="tel:+212694170004"><i class="fas fa-phone-alt"></i> +212 694 170 004</a><a href="https://wa.me/212694170004" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a><a href="mailto:ochremorocco@gmail.com"><i class="fas fa-envelope"></i> ochremorocco@gmail.com</a></div><select class="currency-select" aria-label="Currency" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);padding:4px 10px;border-radius:6px;color:#fff;font-size:.78rem;cursor:pointer;font-family:inherit;outline:none"><option value="EUR">€ EUR</option><option value="USD">$ USD</option><option value="GBP">£ GBP</option><option value="MAD">MAD</option></select></div>
-  <header><a href="index.html" class="logo"><img src="assets/images/webp/logo.webp" alt="Ochre Morocco" width="44" height="44" decoding="async" /><span class="logo-text">Ochre <span>Morocco</span></span></a><nav><a href="index.html">Home</a><a href="excursions.html">Excursions</a><a href="circuits.html">Circuits</a><a href="transferts.html">Transfers</a><a href="contact.html">Contact</a></nav><div class="header-right"><a class="btn-wa-header" href="https://wa.me/212694170004" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Book Now</a><button class="hamburger" aria-label="Open menu" onclick="document.getElementById('mobileNav').classList.add('open')"><span></span><span></span><span></span></button></div></header>
+  <header><a href="index.html" class="logo"><img src="assets/images/webp/logo.webp" alt="Ochre Morocco" width="44" height="44" decoding="async" /><span class="logo-text">Ochre <span>Morocco</span></span></a><nav><a href="index.html" data-i18n="nav_home">Home</a><a href="excursions.html" data-i18n="nav_exc">Excursions</a><a href="circuits.html" data-i18n="nav_circ">Circuits</a><a href="transferts.html" data-i18n="nav_trans">Transfers</a><a href="desert-agafay.html" class="active" data-i18n="nav_desert">Agafay Desert</a><a href="contact.html" data-i18n="nav_contact">Contact</a></nav><div class="header-right">
+    <div class="lang-switcher">
+      <button class="lang-switcher-btn" aria-label="Select language"><i class="fas fa-globe"></i> <span id="activeLangLabel">EN</span> <i class="fas fa-chevron-down" style="font-size:.6rem"></i></button>
+      <div class="lang-dropdown">
+        <button class="lang-option active" data-lang="en">EN · English</button>
+        <button class="lang-option" data-lang="fr">FR · Français</button>
+        <button class="lang-option" data-lang="ar">AR · العربية</button>
+      </div>
+    </div>
+    <a class="btn-wa-header" href="https://wa.me/212694170004" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Book Now</a>
+    <button class="hamburger" aria-label="Open menu" onclick="document.getElementById('mobileNav').classList.add('open')"><span></span><span></span><span></span></button></div></header>
   <div class="mobile-nav" id="mobileNav" onclick="this.classList.remove('open')"><div class="mobile-nav-panel" onclick="event.stopPropagation()"><button class="mobile-close" aria-label="Close menu" onclick="document.getElementById('mobileNav').classList.remove('open')">&times;</button><a href="index.html">Home</a><a href="excursions.html">Excursions</a><a href="circuits.html">Circuits</a><a href="transferts.html">Transfers</a><a href="contact.html">Contact</a><a href="https://wa.me/212694170004" target="_blank" rel="noopener" style="color:#25d366"><i class="fab fa-whatsapp"></i> Book on WhatsApp</a></div></div>
   <section class="hero"><img src="assets/images/webp/agafay-paysage-coucher.webp" alt="Agafay Desert at sunset" fetchpriority="high" decoding="async" /><div class="hero-content"><span class="hero-badge"><i class="fas fa-sun"></i> Just outside Marrakech</span><h1>Find your moment in the <span>Agafay Desert</span></h1><p>Trade the city for golden stone, open skies and an evening that feels entirely yours.</p></div></section>
   <main class="section"><span class="section-kicker">Curated desert experiences</span><h2 class="section-title">Agafay, your way</h2><p class="section-sub">From a quick adventure to a full sunset evening, choose an experience and send us your preferred date.</p><div id="agafay-dynamic"></div></main>

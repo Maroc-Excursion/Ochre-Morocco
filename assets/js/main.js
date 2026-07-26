@@ -235,30 +235,29 @@
       search_tab3:    'Transferts',
       free_cancel:    'Annulation gratuite',
     },
-    es: {
-      nav_home:       'Inicio',
-      nav_exc:        'Excursiones',
-      nav_circ:       'Circuitos',
-      nav_trans:      'Traslados',
-      nav_desert:     'Desierto Agafay',
-      nav_about:      'Sobre nosotros',
-      nav_contact:    'Contacto',
-      nav_blog:       'Blog',
-      hero_badge:     '#1 Agencia de Excursiones en Marruecos',
-      hero_title:     'Descubre la Magia<br>de <span>Marruecos</span>',
-      hero_sub:       'Excursiones premium, circuitos inolvidables y aventuras auténticas en el corazón del Reino Alauí',
-      hero_btn1:      'Ver nuestras Excursiones',
-      hero_btn2:      'Contáctanos',
-      wa_btn:         'WhatsApp',
-      search_tab1:    'Excursiones',
-      search_tab2:    'Circuitos',
-      search_tab3:    'Traslados',
-      free_cancel:    'Cancelación gratuita',
+    ar: {
+      nav_home:       'الرئيسية',
+      nav_exc:        'الرحلات',
+      nav_circ:       'الجولات',
+      nav_trans:      'النقل',
+      nav_desert:     'صحراء أكافاي',
+      nav_about:      'من نحن',
+      nav_contact:    'اتصل بنا',
+      nav_blog:       'المدونة',
+      hero_badge:     'وكالة #1 للرحلات في المغرب',
+      hero_title:     'اكتشف سحر<br><span>المغرب</span>',
+      hero_sub:       'رحلات فاخرة وجولات لا تُنسى ومغامرات أصيلة في قلب المملكة المغربية',
+      hero_btn1:      'استكشف رحلاتنا',
+      hero_btn2:      'تواصل معنا',
+      wa_btn:         'واتساب',
+      search_tab1:    'الرحلات',
+      search_tab2:    'الجولات',
+      search_tab3:    'النقل',
+      free_cancel:    'إلغاء مجاني',
     }
   };
 
   let currentLang = localStorage.getItem('me_lang') || 'en';
-  if (currentLang === 'ar') { currentLang = 'es'; localStorage.setItem('me_lang', 'es'); }
 
   function applyLanguage(lang) {
     if (!translations[lang]) return;
@@ -284,10 +283,15 @@
     });
 
     document.documentElement.lang = lang;
-    document.documentElement.dir  = 'ltr';
-    document.body.style.fontFamily = "'Poppins', sans-serif";
+    if (lang === 'ar') {
+      document.documentElement.dir = 'rtl';
+      document.body.style.fontFamily = "'Cairo', 'Poppins', sans-serif";
+    } else {
+      document.documentElement.dir = 'ltr';
+      document.body.style.fontFamily = "'Poppins', sans-serif";
+    }
 
-    const labelMap = { en: 'EN', fr: 'FR', es: 'ES' };
+    const labelMap = { en: 'EN', fr: 'FR', ar: 'AR' };
     const lbl = document.getElementById('activeLangLabel');
     if (lbl) lbl.textContent = labelMap[lang] || lang.toUpperCase();
 
