@@ -9,7 +9,11 @@
     'marrakech desert':     'desert',
     'marrakech':            'activities',
     'marrakech montagne':   'activities',
-    'marrakech excursions': 'day'
+    'marrakech excursions': 'day',
+    /* Supabase-created records use these category values */
+    'excursion':            'activities',
+    'circuit':              'day',
+    'transfert':            'transfers'
   };
   var CAT_LABELS = {
     activities: { icon: 'fa-bolt',       label: 'Activities & Adventures' },
@@ -87,18 +91,33 @@
 
   /* Convertit un objet Supabase → format JSON interne */
   function supabaseToJSON(exc) {
+    /* Build meta array: prefer stored jsonb, fall back to duration pill */
+    var metaArr = Array.isArray(exc.meta) && exc.meta.length
+      ? exc.meta
+      : (exc.duration ? ['fas fa-clock|' + exc.duration] : []);
+    /* Build tags array: prefer stored jsonb, fall back to category label */
+    var tagsArr = Array.isArray(exc.tags) && exc.tags.length
+      ? exc.tags
+      : (exc.category ? [exc.category] : []);
     return {
-      id:       exc.id,
-      title:    exc.title,
-      slug:     exc.slug || '',
-      price:    exc.price || 0,
-      duration: exc.duration || '',
-      category: exc.category,
-      image:    exc.image_url || '',
+      id:          exc.id,
+      title:       exc.title,
+      slug:        exc.slug || '',
+      price:       exc.price || 0,
+      oldPrice:    exc.old_price || null,
+      duration:    exc.duration || '',
+      category:    exc.category,
+      image:       exc.image_url || '',
       description: exc.description || '',
-      active:   exc.is_active,
-      meta:     exc.duration ? ['clock|' + exc.duration] : [],
-      tags:     exc.category ? [exc.category] : []
+      active:      exc.is_active,
+      badge:       exc.badge || null,
+      freeCancel:  exc.free_cancel || false,
+      rating:      exc.rating != null ? exc.rating : 5,
+      reviews:     exc.reviews || 0,
+      order:       exc.display_order || 0,
+      payLink:     exc.pay_link || '',
+      meta:        metaArr,
+      tags:        tagsArr
     };
   }
 
@@ -107,7 +126,7 @@
       .from('excursions')
       .select('*')
       .eq('is_active', true)
-      .order('created_at', { ascending: false });
+      .order('display_order', { ascending: true }).order('created_at', { ascending: false });
 
     if (filter && filter.category) {
       query = query.eq('category', filter.category);
