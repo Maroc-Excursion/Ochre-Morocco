@@ -8,7 +8,7 @@
 
   /* ── Category mapping (JSON legacy) ── */
   var CAT_MAP = {
-    'marrakech transfer':   'activities',
+    'marrakech transfer':   'transfers',
     'marrakech desert':     'desert',
     'marrakech':            'activities',
     'marrakech montagne':   'activities',
@@ -31,21 +31,27 @@
 
   /* Maps generic/missing image names → actual existing webp files */
   var IMG_ALIAS = {
-    'agafay':     'agafay-coucher-soleil',
-    'merzouga':   'merzouga-camp-coucher',
-    'transfert':  'vehicule-berline-aeroport',
-    'ourika':     'ourika-randonnee',
-    'fes':        'fes-riad-interieur',
-    'essaouira':  'essaouira-remparts-vagues',
-    'sahara':     'sahara-caravane-coucher',
-    'desert':     'desert-nuit-etoiles',
-    'atlas':      'atlas-randonnee-groupe',
-    'imlil':      'imlil-village',
-    'dades':      'dades-gorges',
-    'ouzoud':     'ouzoud-cascades',
-    'casablanca': 'casablanca-hassan2',
-    'zagora':     'zagora-route-palmiers',
-    'marrakech':  'marrakech-koutoubia-coucher',
+    'agafay':               'agafay-coucher-soleil',
+    'merzouga':             'merzouga-camp-coucher',
+    'transfert':            'vehicule-berline-aeroport',
+    'ourika':               'ourika-randonnee',
+    'fes':                  'fes-riad-interieur',
+    'essaouira':            'essaouira-remparts-vagues',
+    'sahara':               'sahara-caravane-coucher',
+    'desert':               'desert-nuit-etoiles',
+    'atlas':                'atlas-randonnee-groupe',
+    'imlil':                'imlil-village',
+    'dades':                'dades-gorges',
+    'ouzoud':               'ouzoud-cascades',
+    'casablanca':           'casablanca-hassan2',
+    'zagora':               'zagora-route-palmiers',
+    'marrakech':            'marrakech-koutoubia-coucher',
+    'palmeraie-chameau':    'palmeraie-chameau',
+    'imlil-village':        'imlil-village',
+    'agafay-paysage-coucher': 'agafay-paysage-coucher',
+    'vehicule-berline-aeroport': 'vehicule-berline-aeroport',
+    'vehicule-minibus':     'vehicule-minibus',
+    'vehicule-4x4-desert':  'vehicule-4x4-desert',
   };
 
   function imageSrc(path) {
