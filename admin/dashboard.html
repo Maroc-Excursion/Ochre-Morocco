@@ -38,6 +38,7 @@
         <button class="nav-button active" data-view="overview"><i class="fa-solid fa-chart-line"></i> Overview</button>
         <button class="nav-button" data-view="services"><i class="fa-solid fa-route"></i> Experiences <span id="nav-experiences" class="nav-count">0</span></button>
         <button class="nav-button" data-view="bookings"><i class="fa-regular fa-calendar-check"></i> Bookings <span id="nav-bookings" class="nav-count">0</span></button>
+        <button class="nav-button" data-view="settings"><i class="fa-solid fa-gear"></i> Settings</button>
       </nav>
       <div class="account"><div id="avatar" class="avatar">O</div><div class="account-copy"><div id="account-email" class="account-email">Loading…</div><div class="account-role">Supabase account</div></div><button id="logout-button" class="logout" title="Sign out"><i class="fa-solid fa-arrow-right-from-bracket"></i></button></div>
     </aside>
@@ -56,6 +57,40 @@
         <section id="view-bookings" class="view">
           <div class="page-heading"><div><h2>Bookings</h2><p>Review customer requests and update their status.</p></div></div>
           <div class="table-card"><div class="table-toolbar"><h3>Booking requests</h3><select id="booking-filter" class="control"><option value="">All statuses</option><option value="pending">Pending</option><option value="confirmed">Confirmed</option><option value="cancelled">Cancelled</option></select><input id="booking-search" class="control search" type="search" placeholder="Search by name or email"></div><div id="bookings-table"></div></div>
+        </section>
+        <section id="view-settings" class="view">
+          <div class="page-heading"><h2>Site Settings</h2></div>
+          <div class="table-card" style="max-width:640px">
+            <div class="table-toolbar"><h3>General Settings</h3></div>
+            <form id="settings-form" style="padding:20px 24px;display:grid;gap:16px">
+              <div class="field">
+                <label style="display:block;margin-bottom:6px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">Currency</label>
+                <input id="setting-currency" class="control" value="EUR" placeholder="EUR">
+              </div>
+              <div class="field">
+                <label style="display:block;margin-bottom:6px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">WhatsApp Number</label>
+                <input id="setting-whatsapp" class="control" placeholder="212694170004">
+              </div>
+              <div class="field">
+                <label style="display:block;margin-bottom:6px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">Owner Email</label>
+                <input id="setting-email" class="control" type="email" placeholder="ochremorocco@gmail.com">
+              </div>
+              <div class="field">
+                <label style="display:block;margin-bottom:6px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">Cancellation Policy</label>
+                <textarea id="setting-cancellation" class="control" rows="3" placeholder="Cancellation accepted up to 48h before the excursion."></textarea>
+              </div>
+              <div class="field">
+                <label style="display:block;margin-bottom:6px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">Card Payments Enabled</label>
+                <select id="setting-card-enabled" class="control">
+                  <option value="false">Disabled (WhatsApp &amp; Cash only)</option>
+                  <option value="true">Enabled (show card option in booking form)</option>
+                </select>
+              </div>
+              <div>
+                <button type="submit" class="button"><i class="fa-solid fa-floppy-disk"></i> Save Settings</button>
+              </div>
+            </form>
+          </div>
         </section>
       </div>
     </main>
@@ -153,7 +188,11 @@
         $('bookings-table').innerHTML = '<div class="table-scroll"><table><thead><tr><th>Client</th><th>Experience</th><th>Date</th><th>Guests</th><th>Status</th><th>Update</th></tr></thead><tbody>' + rows.map(function (booking) {
           var related = experiences.find(function (experience) { return experience.id === booking.excursion_id; });
           var statusClass = ({ pending:'gold', confirmed:'green', cancelled:'red' })[booking.status] || 'gray';
-          return '<tr><td><div class="title">' + escapeHtml(booking.client_name || 'Unknown') + '</div><div class="sub">' + escapeHtml(booking.client_email || booking.client_phone || '') + '</div></td><td>' + escapeHtml(related ? related.title : 'Experience removed') + '</td><td>' + escapeHtml(booking.booking_date || '—') + '</td><td>' + Number(booking.people_count || 1) + '</td><td><span class="badge ' + statusClass + '">' + escapeHtml(booking.status || 'pending') + '</span></td><td><select class="control" style="min-width:120px;padding:6px 8px" data-booking-status="' + escapeHtml(booking.id) + '"><option value="pending"' + (booking.status === 'pending' ? ' selected' : '') + '>Pending</option><option value="confirmed"' + (booking.status === 'confirmed' ? ' selected' : '') + '>Confirmed</option><option value="cancelled"' + (booking.status === 'cancelled' ? ' selected' : '') + '>Cancelled</option></select></td></tr>';
+          var payStatusClass = ({ pending:'gold', paid:'green', partial:'blue', refunded:'gray' })[booking.payment_status] || 'gray';
+          var svcTitle = booking.service_name || (related ? related.title : 'Experience removed');
+          var amountStr = booking.amount ? (booking.currency || 'EUR') + ' ' + Number(booking.amount).toFixed(2) : '—';
+          var payMethod = booking.payment_method || '—';
+          return '<tr><td><div class="title">' + escapeHtml(booking.client_name || 'Unknown') + '</div><div class="sub">' + escapeHtml(booking.client_email || '') + '<br>' + escapeHtml(booking.client_phone || '') + '</div></td><td>' + escapeHtml(svcTitle) + '</td><td>' + escapeHtml(booking.booking_date || '—') + '</td><td style="text-align:center">' + Number(booking.people_count || 1) + '</td><td><strong>' + escapeHtml(amountStr) + '</strong><br><small style="color:var(--muted)">' + escapeHtml(payMethod) + '</small></td><td><span class="badge ' + payStatusClass + '" style="margin-bottom:4px;display:inline-block">' + escapeHtml(booking.payment_status || 'pending') + '</span><br><select class="control" style="min-width:100px;padding:4px 6px;margin-top:4px" data-payment-status="' + escapeHtml(booking.id) + '"><option value="pending"' + (booking.payment_status === 'pending' ? ' selected' : '') + '>Pending</option><option value="paid"' + (booking.payment_status === 'paid' ? ' selected' : '') + '>Paid</option><option value="partial"' + (booking.payment_status === 'partial' ? ' selected' : '') + '>Partial</option><option value="refunded"' + (booking.payment_status === 'refunded' ? ' selected' : '') + '>Refunded</option></select></td><td><span class="badge ' + statusClass + '">' + escapeHtml(booking.status || 'pending') + '</span><br><select class="control" style="min-width:100px;padding:4px 6px;margin-top:4px" data-booking-status="' + escapeHtml(booking.id) + '"><option value="pending"' + (booking.status === 'pending' ? ' selected' : '') + '>Pending</option><option value="confirmed"' + (booking.status === 'confirmed' ? ' selected' : '') + '>Confirmed</option><option value="cancelled"' + (booking.status === 'cancelled' ? ' selected' : '') + '>Cancelled</option></select></td></tr>';
         }).join('') + '</tbody></table></div>';
       }
       function updateStats() {
@@ -225,6 +264,12 @@
         } catch (error) { toast(error.message || 'Could not save the experience.', 'error'); }
         button.disabled = false; button.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save experience';
       }
+      async function updatePaymentStatus(id, payStatus) {
+        var result = await client.rpc('update_booking_payment', { p_booking_id: id, p_payment_status: payStatus });
+        if (result.error) { toast(result.error.message, 'error'); return; }
+        bookings = bookings.map(function (b) { return b.id === id ? Object.assign({}, b, { payment_status: payStatus }) : b; });
+        renderBookings(); toast('Payment status updated.', 'success');
+      }
       async function updateBookingStatus(id, status) {
         var result = await client.from('bookings').update({ status: status }).eq('id', id);
         if (result.error) { toast(result.error.message, 'error'); renderBookings(); return; }
@@ -238,10 +283,37 @@
         experiences = experiences.filter(function (item) { return item.id !== deleteId; });
         $('confirm-modal').classList.remove('open'); deleteId = null; updateStats(); renderRecent(); renderExperienceTable(); toast('Experience deleted.', 'success');
       }
+      async function loadSettings() {
+        var res = await client.from('site_settings').select('key,value');
+        if (res.error || !res.data) return;
+        res.data.forEach(function(row) {
+          if (row.key === 'currency')             { var el = $('setting-currency');     if (el) el.value = row.value || ''; }
+          if (row.key === 'whatsapp')             { var el = $('setting-whatsapp');    if (el) el.value = row.value || ''; }
+          if (row.key === 'owner_email')          { var el = $('setting-email');        if (el) el.value = row.value || ''; }
+          if (row.key === 'cancellation_policy')  { var el = $('setting-cancellation'); if (el) el.value = row.value || ''; }
+          if (row.key === 'card_enabled')         { var el = $('setting-card-enabled'); if (el) el.value = row.value || 'false'; }
+        });
+      }
+      async function saveSettings(e) {
+        e.preventDefault();
+        var updates = [
+          { key: 'currency',            value: $('setting-currency').value.trim() },
+          { key: 'whatsapp',            value: $('setting-whatsapp').value.trim() },
+          { key: 'owner_email',         value: $('setting-email').value.trim() },
+          { key: 'cancellation_policy', value: $('setting-cancellation').value.trim() },
+          { key: 'card_enabled',        value: $('setting-card-enabled').value }
+        ];
+        var errors = [];
+        for (var i = 0; i < updates.length; i++) {
+          var res = await client.from('site_settings').upsert(updates[i], { onConflict: 'key' });
+          if (res.error) errors.push(res.error.message);
+        }
+        if (errors.length) { toast('Error: ' + errors[0], 'error'); } else { toast('Settings saved.', 'success'); }
+      }
       function showView(name) {
         document.querySelectorAll('.view').forEach(function (view) { view.classList.toggle('active', view.id === 'view-' + name); });
         document.querySelectorAll('.nav-button').forEach(function (button) { button.classList.toggle('active', button.dataset.view === name); });
-        $('page-title').textContent = ({ overview:'Overview', services:'Experiences', bookings:'Bookings' })[name] || 'Overview';
+        $('page-title').textContent = ({ overview:'Overview', services:'Experiences', bookings:'Bookings', settings:'Settings' })[name] || 'Overview';
       }
       function bindEvents() {
         document.querySelectorAll('.nav-button').forEach(function (button) { button.addEventListener('click', function () { showView(button.dataset.view); }); });
@@ -254,7 +326,8 @@
         $('experience-search').addEventListener('input', renderExperienceTable); $('category-filter').addEventListener('change', renderExperienceTable); $('booking-search').addEventListener('input', renderBookings); $('booking-filter').addEventListener('change', renderBookings);
         $('experiences-table').addEventListener('click', function (event) { var edit = event.target.closest('[data-edit]'); var remove = event.target.closest('[data-delete]'); if (edit) openForm(experiences.find(function (item) { return item.id === edit.dataset.edit; })); if (remove) { deleteId = remove.dataset.delete; var record = experiences.find(function (item) { return item.id === deleteId; }); $('delete-name').textContent = record ? record.title : ''; $('confirm-modal').classList.add('open'); } });
         $('confirm-delete').addEventListener('click', deleteExperience);
-        $('bookings-table').addEventListener('change', function (event) { if (event.target.dataset.bookingStatus) updateBookingStatus(event.target.dataset.bookingStatus, event.target.value); });
+        $('settings-form').addEventListener('submit', saveSettings);
+        $('bookings-table').addEventListener('change', function (event) { if (event.target.dataset.bookingStatus) updateBookingStatus(event.target.dataset.bookingStatus, event.target.value); if (event.target.dataset.paymentStatus) updatePaymentStatus(event.target.dataset.paymentStatus, event.target.value); });
         $('logout-button').addEventListener('click', async function () { await client.auth.signOut(); window.location.replace('login.html'); });
         document.addEventListener('keydown', function (event) { if (event.key === 'Escape') { closeForm(); $('confirm-modal').classList.remove('open'); } });
       }
@@ -263,8 +336,14 @@
         var sessionResult = await client.auth.getSession();
         if (!sessionResult.data || !sessionResult.data.session) { window.location.replace('index.html'); return; }
         var email = sessionResult.data.session.user.email || 'Administrator'; $('account-email').textContent = email; $('avatar').textContent = email.charAt(0).toUpperCase();
+        /* Verify admin privileges */
+        var adminCheck = await client.rpc('is_admin');
+        if (!adminCheck.data) {
+          document.body.innerHTML = '<div style="padding:60px;color:#fff;text-align:center"><h2 style="color:#ed8585">Access Denied</h2><p style="color:#9ea8a4">Your account does not have administrator privileges.<br>Contact the site owner to be added as an admin.</p><a href="login.html" style="color:#42ba91">← Back to Login</a></div>';
+          return;
+        }
         bindEvents();
-        try { await loadData(); } catch (error) { toast('Could not load experiences: ' + (error.message || 'Unknown error'), 'error'); $('experiences-table').innerHTML = emptyState('fa-triangle-exclamation', 'Supabase could not return the experiences table. Check your RLS policies.'); }
+        try { await loadData(); await loadSettings(); } catch (error) { toast('Could not load data: ' + (error.message || 'Unknown error'), 'error'); }
       }
       init();
     })();

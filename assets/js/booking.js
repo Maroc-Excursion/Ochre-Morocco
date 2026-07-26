@@ -108,6 +108,44 @@
   var svc = null;
   var fd  = {};
 
+  /* ── SUPABASE BOOKING SAVE ───────────────────────────────── */
+  function saveToSupabase(payMethod) {
+    try {
+      var db = window.supabaseClient;
+      if (!db || !db.rpc) return Promise.resolve(null);
+      var total = calcTotal();
+      var bookingDate = fd.date || fd.dt || null;
+      if (bookingDate && bookingDate.length > 10) bookingDate = bookingDate.slice(0, 10);
+      var notesArr = [];
+      var fields = FIELDS[svc.type] || FIELDS.excursion;
+      fields.forEach(function(f) {
+        if (fd[f.id] && f.id !== 'name' && f.id !== 'email' && f.id !== 'phone' && f.id !== 'date' && f.id !== 'dt' && f.id !== 'pax' && f.id !== 'adults') {
+          notesArr.push(f.label + ': ' + fd[f.id]);
+        }
+      });
+      return db.rpc('create_booking', {
+        p_service_name:   svc.name,
+        p_client_name:    fd.name  || '',
+        p_client_email:   fd.email || null,
+        p_client_phone:   fd.phone || null,
+        p_booking_date:   bookingDate,
+        p_people_count:   parseInt(fd.adults || fd.pax || 1, 10) || 1,
+        p_amount:         total,
+        p_currency:       'EUR',
+        p_payment_method: payMethod,
+        p_notes:          notesArr.join(' | ') || null
+      }).then(function(res) {
+        if (res && res.error) console.warn('Booking save error:', res.error.message);
+        return res;
+      });
+    } catch(e) {
+      console.warn('Booking save exception:', e);
+      return Promise.resolve(null);
+    }
+  }
+
+
+
   window.addEventListener('ochre:settings', function (event) {
     var settings = event.detail || {};
     if (settings.contact && settings.contact.whatsapp) {
@@ -212,6 +250,10 @@
     G('bk-bprice').textContent = 'From \u20ac' + svc.price + ' / person';
     renderFields();
     setStep(1);
+    /* Show card only when a Stripe payLink is configured for this service */
+    var hasPayLink = !!(CFG.payLinks[svc.id || ''] || '').trim();
+    var cardBtn = G('bk-opt-card');
+    if (cardBtn) { cardBtn.style.display = hasPayLink ? '' : 'none'; }
     overlay.classList.add('bk-open');
     document.body.style.overflow = 'hidden';
   }
@@ -344,6 +386,7 @@
 
   /* ── PAYMENT OPTION: WHATSAPP ────────────────────────────── */
   G('bk-opt-wa').addEventListener('click', function() {
+    saveToSupabase('whatsapp');
     window.open('https://wa.me/' + CFG.whatsapp + '?text=' + buildWA(), '_blank');
     closeModal();
   });
