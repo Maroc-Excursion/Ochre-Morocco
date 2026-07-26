@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Ochre Morocco – لوحة التحكم</title>
+<title>Ochre Morocco – Admin Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -61,8 +61,8 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .lockout-banner{background:rgba(229,62,62,.1);border:1px solid rgba(229,62,62,.3);border-radius:8px;padding:12px;font-size:.82rem;color:var(--danger);margin-bottom:16px;display:none}
 
 /* ── Forms ── */
-.form-group{margin-bottom:16px;text-align:right}
-.form-group label{display:block;font-size:.82rem;font-weight:500;color:var(--muted);margin-bottom:6px;text-align:right}
+.form-group{margin-bottom:16px;text-align:left}
+.form-group label{display:block;font-size:.82rem;font-weight:500;color:var(--muted);margin-bottom:6px;text-align:left}
 .form-control{width:100%;padding:10px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:.88rem;font-family:inherit;transition:var(--trans);outline:none}
 .form-control:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(34,163,122,.15)}
 .form-control::placeholder{color:var(--muted)}
@@ -101,7 +101,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .table-search{background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-size:.82rem;font-family:inherit;outline:none;width:200px}
 .table-search:focus{border-color:var(--green2)}
 table{width:100%;border-collapse:collapse;font-size:.82rem}
-th{padding:12px 16px;text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--border);font-weight:600;background:var(--card2)}
+th{padding:12px 16px;text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--border);font-weight:600;background:var(--card2)}
 td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:rgba(255,255,255,.02)}
@@ -192,27 +192,27 @@ tr:hover td{background:rgba(255,255,255,.02)}
   <div class="auth-card">
     <div class="auth-logo"><i class="fas fa-map-marked-alt"></i></div>
     <h2>Ochre Morocco</h2>
-    <p>لوحة التحكم الإدارية — دخول آمن</p>
+    <p>Admin Dashboard — Secure Login</p>
     <div id="lockout-banner" class="lockout-banner">
-      <i class="fas fa-lock"></i> <span id="lockout-msg">تم تجاوز عدد المحاولات. المرجو الانتظار.</span>
+      <i class="fas fa-lock"></i> <span id="lockout-msg">Too many attempts. Please wait.</span>
     </div>
     <div id="login-error" class="alert alert-danger" style="display:none"></div>
-    <div class="form-group" style="text-align:right">
-      <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+    <div class="form-group">
+      <label><i class="fas fa-envelope"></i> Email address</label>
       <input type="email" id="inp-email" class="form-control" placeholder="admin@ochremorocco.com" autocomplete="email" spellcheck="false" dir="ltr"/>
     </div>
-    <div class="form-group" style="text-align:right">
-      <label><i class="fas fa-lock"></i> كلمة السر</label>
+    <div class="form-group">
+      <label><i class="fas fa-lock"></i> Password</label>
       <input type="password" id="inp-pass" class="form-control" placeholder="••••••••" autocomplete="current-password"/>
     </div>
     <div id="login-spinner" style="display:none;color:var(--muted);font-size:.82rem;margin-bottom:12px">
-      <i class="fas fa-spinner fa-spin"></i> جارٍ التحقق...
+      <i class="fas fa-spinner fa-spin"></i> Verifying...
     </div>
     <button class="btn btn-primary btn-block" id="login-btn" onclick="doLogin()">
-      <i class="fas fa-sign-in-alt"></i> دخول
+      <i class="fas fa-sign-in-alt"></i> Sign In
     </button>
     <p style="font-size:.72rem;color:var(--muted);margin-top:20px;opacity:.6">
-      <i class="fas fa-shield-alt"></i> الدخول محمي — 5 محاولات فاشلة تؤدي إلى الإغلاق المؤقت
+      <i class="fas fa-shield-alt"></i> Login protected — 5 failed attempts lead to temporary lockout
     </p>
   </div>
 </div>
@@ -223,22 +223,22 @@ tr:hover td{background:rgba(255,255,255,.02)}
 <div id="screen-setup" class="auth-screen" style="display:none">
   <div class="auth-card">
     <div class="auth-logo" style="background:linear-gradient(135deg,#d4a853,#e8c070)"><i class="fas fa-key"></i></div>
-    <h2>إعداد أولي — مرة واحدة فقط</h2>
-    <p>أدخل GitHub Token الخاص بالمستودع. سيُحفظ مشفراً في متصفحك ولن تحتاج لإدخاله مجدداً.</p>
+    <h2>Initial Setup — One Time Only</h2>
+    <p>Enter your repository GitHub Token. It will be encrypted in your browser and you won't need to enter it again.</p>
     <div id="setup-error" class="alert alert-danger" style="display:none"></div>
-    <div class="form-group" style="text-align:right">
+    <div class="form-group">
       <label><i class="fab fa-github"></i> GitHub Personal Access Token</label>
       <input type="password" id="inp-token" class="form-control" placeholder="ghp_..." autocomplete="off" spellcheck="false" dir="ltr"/>
       <div class="form-hint">
-        يجب أن يملك صلاحية <strong>contents:write</strong> على مستودع Ochre-Morocco فقط.<br>
-        اذهب إلى: GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token
+        Must have <strong>contents:write</strong> permission on the Ochre-Morocco repository.<br>
+        Go to: GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token
       </div>
     </div>
     <button class="btn btn-primary btn-block" id="setup-btn" onclick="doSetupToken()">
-      <i class="fas fa-save"></i> حفظ وإكمال الإعداد
+      <i class="fas fa-save"></i> Save & Complete Setup
     </button>
     <button class="btn btn-ghost btn-block" style="margin-top:8px" onclick="showLogin()">
-      <i class="fas fa-arrow-right"></i> رجوع
+      <i class="fas fa-arrow-left"></i> Back
     </button>
   </div>
 </div>
@@ -254,34 +254,34 @@ tr:hover td{background:rgba(255,255,255,.02)}
     <div class="logo-icon"><i class="fas fa-map-marked-alt"></i></div>
     <div>
       <h1>Ochre Morocco</h1>
-      <span>لوحة التحكم</span>
+      <span>Admin Panel</span>
     </div>
   </div>
   <nav class="sidebar-nav">
-    <div class="nav-section">عام</div>
+    <div class="nav-section">General</div>
     <button class="nav-item active" id="nav-dashboard" onclick="showPage('dashboard')">
-      <i class="fas fa-chart-pie nav-icon"></i> لوحة التحكم
+      <i class="fas fa-chart-pie nav-icon"></i> Dashboard
     </button>
-    <div class="nav-section">المحتوى</div>
+    <div class="nav-section">Content</div>
     <button class="nav-item" id="nav-services" onclick="showPage('services')">
-      <i class="fas fa-hiking nav-icon"></i> الخدمات والأسعار
+      <i class="fas fa-hiking nav-icon"></i> Services & Prices
       <span class="nav-badge" id="badge-services">0</span>
     </button>
     <button class="nav-item" id="nav-transfers" onclick="showPage('transfers')">
-      <i class="fas fa-shuttle-van nav-icon"></i> التنقلات
+      <i class="fas fa-shuttle-van nav-icon"></i> Transfers
     </button>
     <button class="nav-item" id="nav-circuits" onclick="showPage('circuits')">
-      <i class="fas fa-route nav-icon"></i> الدورات السياحية
+      <i class="fas fa-route nav-icon"></i> Circuits
       <span class="nav-badge" id="badge-circuits">0</span>
     </button>
-    <div class="nav-section">الإعدادات</div>
+    <div class="nav-section">Settings</div>
     <button class="nav-item" id="nav-youtube" onclick="showPage('youtube')">
-      <i class="fab fa-youtube nav-icon" style="color:#ff0000"></i> فيديو YouTube
+      <i class="fab fa-youtube nav-icon" style="color:#ff0000"></i> YouTube Video
     </button>
     <button class="nav-item" id="nav-settings" onclick="showPage('settings')">
-      <i class="fas fa-cog nav-icon"></i> إعدادات الموقع
+      <i class="fas fa-cog nav-icon"></i> Site Settings
     </button>
-    <div class="nav-section">الحساب</div>
+    <div class="nav-section">Account</div>
     <button class="nav-item" id="nav-token" onclick="showPage('token')">
       <i class="fab fa-github nav-icon"></i> GitHub Token
     </button>
@@ -293,7 +293,7 @@ tr:hover td{background:rgba(255,255,255,.02)}
         <div class="name">Administrator</div>
         <div class="role">Super Admin</div>
       </div>
-      <button class="logout-btn" onclick="doLogout()" title="تسجيل الخروج"><i class="fas fa-sign-out-alt"></i></button>
+      <button class="logout-btn" onclick="doLogout()" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
     </div>
   </div>
 </aside>
@@ -302,10 +302,10 @@ tr:hover td{background:rgba(255,255,255,.02)}
 <div class="main">
   <div class="topbar">
     <button class="btn-icon" id="sidebar-toggle" onclick="toggleSidebar()" style="display:none"><i class="fas fa-bars"></i></button>
-    <span class="topbar-title" id="topbar-title">لوحة التحكم</span>
+    <span class="topbar-title" id="topbar-title">Dashboard</span>
     <div class="topbar-actions">
       <a href="https://ochremorocco.com" target="_blank" class="btn btn-ghost btn-sm">
-        <i class="fas fa-external-link-alt"></i> عرض الموقع
+        <i class="fas fa-external-link-alt"></i> View Site
       </a>
     </div>
   </div>
@@ -316,86 +316,86 @@ tr:hover td{background:rgba(255,255,255,.02)}
       <div class="stats-grid" id="stats-grid">
         <div class="stat-card">
           <div class="stat-icon green"><i class="fas fa-hiking"></i></div>
-          <div><div class="stat-label">الخدمات النشطة</div><div class="stat-value" id="stat-services">-</div><div class="stat-sub">الأنشطة والرحلات</div></div>
+          <div><div class="stat-label">Active Services</div><div class="stat-value" id="stat-services">-</div><div class="stat-sub">Activities & Excursions</div></div>
         </div>
         <div class="stat-card">
           <div class="stat-icon gold"><i class="fas fa-route"></i></div>
-          <div><div class="stat-label">الدورات السياحية</div><div class="stat-value" id="stat-circuits">-</div><div class="stat-sub">الجولات المنظمة</div></div>
+          <div><div class="stat-label">Circuits</div><div class="stat-value" id="stat-circuits">-</div><div class="stat-sub">Organized tours</div></div>
         </div>
         <div class="stat-card">
           <div class="stat-icon info"><i class="fas fa-shuttle-van"></i></div>
-          <div><div class="stat-label">التنقلات</div><div class="stat-value" id="stat-transfers">-</div><div class="stat-sub">وسائل النقل</div></div>
+          <div><div class="stat-label">Transfers</div><div class="stat-value" id="stat-transfers">-</div><div class="stat-sub">Vehicles & transport</div></div>
         </div>
         <div class="stat-card">
           <div class="stat-icon warning"><i class="fas fa-euro-sign"></i></div>
-          <div><div class="stat-label">أدنى سعر</div><div class="stat-value" id="stat-min-price">-</div><div class="stat-sub">أرخص خدمة متاحة</div></div>
+          <div><div class="stat-label">Lowest Price</div><div class="stat-value" id="stat-min-price">-</div><div class="stat-sub">Cheapest available service</div></div>
         </div>
       </div>
       <div class="table-card">
-        <div class="table-header"><h3><i class="fas fa-hiking" style="color:var(--gold);margin-right:6px"></i> جميع الخدمات</h3></div>
-        <div id="dash-services-list"><div class="loading"><div class="spinner"></div> جارٍ التحميل...</div></div>
+        <div class="table-header"><h3><i class="fas fa-hiking" style="color:var(--gold);margin-right:6px"></i> All Services</h3></div>
+        <div id="dash-services-list"><div class="loading"><div class="spinner"></div> Loading...</div></div>
       </div>
     </div>
 
     <!-- ══ SERVICES ══ -->
     <div id="page-services" class="page">
       <div class="page-header">
-        <div><h2><i class="fas fa-hiking" style="color:var(--gold)"></i> الخدمات والأسعار</h2><p>تحكم في جميع الخدمات، الأسعار، الصور والنصوص</p></div>
-        <button class="btn btn-primary" onclick="openSvcModal()"><i class="fas fa-plus"></i> إضافة خدمة</button>
+        <div><h2><i class="fas fa-hiking" style="color:var(--gold)"></i> Services & Prices</h2><p>Manage all services, prices, images and descriptions</p></div>
+        <button class="btn btn-primary" onclick="openSvcModal()"><i class="fas fa-plus"></i> Add Service</button>
       </div>
       <div class="table-card">
         <div class="table-header">
-          <h3>قائمة الخدمات</h3>
+          <h3>Services List</h3>
           <select id="svc-cat-filter" class="form-control" style="width:180px" onchange="renderServices()">
-            <option value="">كل الفئات</option>
-            <option value="marrakech transfer">تنقلات</option>
-            <option value="marrakech">أنشطة</option>
-            <option value="marrakech desert">صحراء</option>
-            <option value="marrakech montagne">جبال</option>
-            <option value="marrakech excursions">رحلات يومية</option>
+            <option value="">All Categories</option>
+            <option value="marrakech transfer">Transfers</option>
+            <option value="marrakech">Activities</option>
+            <option value="marrakech desert">Desert</option>
+            <option value="marrakech montagne">Mountains</option>
+            <option value="marrakech excursions">Day Trips</option>
           </select>
-          <input type="text" class="table-search" placeholder="بحث..." id="svc-search" oninput="renderServices()"/>
+          <input type="text" class="table-search" placeholder="Search..." id="svc-search" oninput="renderServices()"/>
         </div>
-        <div id="svc-table"><div class="loading"><div class="spinner"></div> جارٍ التحميل...</div></div>
+        <div id="svc-table"><div class="loading"><div class="spinner"></div> Loading...</div></div>
       </div>
     </div>
 
     <!-- ══ TRANSFERS ══ -->
     <div id="page-transfers" class="page">
       <div class="page-header">
-        <div><h2><i class="fas fa-shuttle-van" style="color:var(--warning)"></i> التنقلات</h2><p>إدارة وسائل النقل والأسعار</p></div>
-        <button class="btn btn-primary" onclick="openTransferModal()"><i class="fas fa-plus"></i> إضافة</button>
+        <div><h2><i class="fas fa-shuttle-van" style="color:var(--warning)"></i> Transfers</h2><p>Manage vehicles and transfer prices</p></div>
+        <button class="btn btn-primary" onclick="openTransferModal()"><i class="fas fa-plus"></i> Add</button>
       </div>
       <div class="table-card">
-        <div class="table-header"><h3>السيارات والأسعار</h3></div>
-        <div id="transfer-table"><div class="loading"><div class="spinner"></div> جارٍ التحميل...</div></div>
+        <div class="table-header"><h3>Vehicles & Prices</h3></div>
+        <div id="transfer-table"><div class="loading"><div class="spinner"></div> Loading...</div></div>
       </div>
     </div>
 
     <!-- ══ CIRCUITS ══ -->
     <div id="page-circuits" class="page">
       <div class="page-header">
-        <div><h2><i class="fas fa-route" style="color:var(--info)"></i> الدورات السياحية</h2><p>إدارة الجولات المنظمة</p></div>
+        <div><h2><i class="fas fa-route" style="color:var(--info)"></i> Circuits & Tours</h2><p>Manage organized tours and circuits</p></div>
         <button class="btn btn-primary" onclick="openCircuitModal()"><i class="fas fa-plus"></i> إضافة</button>
       </div>
       <div class="table-card">
         <div class="table-header">
-          <h3>قائمة الدورات</h3>
-          <input type="text" class="table-search" placeholder="بحث..." id="circ-search" oninput="renderCircuits()"/>
+          <h3>Circuits List</h3>
+          <input type="text" class="table-search" placeholder="Search..." id="circ-search" oninput="renderCircuits()"/>
         </div>
-        <div id="circ-table"><div class="loading"><div class="spinner"></div> جارٍ التحميل...</div></div>
+        <div id="circ-table"><div class="loading"><div class="spinner"></div> Loading...</div></div>
       </div>
     </div>
 
     <!-- ══ YOUTUBE ══ -->
     <div id="page-youtube" class="page">
       <div class="page-header">
-        <div><h2><i class="fab fa-youtube" style="color:#ff0000"></i> فيديو YouTube</h2><p>أدخل رابط فيديو YouTube ليظهر مباشرة في الموقع</p></div>
+        <div><h2><i class="fab fa-youtube" style="color:#ff0000"></i> YouTube Video</h2><p>Enter a YouTube video URL to display it directly on the site</p></div>
       </div>
       <div class="settings-section">
-        <h3><i class="fab fa-youtube"></i> رابط الفيديو</h3>
+        <h3><i class="fab fa-youtube"></i> Video URL</h3>
         <div class="form-group">
-          <label>رابط YouTube</label>
+          <label>YouTube Link</label>
           <input type="url" class="form-control" id="yt-url" placeholder="https://www.youtube.com/watch?v=..." oninput="previewYoutube()"/>
         </div>
         <div class="form-group">
@@ -404,11 +404,11 @@ tr:hover td{background:rgba(255,255,255,.02)}
         </div>
         <div class="form-group">
           <label>وصف قصير</label>
-          <input type="text" class="form-control" id="yt-subtitle" placeholder="وصف مختصر"/>
+          <input type="text" class="form-control" id="yt-subtitle" placeholder="Short description"/>
         </div>
         <iframe id="yt-preview-frame" class="yt-preview" allowfullscreen></iframe>
         <div style="margin-top:16px">
-          <button class="btn btn-primary" onclick="saveYoutube()"><i class="fas fa-save"></i> حفظ وتطبيق على الموقع</button>
+          <button class="btn btn-primary" onclick="saveYoutube()"><i class="fas fa-save"></i> Save وتطبيق على Website</button>
           <button class="btn btn-danger btn-sm" style="margin-left:10px" onclick="removeYoutube()"><i class="fas fa-trash"></i> إزالة الفيديو</button>
         </div>
       </div>
@@ -417,30 +417,30 @@ tr:hover td{background:rgba(255,255,255,.02)}
     <!-- ══ SETTINGS ══ -->
     <div id="page-settings" class="page">
       <div class="page-header">
-        <div><h2><i class="fas fa-cog" style="color:var(--muted)"></i> إعدادات الموقع</h2><p>معلومات الاتصال، الشبكات الاجتماعية والإعدادات العامة</p></div>
+        <div><h2><i class="fas fa-cog" style="color:var(--muted)"></i> Site Settings</h2><p>Contact Information، الشبكات الاجDoneاعية والإعدادات العامة</p></div>
       </div>
       <form onsubmit="saveSettings(event)">
         <div class="settings-section">
-          <h3><i class="fas fa-info-circle"></i> معلومات الموقع</h3>
+          <h3><i class="fas fa-info-circle"></i> معلومات Website</h3>
           <div class="form-row">
-            <div class="form-group"><label>اسم الموقع</label><input type="text" class="form-control" id="s-name" placeholder="Ochre Morocco"/></div>
+            <div class="form-group"><label>اسم Website</label><input type="text" class="form-control" id="s-name" placeholder="Ochre Morocco"/></div>
             <div class="form-group"><label>الشعار</label><input type="text" class="form-control" id="s-tagline" placeholder="Discover the Magic of Morocco"/></div>
           </div>
-          <div class="form-group"><label>الوصف</label><textarea class="form-control" id="s-description" rows="2"></textarea></div>
+          <div class="form-group"><label>Description</label><textarea class="form-control" id="s-description" rows="2"></textarea></div>
         </div>
         <div class="settings-section">
-          <h3><i class="fas fa-phone"></i> معلومات الاتصال</h3>
+          <h3><i class="fas fa-phone"></i> Contact Information</h3>
           <div class="form-row">
-            <div class="form-group"><label>الهاتف 1</label><input type="text" class="form-control" id="s-phone1" placeholder="+212 694 170 004"/></div>
-            <div class="form-group"><label>الهاتف 2</label><input type="text" class="form-control" id="s-phone2"/></div>
+            <div class="form-group"><label>Phone 1</label><input type="text" class="form-control" id="s-phone1" placeholder="+212 694 170 004"/></div>
+            <div class="form-group"><label>Phone 2</label><input type="text" class="form-control" id="s-phone2"/></div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label>البريد الإلكتروني</label><input type="email" class="form-control" id="s-email"/></div>
+            <div class="form-group"><label>Email Address</label><input type="email" class="form-control" id="s-email"/></div>
             <div class="form-group"><label>واتساب (أرقام فقط)</label><input type="text" class="form-control" id="s-whatsapp" placeholder="212694170004"/></div>
           </div>
         </div>
         <div class="settings-section">
-          <h3><i class="fas fa-share-alt"></i> الشبكات الاجتماعية</h3>
+          <h3><i class="fas fa-share-alt"></i> الشبكات الاجDoneاعية</h3>
           <div class="form-row">
             <div class="form-group"><label><i class="fab fa-facebook"></i> Facebook</label><input type="url" class="form-control" id="s-facebook" placeholder="https://facebook.com/..."/></div>
             <div class="form-group"><label><i class="fab fa-instagram"></i> Instagram</label><input type="url" class="form-control" id="s-instagram" placeholder="https://instagram.com/..."/></div>
@@ -450,17 +450,17 @@ tr:hover td{background:rgba(255,255,255,.02)}
             <div class="form-group"><label><i class="fab fa-youtube"></i> YouTube</label><input type="url" class="form-control" id="s-youtube" placeholder="https://youtube.com/@..."/></div>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> حفظ كل الإعدادات</button>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save كل الإعدادات</button>
       </form>
     </div>
 
     <!-- ══ TOKEN PAGE ══ -->
     <div id="page-token" class="page">
       <div class="page-header">
-        <div><h2><i class="fab fa-github" style="color:var(--muted)"></i> GitHub Token</h2><p>تحديث التوكن المشفر المحفوظ في متصفحك</p></div>
+        <div><h2><i class="fab fa-github" style="color:var(--muted)"></i> GitHub Token</h2><p>Update التوكن المشفر المحفوظ في متصفحك</p></div>
       </div>
       <div class="settings-section">
-        <h3><i class="fas fa-key"></i> تحديث GitHub Token</h3>
+        <h3><i class="fas fa-key"></i> Update GitHub Token</h3>
         <p style="font-size:.85rem;color:var(--muted);margin-bottom:18px;line-height:1.7">
           التوكن محفوظ مشفراً في متصفحك باستخدام AES-256. لا أحد يستطيع رؤيته حتى لو فتح الكود المصدري.
           أدخل توكناً جديداً إذا أردت تغييره أو إذا انتهت صلاحيته.
@@ -469,7 +469,7 @@ tr:hover td{background:rgba(255,255,255,.02)}
           <label>GitHub Token الجديد</label>
           <input type="password" class="form-control" id="new-token-inp" placeholder="ghp_..." dir="ltr"/>
         </div>
-        <button class="btn btn-primary" onclick="updateToken()"><i class="fas fa-sync"></i> تحديث التوكن</button>
+        <button class="btn btn-primary" onclick="updateToken()"><i class="fas fa-sync"></i> Update التوكن</button>
         <div style="margin-top:20px;padding:14px;background:var(--card2);border-radius:8px;font-size:.78rem;color:var(--muted);line-height:1.8">
           <strong style="color:var(--gold)"><i class="fas fa-shield-alt"></i> كيف تحصل على توكن؟</strong><br>
           1. اذهب إلى: github.com → Settings → Developer settings → Fine-grained tokens<br>
@@ -496,16 +496,16 @@ tr:hover td{background:rgba(255,255,255,.02)}
     </div>
     <div class="modal-body">
       <input type="hidden" id="svc-edit-id"/>
-      <div class="form-group"><label>عنوان الخدمة *</label><input type="text" class="form-control" id="svc-title" required placeholder="مثال: رحلة يوم كامل إلى أسواق مراكش"/></div>
+      <div class="form-group"><label>Service Title *</label><input type="text" class="form-control" id="svc-title" required placeholder="مثال: رحلة يوم كامل إلى أسواق مراكش"/></div>
       <div class="form-row">
-        <div class="form-group"><label>السعر (€) *</label><input type="number" class="form-control" id="svc-price" min="0" step="0.01" required placeholder="25"/></div>
-        <div class="form-group"><label>السعر القديم (€) <small>اختياري</small></label><input type="number" class="form-control" id="svc-old-price" min="0" step="0.01" placeholder="49"/></div>
+        <div class="form-group"><label>Price (€) *</label><input type="number" class="form-control" id="svc-price" min="0" step="0.01" required placeholder="25"/></div>
+        <div class="form-group"><label>Price القديم (€) <small>اختياري</small></label><input type="number" class="form-control" id="svc-old-price" min="0" step="0.01" placeholder="49"/></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>المدة</label><input type="text" class="form-control" id="svc-duration" placeholder="يوم كامل / نصف يوم"/></div>
-        <div class="form-group"><label>الفئة *</label>
+        <div class="form-group"><label>Duration</label><input type="text" class="form-control" id="svc-duration" placeholder="يوم كامل / نصف يوم"/></div>
+        <div class="form-group"><label>Category *</label>
           <select class="form-control" id="svc-category" required>
-            <option value="marrakech">أنشطة ومغامرات</option>
+            <option value="marrakech">أActiveة ومغامرات</option>
             <option value="marrakech transfer">تنقلات</option>
             <option value="marrakech desert">صحراء</option>
             <option value="marrakech montagne">جبال</option>
@@ -534,7 +534,7 @@ tr:hover td{background:rgba(255,255,255,.02)}
         <div class="form-hint">الصيغة: icon|نص — مثال: fas fa-clock|ساعتان</div>
       </div>
       <div class="form-group">
-        <label>صورة الخدمة</label>
+        <label>Service Image</label>
         <input type="url" class="form-control" id="svc-image" placeholder="https://res.cloudinary.com/..." oninput="previewImg(this,'svc-img-preview')"/>
         <div class="upload-area" onclick="uploadImage('svc-image','svc-img-preview')">
           <i class="fas fa-cloud-upload-alt"></i>
@@ -546,13 +546,13 @@ tr:hover td{background:rgba(255,255,255,.02)}
       <div class="form-group">
         <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
           <label class="toggle"><input type="checkbox" id="svc-active" checked/><span class="toggle-slider"></span></label>
-          الخدمة مفعّلة (تظهر في الموقع)
+          الخدمة مفعّلة (تظهر في Website)
         </label>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-svc')">إلغاء</button>
-      <button class="btn btn-primary" onclick="saveService()"><i class="fas fa-save"></i> حفظ</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-svc')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveService()"><i class="fas fa-save"></i> Save</button>
     </div>
   </div>
 </div>
@@ -567,12 +567,12 @@ tr:hover td{background:rgba(255,255,255,.02)}
     <div class="modal-body">
       <input type="hidden" id="transfer-edit-id"/>
       <div class="form-row">
-        <div class="form-group"><label>نوع السيارة *</label><input type="text" class="form-control" id="transfer-type" placeholder="بيرلين / ميني باص" required/></div>
+        <div class="form-group"><label>Vehicle Type *</label><input type="text" class="form-control" id="transfer-type" placeholder="بيرلين / ميني باص" required/></div>
         <div class="form-group"><label>الموديل</label><input type="text" class="form-control" id="transfer-model" placeholder="Mercedes Classe E"/></div>
       </div>
       <div class="form-row">
         <div class="form-group"><label>السعة</label><input type="text" class="form-control" id="transfer-capacity" placeholder="1–3 أشخاص"/></div>
-        <div class="form-group"><label>السعر (€)</label><input type="number" class="form-control" id="transfer-price" min="0"/></div>
+        <div class="form-group"><label>Price (€)</label><input type="number" class="form-control" id="transfer-price" min="0"/></div>
       </div>
       <div class="form-group">
         <label>صورة</label>
@@ -587,13 +587,13 @@ tr:hover td{background:rgba(255,255,255,.02)}
       <div class="form-group">
         <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
           <label class="toggle"><input type="checkbox" id="transfer-popular"/><span class="toggle-slider"></span></label>
-          تمييز كـ "شائع"
+          Doneييز كـ "شائع"
         </label>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-transfer')">إلغاء</button>
-      <button class="btn btn-primary" onclick="saveTransfer()"><i class="fas fa-save"></i> حفظ</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-transfer')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveTransfer()"><i class="fas fa-save"></i> Save</button>
     </div>
   </div>
 </div>
@@ -607,13 +607,13 @@ tr:hover td{background:rgba(255,255,255,.02)}
     </div>
     <div class="modal-body">
       <input type="hidden" id="circ-edit-id"/>
-      <div class="form-group"><label>العنوان *</label><input type="text" class="form-control" id="circ-title" required/></div>
+      <div class="form-group"><label>Title *</label><input type="text" class="form-control" id="circ-title" required/></div>
       <div class="form-group"><label>المسار</label><input type="text" class="form-control" id="circ-subtitle" placeholder="مراكش → فاس → مراكش"/></div>
       <div class="form-row">
-        <div class="form-group"><label>المدة *</label><input type="text" class="form-control" id="circ-duration" placeholder="7 أيام / 6 ليالٍ" required/></div>
-        <div class="form-group"><label>السعر (€) *</label><input type="number" class="form-control" id="circ-price" min="0" required/></div>
+        <div class="form-group"><label>Duration *</label><input type="text" class="form-control" id="circ-duration" placeholder="7 أيام / 6 ليالٍ" required/></div>
+        <div class="form-group"><label>Price (€) *</label><input type="number" class="form-control" id="circ-price" min="0" required/></div>
       </div>
-      <div class="form-group"><label>الوصف</label><textarea class="form-control" id="circ-description" rows="3"></textarea></div>
+      <div class="form-group"><label>Description</label><textarea class="form-control" id="circ-description" rows="3"></textarea></div>
       <div class="form-group"><label>ما يشمله (سطر لكل بند)</label><textarea class="form-control" id="circ-includes" rows="4" placeholder="النقل المكيف&#10;مرشد سياحي&#10;فنادق 3-4★"></textarea></div>
       <div class="form-group">
         <label>صورة</label>
@@ -632,8 +632,8 @@ tr:hover td{background:rgba(255,255,255,.02)}
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-circuit')">إلغاء</button>
-      <button class="btn btn-primary" onclick="saveCircuit()"><i class="fas fa-save"></i> حفظ</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-circuit')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveCircuit()"><i class="fas fa-save"></i> Save</button>
     </div>
   </div>
 </div>
@@ -642,13 +642,13 @@ tr:hover td{background:rgba(255,255,255,.02)}
 <div class="modal-overlay" id="modal-confirm">
   <div class="modal" style="max-width:400px">
     <div class="modal-header">
-      <h3><i class="fas fa-exclamation-triangle" style="color:var(--danger)"></i> تأكيد الحذف</h3>
+      <h3><i class="fas fa-exclamation-triangle" style="color:var(--danger)"></i> Confirm Delete</h3>
       <button class="modal-close" onclick="closeModal('modal-confirm')"><i class="fas fa-times"></i></button>
     </div>
-    <div class="modal-body" id="confirm-message">هل أنت متأكد؟</div>
+    <div class="modal-body" id="confirm-message">Are you sure؟</div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">إلغاء</button>
-      <button class="btn btn-danger" id="confirm-btn"><i class="fas fa-trash"></i> حذف</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">Cancel</button>
+      <button class="btn btn-danger" id="confirm-btn"><i class="fas fa-trash"></i> Delete</button>
     </div>
   </div>
 </div>
@@ -780,7 +780,7 @@ function showLockoutBanner(until) {
     const left = Math.ceil((until - Date.now()) / 1000);
     if (left <= 0) { banner.style.display = 'none'; return; }
     const m = Math.floor(left / 60), s = left % 60;
-    msg.textContent = `تم تجاوز عدد المحاولات. انتظر ${m}:${s.toString().padStart(2,'0')} قبل المحاولة مجدداً.`;
+    msg.textContent = `Done تجاوز عدد المحاولات. انتظر ${m}:${s.toString().padStart(2,'0')} قبل المحاولة مجدداً.`;
     setTimeout(update, 1000);
   };
   banner.style.display = 'block';
@@ -805,7 +805,7 @@ async function doLogin() {
   if (lockedUntil) { showLockoutBanner(lockedUntil); return; }
 
   if (!email || !pass) {
-    errEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> أدخل البريد الإلكتروني وكلمة السر.';
+    errEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> أدخل Email Address وكلمة السر.';
     errEl.style.display = 'flex'; return;
   }
 
@@ -816,13 +816,13 @@ async function doLogin() {
     // Verify email (SHA-256)
     const emailHash = await sha256hex(email);
     if (emailHash !== CRED_EMAIL_HASH) {
-      throw new Error('البريد الإلكتروني أو كلمة السر غير صحيحة.');
+      throw new Error('Email Address أو كلمة السر غير صحيحة.');
     }
 
     // Verify password (PBKDF2 — takes ~1s intentionally)
     const passHash = await deriveBitsHex(pass);
     if (passHash !== CRED_PASS_HASH) {
-      throw new Error('البريد الإلكتروني أو كلمة السر غير صحيحة.');
+      throw new Error('Email Address أو كلمة السر غير صحيحة.');
     }
 
     // Derive AES key from password
@@ -922,7 +922,7 @@ async function doSetupToken() {
     errEl.style.display = 'flex';
   } finally {
     btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-save"></i> حفظ وإكمال الإعداد';
+    btn.innerHTML = '<i class="fas fa-save"></i> Save وإكمال الإعداد';
   }
 }
 
@@ -1014,7 +1014,7 @@ async function ghPut(path, data, sha, message) {
   });
   if (!res.ok) {
     const err = await res.json();
-    throw new Error(err.message || `فشل حفظ ${path}: ${res.status}`);
+    throw new Error(err.message || `فشل Save ${path}: ${res.status}`);
   }
   const d = await res.json();
   FILE_SHAS[path] = d.content.sha;
@@ -1043,7 +1043,7 @@ async function loadAllData() {
     loadSettings();
     loadYoutube();
   } catch(e) {
-    toast('خطأ في تحميل البيانات: ' + e.message, 'error');
+    toast('Error في تحميل البيانات: ' + e.message, 'error');
   }
 }
 
@@ -1062,7 +1062,7 @@ async function saveData(key, data, commitMsg) {
   const path = `data/${key}.json`;
   await ghPut(path, data, FILE_SHAS[path], commitMsg);
   DATA[key] = data;
-  toast('✓ تم الحفظ! سيظهر على الموقع خلال 1–2 دقيقة.', 'success');
+  toast('✓ Done الSave! سيظهر على Website خلال 1–2 دقيقة.', 'success');
 }
 
 // ════════════════════════════════════════
@@ -1074,7 +1074,7 @@ const pageLabels = {
   transfers: 'التنقلات',
   circuits:  'الدورات السياحية',
   youtube:   'فيديو YouTube',
-  settings:  'إعدادات الموقع',
+  settings:  'Site Settings',
   token:     'GitHub Token'
 };
 
@@ -1114,14 +1114,14 @@ function renderDashboard() {
   const prices = DATA.excursions.filter(e => e.active !== false).map(e => e.price);
   document.getElementById('stat-min-price').textContent = prices.length ? '€' + Math.min(...prices) : '—';
   const el = document.getElementById('dash-services-list');
-  if (!DATA.excursions.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-hiking"></i><p>لا توجد خدمات بعد.</p></div>`; return; }
-  el.innerHTML = `<table><thead><tr><th>صورة</th><th>الخدمة</th><th>الفئة</th><th>السعر</th><th>الحالة</th></tr></thead><tbody>
+  if (!DATA.excursions.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-hiking"></i><p>No services yet بعد.</p></div>`; return; }
+  el.innerHTML = `<table><thead><tr><th>صورة</th><th>الخدمة</th><th>Category</th><th>Price</th><th>Status</th></tr></thead><tbody>
   ${DATA.excursions.map(e => `<tr>
     <td><img src="${imgSrc(e.image)}" class="td-img" onerror="this.style.display='none'"/></td>
     <td class="td-title">${e.title}</td>
     <td>${catLabel(e.category)}</td>
     <td>€${e.price}</td>
-    <td><span class="badge ${e.active !== false ? 'badge-success' : 'badge-info'}">${e.active !== false ? 'نشط' : 'مخفي'}</span></td>
+    <td><span class="badge ${e.active !== false ? 'badge-success' : 'badge-info'}">${e.active !== false ? 'Active' : 'مخفي'}</span></td>
   </tr>`).join('')}
   </tbody></table>`;
 }
@@ -1138,11 +1138,11 @@ function renderServices() {
     return true;
   });
   const el = document.getElementById('svc-table');
-  if (!list.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-hiking"></i><p>لا توجد خدمات.</p></div>`; return; }
+  if (!list.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-hiking"></i><p>No services yet.</p></div>`; return; }
   el.innerHTML = `<table><thead><tr>
-    <th>صورة</th><th>الخدمة</th><th>الفئة</th>
-    <th>السعر €</th><th>السعر القديم €</th>
-    <th>نشط</th><th>إجراءات</th>
+    <th>صورة</th><th>الخدمة</th><th>Category</th>
+    <th>Price €</th><th>Price القديم €</th>
+    <th>Active</th><th>Actions</th>
   </tr></thead><tbody>
   ${list.map(e => `<tr>
     <td><img src="${imgSrc(e.image)}" class="td-img" onerror="this.style.display='none'"/></td>
@@ -1150,17 +1150,17 @@ function renderServices() {
     <td><span class="badge badge-info" style="font-size:.65rem">${catLabel(e.category)}</span></td>
     <td>
       <input type="number" class="price-input" value="${e.price}" min="0" step="1"
-        onchange="quickSavePrice('${e.id}', 'price', this.value)" title="السعر"/>
+        onchange="quickSavePrice('${e.id}', 'price', this.value)" title="Price"/>
     </td>
     <td>
       <input type="number" class="price-input" value="${e.oldPrice||''}" min="0" step="1"
         placeholder="—"
-        onchange="quickSavePrice('${e.id}', 'oldPrice', this.value)" title="السعر القديم"/>
+        onchange="quickSavePrice('${e.id}', 'oldPrice', this.value)" title="Price القديم"/>
     </td>
     <td><label class="toggle"><input type="checkbox" ${e.active!==false?'checked':''} onchange="toggleSvc('${e.id}',this.checked)"/><span class="toggle-slider"></span></label></td>
     <td><div style="display:flex;gap:4px">
       <button class="btn-icon" onclick="openSvcModal('${e.id}')" title="تعديل"><i class="fas fa-edit"></i></button>
-      <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('excursion','${e.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+      <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('excursion','${e.id}')" title="Delete"><i class="fas fa-trash"></i></button>
     </div></td>
   </tr>`).join('')}
   </tbody></table>`;
@@ -1169,7 +1169,7 @@ function renderServices() {
 function catLabel(cat) {
   const map = {
     'marrakech transfer': 'تنقلات',
-    'marrakech': 'أنشطة',
+    'marrakech': 'أActiveة',
     'marrakech desert': 'صحراء',
     'marrakech montagne': 'جبال',
     'marrakech excursions': 'رحلات يومية'
@@ -1187,14 +1187,14 @@ async function quickSavePrice(id, field, value) {
     return updated;
   });
   try {
-    await saveData('excursions', excursions, `Admin: تحديث سعر ${id}`);
+    await saveData('excursions', excursions, `Admin: Update سعر ${id}`);
     renderDashboard();
-  } catch(err) { toast('خطأ: ' + err.message, 'error'); }
+  } catch(err) { toast('Error: ' + err.message, 'error'); }
 }
 
 function openSvcModal(id) {
   const e = id ? DATA.excursions.find(x => x.id === id) : null;
-  document.getElementById('svc-modal-title').textContent = e ? 'تعديل الخدمة' : 'إضافة خدمة';
+  document.getElementById('svc-modal-title').textContent = e ? 'Edit Service' : 'إضافة خدمة';
   document.getElementById('svc-edit-id').value    = id || '';
   document.getElementById('svc-title').value      = e?.title || '';
   document.getElementById('svc-price').value      = e?.price || '';
@@ -1215,7 +1215,7 @@ function openSvcModal(id) {
 async function saveService() {
   const title = document.getElementById('svc-title').value.trim();
   const price = parseFloat(document.getElementById('svc-price').value);
-  if (!title || isNaN(price)) { toast('العنوان والسعر مطلوبان', 'error'); return; }
+  if (!title || isNaN(price)) { toast('Title وPrice مطلوبان', 'error'); return; }
   const editId = document.getElementById('svc-edit-id').value;
   const tag    = document.getElementById('svc-tag').value;
   const svc = {
@@ -1258,7 +1258,7 @@ async function toggleSvc(id, active) {
 function renderTransfers() {
   const el = document.getElementById('transfer-table');
   if (!DATA.transfers.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-shuttle-van"></i><p>لا توجد سيارات.</p></div>`; return; }
-  el.innerHTML = `<table><thead><tr><th>صورة</th><th>السيارة</th><th>السعة</th><th>السعر €</th><th>شائع</th><th>إجراءات</th></tr></thead><tbody>
+  el.innerHTML = `<table><thead><tr><th>صورة</th><th>السيارة</th><th>السعة</th><th>Price €</th><th>شائع</th><th>Actions</th></tr></thead><tbody>
   ${DATA.transfers.map(t => `<tr>
     <td><img src="${imgSrc(t.image)}" class="td-img" onerror="this.style.display='none'"/></td>
     <td class="td-title">${t.type}<div class="td-sub">${t.model||''}</div></td>
@@ -1267,7 +1267,7 @@ function renderTransfers() {
     <td>${t.popular ? '<span class="badge badge-success">شائع</span>' : ''}</td>
     <td><div style="display:flex;gap:4px">
       <button class="btn-icon" onclick="openTransferModal('${t.id}')" title="تعديل"><i class="fas fa-edit"></i></button>
-      <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('transfer','${t.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+      <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('transfer','${t.id}')" title="Delete"><i class="fas fa-trash"></i></button>
     </div></td>
   </tr>`).join('')}
   </tbody></table>`;
@@ -1292,7 +1292,7 @@ function openTransferModal(id) {
 
 async function saveTransfer() {
   const type = document.getElementById('transfer-type').value.trim();
-  if (!type) { toast('نوع السيارة مطلوب', 'error'); return; }
+  if (!type) { toast('Vehicle Type مطلوب', 'error'); return; }
   const editId = document.getElementById('transfer-edit-id').value;
   const t = {
     id:       editId || type.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,''),
@@ -1319,8 +1319,8 @@ function renderCircuits() {
   const search = (document.getElementById('circ-search').value || '').toLowerCase().trim();
   const list   = DATA.circuits.filter(c => !search || c.title.toLowerCase().includes(search));
   const el     = document.getElementById('circ-table');
-  if (!list.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-route"></i><p>لا توجد دورات.</p></div>`; return; }
-  el.innerHTML = `<table><thead><tr><th>صورة</th><th>الدورة</th><th>المدة</th><th>السعر €</th><th>نشط</th><th>إجراءات</th></tr></thead><tbody>
+  if (!list.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-route"></i><p>No circuits yet.</p></div>`; return; }
+  el.innerHTML = `<table><thead><tr><th>صورة</th><th>الدورة</th><th>Duration</th><th>Price €</th><th>Active</th><th>Actions</th></tr></thead><tbody>
   ${list.map(c => `<tr>
     <td><img src="${imgSrc(c.image)}" class="td-img" onerror="this.style.display='none'"/></td>
     <td class="td-title">${c.title}<div class="td-sub">${c.subtitle||''}</div></td>
@@ -1329,7 +1329,7 @@ function renderCircuits() {
     <td><label class="toggle"><input type="checkbox" ${c.active!==false?'checked':''} onchange="toggleCircuit('${c.id}',this.checked)"/><span class="toggle-slider"></span></label></td>
     <td><div style="display:flex;gap:4px">
       <button class="btn-icon" onclick="openCircuitModal('${c.id}')" title="تعديل"><i class="fas fa-edit"></i></button>
-      <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('circuit','${c.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+      <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('circuit','${c.id}')" title="Delete"><i class="fas fa-trash"></i></button>
     </div></td>
   </tr>`).join('')}
   </tbody></table>`;
@@ -1337,7 +1337,7 @@ function renderCircuits() {
 
 function openCircuitModal(id) {
   const c = id ? DATA.circuits.find(x => x.id === id) : null;
-  document.getElementById('circ-modal-title').textContent  = c ? 'تعديل الدورة' : 'إضافة دورة';
+  document.getElementById('circ-modal-title').textContent  = c ? 'Edit Circuit' : 'إضافة دورة';
   document.getElementById('circ-edit-id').value        = id || '';
   document.getElementById('circ-title').value          = c?.title || '';
   document.getElementById('circ-subtitle').value       = c?.subtitle || '';
@@ -1357,7 +1357,7 @@ async function saveCircuit() {
   const title    = document.getElementById('circ-title').value.trim();
   const duration = document.getElementById('circ-duration').value.trim();
   const price    = parseFloat(document.getElementById('circ-price').value);
-  if (!title || !duration || isNaN(price)) { toast('العنوان والمدة والسعر مطلوبة', 'error'); return; }
+  if (!title || !duration || isNaN(price)) { toast('Title وDuration وPrice مطلوبة', 'error'); return; }
   const editId = document.getElementById('circ-edit-id').value;
   const c = {
     id:          editId || title.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').slice(0,30),
@@ -1391,18 +1391,18 @@ async function toggleCircuit(id, active) {
 function confirmDelete(type, id) {
   const names = { excursion: 'الخدمة', circuit: 'الدورة', transfer: 'السيارة' };
   document.getElementById('confirm-message').innerHTML =
-    `<p>هل أنت متأكد من حذف <strong>${names[type]||type}</strong>؟<br><small style="color:var(--muted)">لا يمكن التراجع عن هذا الإجراء.</small></p>`;
+    `<p>Are you sure من Delete <strong>${names[type]||type}</strong>؟<br><small style="color:var(--muted)">لا يمكن التراجع عن هذا الإجراء.</small></p>`;
   const btn = document.getElementById('confirm-btn');
   btn.onclick = async () => {
     closeModal('modal-confirm');
     if (type === 'excursion') {
-      await saveData('excursions', DATA.excursions.filter(e => e.id !== id), `Admin: حذف خدمة ${id}`);
+      await saveData('excursions', DATA.excursions.filter(e => e.id !== id), `Admin: Delete خدمة ${id}`);
       renderServices();
     } else if (type === 'circuit') {
-      await saveData('circuits', DATA.circuits.filter(c => c.id !== id), `Admin: حذف دورة ${id}`);
+      await saveData('circuits', DATA.circuits.filter(c => c.id !== id), `Admin: Delete دورة ${id}`);
       renderCircuits();
     } else if (type === 'transfer') {
-      await saveData('transfers', DATA.transfers.filter(t => t.id !== id), `Admin: حذف سيارة ${id}`);
+      await saveData('transfers', DATA.transfers.filter(t => t.id !== id), `Admin: Delete سيارة ${id}`);
       renderTransfers();
     }
     updateBadges();
@@ -1440,9 +1440,9 @@ async function saveYoutube() {
   const title    = document.getElementById('yt-title').value.trim();
   const subtitle = document.getElementById('yt-subtitle').value.trim();
   const vid      = extractYoutubeId(url);
-  if (url && !vid) { toast('رابط YouTube غير صالح', 'error'); return; }
+  if (url && !vid) { toast('YouTube Link غير صالح', 'error'); return; }
   const settings = { ...DATA.settings, youtube_video: url ? { url, videoId: vid, title, subtitle, active: true } : null };
-  await saveData('settings', settings, 'Admin: تحديث فيديو YouTube');
+  await saveData('settings', settings, 'Admin: Update فيديو YouTube');
   DATA.settings = settings;
 }
 
@@ -1494,7 +1494,7 @@ async function saveSettings(e) {
       youtube:   document.getElementById('s-youtube').value
     }
   };
-  await saveData('settings', settings, 'Admin: تحديث إعدادات الموقع');
+  await saveData('settings', settings, 'Admin: Update Site Settings');
   DATA.settings = settings;
 }
 
@@ -1513,9 +1513,9 @@ async function updateToken() {
     await encryptToken(token, _derivedKey);
     sessionStorage.setItem('ochre_live_token', token);
     document.getElementById('new-token-inp').value = '';
-    toast('✓ تم تحديث التوكن بنجاح!', 'success');
+    toast('✓ Done Update التوكن بنجاح!', 'success');
   } catch (e) {
-    toast('خطأ: ' + e.message, 'error');
+    toast('Error: ' + e.message, 'error');
   }
 }
 
@@ -1572,9 +1572,9 @@ async function uploadImage(fieldId, previewId) {
   input.onchange = async () => {
     const file = input.files[0];
     if (!file) return;
-    if (file.size > 10 * 1024 * 1024) { toast('الصورة يجب أن تكون أقل من 10 ميغابايت', 'error'); return; }
+    if (file.size > 10 * 1024 * 1024) { toast('Image يجب أن تكون أقل من 10 ميغابايت', 'error'); return; }
 
-    toast('جارٍ رفع الصورة إلى Cloudinary...', 'info');
+    toast('جارٍ رفع Image إلى Cloudinary...', 'info');
 
     const progWrapper = document.getElementById('prog-' + fieldId);
     const progBar     = document.getElementById('progbar-' + fieldId);
@@ -1600,9 +1600,9 @@ async function uploadImage(fieldId, previewId) {
       const result = await new Promise((resolve, reject) => {
         xhr.onload = () => {
           if (xhr.status === 200) resolve(JSON.parse(xhr.responseText));
-          else reject(new Error('فشل رفع الصورة: ' + xhr.status));
+          else reject(new Error('فشل رفع Image: ' + xhr.status));
         };
-        xhr.onerror = () => reject(new Error('خطأ في الاتصال'));
+        xhr.onerror = () => reject(new Error('Error في الContact'));
         xhr.send(formData);
       });
 
@@ -1613,9 +1613,9 @@ async function uploadImage(fieldId, previewId) {
         const prev = document.getElementById(previewId);
         if (prev) { prev.src = url; prev.className = 'img-preview show'; }
       }
-      toast('✓ تم رفع الصورة بنجاح!', 'success');
+      toast('✓ Done رفع Image بنجاح!', 'success');
     } catch (err) {
-      toast('خطأ في الرفع: ' + err.message, 'error');
+      toast('Error في الرفع: ' + err.message, 'error');
     } finally {
       if (progWrapper) { progWrapper.style.display = 'none'; }
       if (progBar)     { progBar.style.width = '0%'; }

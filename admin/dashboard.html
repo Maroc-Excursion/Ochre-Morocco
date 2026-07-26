@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>لوحة التحكم — Ochre Morocco</title>
+<title>Admin Dashboard — Ochre Morocco</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <style>
 :root{--bg:#0f1117;--sidebar:#161b27;--card:#1e2535;--card2:#252d40;--border:#2a3347;--green:#1a7a5e;--green2:#22a37a;--gold:#d4a853;--text:#e2e8f0;--muted:#8892a4;--danger:#e53e3e;--success:#48bb78;--warning:#ed8936;--info:#4299e1;--radius:12px;--trans:.2s ease;}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex}
-.sidebar{width:260px;min-height:100vh;background:var(--sidebar);border-left:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;right:0;z-index:200}
+.sidebar{width:260px;min-height:100vh;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;right:0;z-index:200}
 .sidebar-logo{padding:24px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
 .logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#fff}
 .sidebar-logo h1{font-size:.95rem;font-weight:700}
 .sidebar-logo span{font-size:.7rem;color:var(--muted);display:block}
 .sidebar-nav{flex:1;padding:16px 0;overflow-y:auto}
 .nav-section{padding:8px 16px 4px;font-size:.65rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;margin:2px 8px;border-radius:8px;cursor:pointer;transition:var(--trans);font-size:.85rem;color:var(--muted);border:none;background:none;width:calc(100% - 16px);text-align:right;font-family:inherit}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;margin:2px 8px;border-radius:8px;cursor:pointer;transition:var(--trans);font-size:.85rem;color:var(--muted);border:none;background:none;width:calc(100% - 16px);text-align:left;font-family:inherit}
 .nav-item:hover{background:rgba(255,255,255,.05);color:var(--text)}
 .nav-item.active{background:rgba(26,122,94,.2);color:var(--green2);font-weight:600}
-.nav-badge{margin-right:auto;background:var(--green);color:#fff;font-size:.6rem;padding:2px 6px;border-radius:20px;font-weight:700}
+.nav-badge{margin-left:auto;background:var(--green);color:#fff;font-size:.6rem;padding:2px 6px;border-radius:20px;font-weight:700}
 .sidebar-footer{padding:16px;border-top:1px solid var(--border)}
 .sidebar-user{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:var(--card)}
 .avatar{width:34px;height:34px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#fff;flex-shrink:0}
@@ -29,7 +29,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .user-role{font-size:.65rem;color:var(--muted)}
 .logout-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.9rem;padding:6px;border-radius:6px;transition:var(--trans)}
 .logout-btn:hover{color:var(--danger);background:rgba(229,62,62,.1)}
-.main{margin-right:260px;flex:1;min-height:100vh;display:flex;flex-direction:column}
+.main{margin-left:260px;flex:1;min-height:100vh;display:flex;flex-direction:column}
 .topbar{background:var(--sidebar);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;gap:16px}
 .topbar-title{font-size:1.1rem;font-weight:600;flex:1}
 .btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;border:none;transition:var(--trans);font-family:inherit}
@@ -56,7 +56,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .table-search{background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-size:.82rem;font-family:inherit;outline:none;width:200px}
 .table-search:focus{border-color:var(--green2)}
 table{width:100%;border-collapse:collapse;font-size:.82rem}
-th{padding:12px 16px;text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--border);font-weight:600;background:var(--card2)}
+th{padding:12px 16px;text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--border);font-weight:600;background:var(--card2)}
 td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:rgba(255,255,255,.02)}
@@ -116,7 +116,7 @@ tr:hover td{background:rgba(255,255,255,.02)}
 @keyframes slideIn{from{transform:translateX(60px);opacity:0}to{transform:translateX(0);opacity:1}}
 .status-select{background:var(--bg);border:1.5px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-family:inherit;font-size:.78rem;cursor:pointer;outline:none}
 .status-select:focus{border-color:var(--green2)}
-@media(max-width:768px){.sidebar{display:none}.main{margin-right:0}.form-row{grid-template-columns:1fr}}
+@media(max-width:768px){.sidebar{display:none}.main{margin-left:0}.form-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -127,15 +127,15 @@ tr:hover td{background:rgba(255,255,255,.02)}
     <div class="logo-icon"><i class="fas fa-map-marked-alt"></i></div>
     <div>
       <h1>Ochre Morocco</h1>
-      <span>لوحة التحكم</span>
+      <span>Admin Panel</span>
     </div>
   </div>
   <nav class="sidebar-nav">
-    <div class="nav-section">الرئيسية</div>
+    <div class="nav-section">Main</div>
     <button class="nav-item active" onclick="showPage('dashboard')">
       <i class="fas fa-chart-pie"></i> نظرة عامة
     </button>
-    <div class="nav-section">المحتوى</div>
+    <div class="nav-section">Content</div>
     <button class="nav-item" onclick="showPage('excursions')">
       <i class="fas fa-hiking"></i> الرحلات
       <span class="nav-badge" id="badge-exc">0</span>
@@ -150,9 +150,9 @@ tr:hover td{background:rgba(255,255,255,.02)}
       <div class="avatar" id="user-avatar">A</div>
       <div class="user-info">
         <div class="user-name" id="user-email">...</div>
-        <div class="user-role">المسؤول</div>
+        <div class="user-role">Administrator</div>
       </div>
-      <button class="logout-btn" onclick="doLogout()" title="تسجيل الخروج">
+      <button class="logout-btn" onclick="doLogout()" title="Logout">
         <i class="fas fa-sign-out-alt"></i>
       </button>
     </div>
@@ -162,9 +162,9 @@ tr:hover td{background:rgba(255,255,255,.02)}
 <!-- Main -->
 <div class="main">
   <div class="topbar">
-    <span class="topbar-title" id="topbar-title">نظرة عامة</span>
+    <span class="topbar-title" id="topbar-title">Overview</span>
     <a href="https://ochre-morocco.com" target="_blank" class="btn btn-ghost btn-sm">
-      <i class="fas fa-external-link-alt"></i> عرض الموقع
+      <i class="fas fa-external-link-alt"></i> View Site
     </a>
   </div>
   <div class="content">
@@ -174,26 +174,26 @@ tr:hover td{background:rgba(255,255,255,.02)}
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-icon green"><i class="fas fa-hiking"></i></div>
-          <div><div class="stat-label">الرحلات النشطة</div><div class="stat-value" id="stat-active">-</div></div>
+          <div><div class="stat-label">Active Excursions</div><div class="stat-value" id="stat-active">-</div></div>
         </div>
         <div class="stat-card">
           <div class="stat-icon gold"><i class="fas fa-list"></i></div>
-          <div><div class="stat-label">إجمالي الرحلات</div><div class="stat-value" id="stat-total">-</div></div>
+          <div><div class="stat-label">Total Excursions</div><div class="stat-value" id="stat-total">-</div></div>
         </div>
         <div class="stat-card">
           <div class="stat-icon info"><i class="fas fa-calendar-check"></i></div>
-          <div><div class="stat-label">الحجوزات</div><div class="stat-value" id="stat-bookings">-</div></div>
+          <div><div class="stat-label">Bookings</div><div class="stat-value" id="stat-bookings">-</div></div>
         </div>
         <div class="stat-card">
           <div class="stat-icon warning"><i class="fas fa-clock"></i></div>
-          <div><div class="stat-label">حجوزات قيد الانتظار</div><div class="stat-value" id="stat-pending">-</div></div>
+          <div><div class="stat-label">Pending Bookings</div><div class="stat-value" id="stat-pending">-</div></div>
         </div>
       </div>
       <div class="table-card">
         <div class="table-header">
-          <h3><i class="fas fa-hiking" style="color:var(--gold);margin-left:6px"></i> آخر الرحلات</h3>
+          <h3><i class="fas fa-hiking" style="color:var(--gold);margin-right:6px"></i> Recent Excursions</h3>
           <button class="btn btn-primary btn-sm" onclick="showPage('excursions')">
-            <i class="fas fa-list"></i> عرض الكل
+            <i class="fas fa-list"></i> View All
           </button>
         </div>
         <div id="dash-exc-list"><div class="loading-box"><div class="spinner"></div></div></div>
@@ -204,23 +204,23 @@ tr:hover td{background:rgba(255,255,255,.02)}
     <div id="page-excursions" class="page">
       <div class="page-header">
         <div>
-          <h2><i class="fas fa-hiking" style="color:var(--gold)"></i> الرحلات</h2>
-          <p>إضافة وتعديل وحذف الرحلات والبرامج السياحية</p>
+          <h2><i class="fas fa-hiking" style="color:var(--gold)"></i> Excursions</h2>
+          <p>Add, edit and delete excursions and tour programs</p>
         </div>
         <button class="btn btn-primary" onclick="openExcModal()">
-          <i class="fas fa-plus"></i> إضافة رحلة
+          <i class="fas fa-plus"></i> Add Excursion
         </button>
       </div>
       <div class="table-card">
         <div class="table-header">
-          <h3>قائمة الرحلات</h3>
+          <h3>Excursions List</h3>
           <select id="cat-filter" class="form-control" style="width:160px" onchange="renderExcursions()">
-            <option value="">كل الفئات</option>
-            <option value="excursion">رحلات</option>
-            <option value="circuit">دورات سياحية</option>
-            <option value="transfert">تنقلات</option>
+            <option value="">All Categories</option>
+            <option value="excursion">Excursions</option>
+            <option value="circuit">Circuits</option>
+            <option value="transfert">Transfers</option>
           </select>
-          <input type="text" class="table-search" placeholder="بحث..." id="exc-search" oninput="renderExcursions()"/>
+          <input type="text" class="table-search" placeholder="Search..." id="exc-search" oninput="renderExcursions()"/>
         </div>
         <div id="exc-table"><div class="loading-box"><div class="spinner"></div></div></div>
       </div>
@@ -230,20 +230,20 @@ tr:hover td{background:rgba(255,255,255,.02)}
     <div id="page-bookings" class="page">
       <div class="page-header">
         <div>
-          <h2><i class="fas fa-calendar-check" style="color:var(--info)"></i> الحجوزات</h2>
-          <p>تتبع وإدارة حجوزات العملاء</p>
+          <h2><i class="fas fa-calendar-check" style="color:var(--info)"></i> Bookings</h2>
+          <p>Track and manage customer bookings</p>
         </div>
       </div>
       <div class="table-card">
         <div class="table-header">
-          <h3>قائمة الحجوزات</h3>
+          <h3>Bookings List</h3>
           <select id="book-filter" class="form-control" style="width:160px" onchange="renderBookings()">
-            <option value="">كل الحالات</option>
-            <option value="pending">قيد الانتظار</option>
-            <option value="confirmed">مؤكدة</option>
-            <option value="cancelled">ملغاة</option>
+            <option value="">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="cancelled">Cancelled</option>
           </select>
-          <input type="text" class="table-search" placeholder="بحث بالاسم..." id="book-search" oninput="renderBookings()"/>
+          <input type="text" class="table-search" placeholder="Search by name..." id="book-search" oninput="renderBookings()"/>
         </div>
         <div id="book-table"><div class="loading-box"><div class="spinner"></div></div></div>
       </div>
@@ -259,48 +259,48 @@ tr:hover td{background:rgba(255,255,255,.02)}
 <div class="modal-overlay" id="modal-exc">
   <div class="modal">
     <div class="modal-header">
-      <h3 id="exc-modal-title">إضافة رحلة</h3>
+      <h3 id="exc-modal-title">Add Excursion</h3>
       <button class="modal-close" onclick="closeModal('modal-exc')"><i class="fas fa-times"></i></button>
     </div>
     <div class="modal-body">
       <input type="hidden" id="exc-edit-id"/>
       <div class="form-group">
-        <label>عنوان الرحلة *</label>
-        <input type="text" class="form-control" id="exc-title" placeholder="مثال: رحلة يوم إلى أسواق مراكش"/>
+        <label>Excursion Title *</label>
+        <input type="text" class="form-control" id="exc-title" placeholder="e.g. Day Trip to Marrakech Souks"/>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>السعر (€) *</label>
+          <label>Price (€) *</label>
           <input type="number" class="form-control" id="exc-price" placeholder="45" min="0" step="0.01"/>
         </div>
         <div class="form-group">
-          <label>المدة</label>
-          <input type="text" class="form-control" id="exc-duration" placeholder="يوم كامل"/>
+          <label>Duration</label>
+          <input type="text" class="form-control" id="exc-duration" placeholder="Full day"/>
         </div>
       </div>
       <div class="form-group">
-        <label>الفئة *</label>
+        <label>Category *</label>
         <select class="form-control" id="exc-category">
-          <option value="excursion">رحلة يومية (excursion)</option>
-          <option value="circuit">دورة سياحية (circuit)</option>
-          <option value="transfert">تنقل (transfert)</option>
+          <option value="excursion">Day Excursion</option>
+          <option value="circuit">Circuit / Tour</option>
+          <option value="transfert">Transfer</option>
         </select>
       </div>
       <div class="form-group">
-        <label>الوصف</label>
-        <textarea class="form-control" id="exc-description" rows="3" placeholder="وصف الرحلة..."></textarea>
+        <label>Description</label>
+        <textarea class="form-control" id="exc-description" rows="3" placeholder="Excursion description..."></textarea>
       </div>
       <div class="form-group">
-        <label>صورة الرحلة</label>
+        <label>Excursion Image</label>
         <div class="upload-area" id="upload-area">
           <i class="fas fa-cloud-upload-alt"></i>
-          <span>اسحب الصورة هنا أو انقر للاختيار</span>
+          <span>Drag an image here or click to select</span>
           <input type="file" id="exc-image-file" accept="image/*" onchange="handleImageSelect(event)"/>
         </div>
         <div class="upload-progress" id="upload-progress">
           <div class="upload-progress-bar" id="upload-progress-bar"></div>
         </div>
-        <img id="exc-img-preview" class="img-preview" alt="معاينة الصورة"/>
+        <img id="exc-img-preview" class="img-preview" alt="Image preview"/>
         <input type="hidden" id="exc-image-url"/>
       </div>
       <div class="form-group" style="display:flex;align-items:center;gap:12px">
@@ -308,13 +308,13 @@ tr:hover td{background:rgba(255,255,255,.02)}
           <input type="checkbox" id="exc-active" checked/>
           <span class="toggle-slider"></span>
         </label>
-        <span style="font-size:.85rem">نشط — يظهر في الموقع العام</span>
+        <span style="font-size:.85rem">Active — visible on the public site</span>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-exc')">إلغاء</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-exc')">Cancel</button>
       <button class="btn btn-primary" id="exc-save-btn" onclick="saveExcursion()">
-        <i class="fas fa-save"></i> حفظ
+        <i class="fas fa-save"></i> Save
       </button>
     </div>
   </div>
@@ -324,20 +324,20 @@ tr:hover td{background:rgba(255,255,255,.02)}
 <div class="modal-overlay" id="modal-confirm">
   <div class="modal" style="max-width:400px">
     <div class="modal-header">
-      <h3>تأكيد الحذف</h3>
+      <h3>Confirm Delete</h3>
       <button class="modal-close" onclick="closeModal('modal-confirm')"><i class="fas fa-times"></i></button>
     </div>
     <div class="modal-body">
       <p style="color:var(--muted);line-height:1.7">
-        هل أنت متأكد من حذف هذه الرحلة؟<br/>
+        Are you sure you want to delete this excursion?<br/>
         <strong style="color:var(--danger)" id="confirm-title"></strong><br/>
-        هذا الإجراء لا يمكن التراجع عنه.
+        This action cannot be undone.
       </p>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">إلغاء</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">Cancel</button>
       <button class="btn btn-danger" id="confirm-delete-btn" onclick="confirmDelete()">
-        <i class="fas fa-trash"></i> حذف
+        <i class="fas fa-trash"></i> Delete
       </button>
     </div>
   </div>
@@ -358,7 +358,7 @@ var deleteTarget  = null;
 ═══════════════════════════════════════════ */
 (async function init() {
   if (!window.supabaseClient) {
-    alert('خطأ: لم يتم تهيئة Supabase. تحقق من الاتصال بالإنترنت.');
+    alert('Error: Supabase not initialized. Check your internet connection.');
     return;
   }
   sb = window.supabaseClient;
@@ -369,12 +369,12 @@ var deleteTarget  = null;
     return;
   }
 
-  // عرض بريد المستخدم
+  // Display user email
   var email = session.user.email || '';
   document.getElementById('user-email').textContent = email;
   document.getElementById('user-avatar').textContent = email.charAt(0).toUpperCase();
 
-  // تحميل البيانات
+  // Load data
   await Promise.all([loadExcursions(), loadBookings()]);
   renderDashboard();
   renderExcursions();
@@ -385,9 +385,9 @@ var deleteTarget  = null;
    NAVIGATION
 ═══════════════════════════════════════════ */
 var pageTitles = {
-  dashboard:  'نظرة عامة',
-  excursions: 'الرحلات',
-  bookings:   'الحجوزات'
+  dashboard:  'Overview',
+  excursions: 'Excursions',
+  bookings:   'Bookings'
 };
 
 function showPage(id) {
@@ -405,7 +405,7 @@ function showPage(id) {
 ═══════════════════════════════════════════ */
 async function loadExcursions() {
   var { data, error } = await sb.from('excursions').select('*').order('created_at', { ascending: false });
-  if (error) { toast('خطأ في تحميل الرحلات: ' + error.message, 'error'); return; }
+  if (error) { toast('Error loading excursions: ' + error.message, 'error'); return; }
   allExcursions = data || [];
   document.getElementById('badge-exc').textContent = allExcursions.length;
 }
@@ -414,7 +414,7 @@ async function loadBookings() {
   var { data, error } = await sb.from('bookings')
     .select('*, excursions(title)')
     .order('created_at', { ascending: false });
-  if (error) { toast('خطأ في تحميل الحجوزات: ' + error.message, 'error'); return; }
+  if (error) { toast('Error loading bookings: ' + error.message, 'error'); return; }
   allBookings = data || [];
   var pending = allBookings.filter(b => b.status === 'pending').length;
   document.getElementById('badge-book').textContent = allBookings.length;
@@ -432,12 +432,12 @@ function renderDashboard() {
 
   var container = document.getElementById('dash-exc-list');
   if (!allExcursions.length) {
-    container.innerHTML = '<div class="empty-state"><i class="fas fa-hiking"></i><p>لا توجد رحلات بعد</p></div>';
+    container.innerHTML = '<div class="empty-state"><i class="fas fa-hiking"></i><p>No excursions yet</p></div>';
     return;
   }
   var rows = allExcursions.slice(0, 8).map(excRow).join('');
   container.innerHTML = '<table><thead><tr>' +
-    '<th>الصورة</th><th>العنوان</th><th>الفئة</th><th>السعر</th><th>الحالة</th>' +
+    '<th>Image</th><th>Title</th><th>Category</th><th>Price</th><th>Status</th>' +
     '</tr></thead><tbody>' + rows + '</tbody></table>';
 }
 
@@ -453,16 +453,16 @@ function renderExcursions() {
   );
   var container = document.getElementById('exc-table');
   if (!items.length) {
-    container.innerHTML = '<div class="empty-state"><i class="fas fa-hiking"></i><p>لا توجد نتائج</p></div>';
+    container.innerHTML = '<div class="empty-state"><i class="fas fa-hiking"></i><p>No results found</p></div>';
     return;
   }
   container.innerHTML = '<table><thead><tr>' +
-    '<th>الصورة</th><th>العنوان</th><th>الفئة</th><th>السعر</th><th>الحالة</th><th>إجراءات</th>' +
+    '<th>Image</th><th>Title</th><th>Category</th><th>Price</th><th>Status</th><th>Actions</th>' +
     '</tr></thead><tbody>' + items.map(excRowFull).join('') + '</tbody></table>';
 }
 
 function catLabel(cat) {
-  return { excursion: 'رحلة', circuit: 'دورة سياحية', transfert: 'تنقل' }[cat] || cat;
+  return { excursion: 'Excursion', circuit: 'Circuit', transfert: 'Transfer' }[cat] || cat;
 }
 function catBadge(cat) {
   var cls = { excursion: 'badge-info', circuit: 'badge-warning', transfert: 'badge-muted' }[cat] || 'badge-muted';
@@ -474,8 +474,8 @@ function excRow(e) {
     ? '<img src="' + escH(e.image_url) + '" class="td-img" alt="" onerror="this.style.display=\'none\'"/>'
     : '<div style="width:52px;height:40px;background:var(--card2);border-radius:6px;display:flex;align-items:center;justify-content:center"><i class="fas fa-image" style="color:var(--muted)"></i></div>';
   var status = e.is_active
-    ? '<span class="badge badge-success"><i class="fas fa-circle" style="font-size:.45rem"></i> نشط</span>'
-    : '<span class="badge badge-muted">معطّل</span>';
+    ? '<span class="badge badge-success"><i class="fas fa-circle" style="font-size:.45rem"></i> Active</span>'
+    : '<span class="badge badge-muted">Inactive</span>';
   return '<tr><td>' + img + '</td>' +
     '<td><div class="td-title">' + escH(e.title) + '</div>' +
     (e.duration ? '<div class="td-sub"><i class="fas fa-clock"></i> ' + escH(e.duration) + '</div>' : '') + '</td>' +
@@ -515,14 +515,14 @@ function renderBookings() {
   );
   var container = document.getElementById('book-table');
   if (!items.length) {
-    container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-check"></i><p>لا توجد حجوزات</p></div>';
+    container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-check"></i><p>No bookings yet</p></div>';
     return;
   }
   var rows = items.map(b => {
     var excTitle = b.excursions ? escH(b.excursions.title) : '<span style="color:var(--muted)">—</span>';
-    var d = b.booking_date ? new Date(b.booking_date).toLocaleDateString('ar-MA') : '—';
+    var d = b.booking_date ? new Date(b.booking_date).toLocaleDateString('en-GB') : '—';
     var statusCls = { pending:'badge-warning', confirmed:'badge-success', cancelled:'badge-danger' }[b.status] || 'badge-muted';
-    var statusLabel = { pending:'قيد الانتظار', confirmed:'مؤكد', cancelled:'ملغى' }[b.status] || b.status;
+    var statusLabel = { pending:'Pending', confirmed:'Confirmed', cancelled:'Cancelled' }[b.status] || b.status;
     return '<tr>' +
       '<td><div class="td-title">' + escH(b.client_name||'—') + '</div>' +
         '<div class="td-sub">' + escH(b.client_email||'') + ' ' + escH(b.client_phone||'') + '</div></td>' +
@@ -531,25 +531,25 @@ function renderBookings() {
       '<td style="text-align:center">' + (b.people_count||1) + '</td>' +
       '<td>' +
         '<select class="status-select" onchange="updateBookingStatus(\'' + b.id + '\',this.value)">' +
-          '<option value="pending"' + (b.status==='pending'?' selected':'') + '>قيد الانتظار</option>' +
-          '<option value="confirmed"' + (b.status==='confirmed'?' selected':'') + '>مؤكد</option>' +
-          '<option value="cancelled"' + (b.status==='cancelled'?' selected':'') + '>ملغى</option>' +
+          '<option value="pending"' + (b.status==='pending'?' selected':'') + '>Pending</option>' +
+          '<option value="confirmed"' + (b.status==='confirmed'?' selected':'') + '>Confirmed</option>' +
+          '<option value="cancelled"' + (b.status==='cancelled'?' selected':'') + '>Cancelled</option>' +
         '</select>' +
       '</td>' +
       '<td><span class="badge ' + statusCls + '">' + statusLabel + '</span></td>' +
     '</tr>';
   }).join('');
   container.innerHTML = '<table><thead><tr>' +
-    '<th>العميل</th><th>الرحلة</th><th>التاريخ</th><th>الأشخاص</th><th>تغيير الحالة</th><th>الحالة</th>' +
+    '<th>Client</th><th>Excursion</th><th>Date</th><th>People</th><th>Change Status</th><th>Status</th>' +
     '</tr></thead><tbody>' + rows + '</tbody></table>';
 }
 
 async function updateBookingStatus(id, status) {
   var { error } = await sb.from('bookings').update({ status }).eq('id', id);
-  if (error) { toast('خطأ: ' + error.message, 'error'); return; }
+  if (error) { toast('Error: ' + error.message, 'error'); return; }
   var b = allBookings.find(x => x.id === id);
   if (b) b.status = status;
-  toast('تم تحديث حالة الحجز', 'success');
+  toast('Booking status updated', 'success');
   var pending = allBookings.filter(b => b.status === 'pending').length;
   document.getElementById('stat-pending').textContent = pending;
 }
@@ -598,12 +598,12 @@ async function saveExcursion() {
   var active   = document.getElementById('exc-active').checked;
   var imageUrl = document.getElementById('exc-image-url').value.trim();
 
-  if (!title) { toast('يرجى إدخال عنوان الرحلة', 'error'); return; }
-  if (!category) { toast('يرجى اختيار الفئة', 'error'); return; }
+  if (!title) { toast('Please enter the excursion title', 'error'); return; }
+  if (!category) { toast('Please select a category', 'error'); return; }
 
   var btn = document.getElementById('exc-save-btn');
   btn.disabled = true;
-  btn.innerHTML = '<div class="spinner-sm"></div> جارٍ الحفظ...';
+  btn.innerHTML = '<div class="spinner-sm"></div> Saving...';
 
   var payload = { title, price, duration, category, description: desc, is_active: active, image_url: imageUrl };
 
@@ -624,11 +624,11 @@ async function saveExcursion() {
   }
 
   btn.disabled = false;
-  btn.innerHTML = '<i class="fas fa-save"></i> حفظ';
+  btn.innerHTML = '<i class="fas fa-save"></i> Save';
 
-  if (error) { toast('خطأ: ' + error.message, 'error'); return; }
+  if (error) { toast('Error: ' + error.message, 'error'); return; }
 
-  toast(id ? 'تم تحديث الرحلة بنجاح' : 'تمت إضافة الرحلة بنجاح', 'success');
+  toast(id ? 'Excursion updated successfully' : 'Excursion added successfully', 'success');
   closeModal('modal-exc');
   document.getElementById('badge-exc').textContent = allExcursions.length;
   document.getElementById('stat-total').textContent  = allExcursions.length;
@@ -649,11 +649,11 @@ function askDelete(id, title) {
 async function confirmDelete() {
   if (!deleteTarget) return;
   var { error } = await sb.from('excursions').delete().eq('id', deleteTarget);
-  if (error) { toast('خطأ: ' + error.message, 'error'); return; }
+  if (error) { toast('Error: ' + error.message, 'error'); return; }
   allExcursions = allExcursions.filter(e => e.id !== deleteTarget);
   deleteTarget = null;
   closeModal('modal-confirm');
-  toast('تم حذف الرحلة', 'success');
+  toast('Excursion deleted', 'success');
   document.getElementById('badge-exc').textContent   = allExcursions.length;
   document.getElementById('stat-total').textContent  = allExcursions.length;
   document.getElementById('stat-active').textContent = allExcursions.filter(e => e.is_active).length;
@@ -698,13 +698,13 @@ async function uploadImage(file) {
   setTimeout(() => { progressWrap.style.display = 'none'; }, 800);
 
   if (error) {
-    toast('خطأ في رفع الصورة: ' + error.message, 'error');
+    toast('Image upload error: ' + error.message, 'error');
     return;
   }
   var { data: urlData } = sb.storage.from('excursion-images').getPublicUrl(filename);
   var publicUrl = urlData.publicUrl;
   document.getElementById('exc-image-url').value = publicUrl;
-  toast('تم رفع الصورة بنجاح', 'success');
+  toast('Image uploaded successfully', 'success');
 }
 
 /* ═══════════════════════════════════════════

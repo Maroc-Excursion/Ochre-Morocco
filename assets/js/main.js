@@ -281,26 +281,6 @@
       search_tab2:    'Circuitos',
       search_tab3:    'Traslados',
       free_cancel:    'Cancelación gratuita',
-    },
-    ar: {
-      nav_home:       'الرئيسية',
-      nav_exc:        'الرحلات',
-      nav_circ:       'الجولات',
-      nav_trans:      'التنقلات',
-      nav_desert:     'صحراء أكافاي',
-      nav_about:      'من نحن',
-      nav_contact:    'اتصل بنا',
-      nav_blog:       'المدونة',
-      hero_badge:     '#1 وكالة رحلات في المغرب',
-      hero_title:     'اكتشف سحر<br><span>المغرب</span>',
-      hero_sub:       'رحلات فاخرة، جولات لا تُنسى ومغامرات أصيلة في قلب المملكة الشريفة',
-      hero_btn1:      'استكشف رحلاتنا',
-      hero_btn2:      'اتصل بنا',
-      wa_btn:         'واتساب',
-      search_tab1:    'الرحلات',
-      search_tab2:    'الجولات',
-      search_tab3:    'التنقلات',
-      free_cancel:    'إلغاء مجاني',
     }
   };
 
@@ -332,10 +312,10 @@
 
     // Update html lang attribute + direction
     document.documentElement.lang = lang;
-    document.documentElement.dir  = (lang === 'ar') ? 'rtl' : 'ltr';
+    document.documentElement.dir  = 'ltr';
 
     // Update visible label in the switcher button
-    const labelMap = { en: 'EN', es: 'ES', ar: 'ع' };
+    const labelMap = { en: 'EN', es: 'ES', fr: 'FR' };
     const lbl = document.getElementById('activeLangLabel');
     if (lbl) lbl.textContent = labelMap[lang] || lang.toUpperCase();
 
@@ -408,7 +388,7 @@
   document.querySelectorAll('.tour-card').forEach(card => {
     const v = Math.floor(Math.random() * 18) + 3;
     const badge = card.querySelector('.viewing-badge');
-    if (badge) badge.textContent = v + ' personnes regardent';
+    if (badge) badge.textContent = v + ' people viewing';
   });
 
   /* ================================================================
@@ -420,7 +400,7 @@
     if (!email) return;
     this.innerHTML = `<div class="newsletter-success">
       <i class="fas fa-check-circle"></i>
-      <p>Merci ! Vous êtes inscrit(e) à notre newsletter.</p>
+      <p>Thank you! You have been subscribed to our newsletter.</p>
     </div>`;
   });
 
