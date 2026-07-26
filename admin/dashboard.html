@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>لوحة التحكم — Ochre Morocco</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{--bg:#0f1117;--sidebar:#161b27;--card:#1e2535;--card2:#252d40;--border:#2a3347;--green:#1a7a5e;--green2:#22a37a;--gold:#d4a853;--text:#e2e8f0;--muted:#8892a4;--danger:#e53e3e;--success:#48bb78;--warning:#ed8936;--info:#4299e1;--radius:12px;--trans:.2s ease;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex}
+.sidebar{width:260px;min-height:100vh;background:var(--sidebar);border-left:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;right:0;z-index:200}
+.sidebar-logo{padding:24px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#fff}
+.sidebar-logo h1{font-size:.95rem;font-weight:700}
+.sidebar-logo span{font-size:.7rem;color:var(--muted);display:block}
+.sidebar-nav{flex:1;padding:16px 0;overflow-y:auto}
+.nav-section{padding:8px 16px 4px;font-size:.65rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;margin:2px 8px;border-radius:8px;cursor:pointer;transition:var(--trans);font-size:.85rem;color:var(--muted);border:none;background:none;width:calc(100% - 16px);text-align:right;font-family:inherit}
+.nav-item:hover{background:rgba(255,255,255,.05);color:var(--text)}
+.nav-item.active{background:rgba(26,122,94,.2);color:var(--green2);font-weight:600}
+.nav-badge{margin-right:auto;background:var(--green);color:#fff;font-size:.6rem;padding:2px 6px;border-radius:20px;font-weight:700}
+.sidebar-footer{padding:16px;border-top:1px solid var(--border)}
+.sidebar-user{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:var(--card)}
+.avatar{width:34px;height:34px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#fff;flex-shrink:0}
+.user-info{flex:1;min-width:0}
+.user-name{font-size:.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-role{font-size:.65rem;color:var(--muted)}
+.logout-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.9rem;padding:6px;border-radius:6px;transition:var(--trans)}
+.logout-btn:hover{color:var(--danger);background:rgba(229,62,62,.1)}
+.main{margin-right:260px;flex:1;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:var(--sidebar);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;gap:16px}
+.topbar-title{font-size:1.1rem;font-weight:600;flex:1}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;border:none;transition:var(--trans);font-family:inherit}
+.btn-primary{background:var(--green);color:#fff}.btn-primary:hover{background:var(--green2)}
+.btn-ghost{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--border)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-danger{background:var(--danger);color:#fff}.btn-danger:hover{filter:brightness(1.1)}
+.btn-warning{background:var(--warning);color:#fff}.btn-warning:hover{filter:brightness(1.1)}
+.btn-sm{padding:5px 12px;font-size:.78rem}
+.btn-icon{background:none;border:none;color:var(--muted);cursor:pointer;padding:6px;border-radius:6px;transition:var(--trans);font-size:.9rem}.btn-icon:hover{background:rgba(255,255,255,.08);color:var(--text)}
+.content{padding:28px;flex:1}
+.page{display:none}.page.active{display:block}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;display:flex;align-items:center;gap:16px}
+.stat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.stat-icon.green{background:rgba(26,122,94,.2);color:var(--green2)}
+.stat-icon.gold{background:rgba(212,168,83,.2);color:var(--gold)}
+.stat-icon.info{background:rgba(66,153,225,.2);color:var(--info)}
+.stat-icon.warning{background:rgba(237,137,54,.2);color:var(--warning)}
+.stat-label{font-size:.75rem;color:var(--muted);margin-bottom:2px}
+.stat-value{font-size:1.6rem;font-weight:700;line-height:1}
+.table-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:24px}
+.table-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.table-header h3{font-size:.95rem;font-weight:600;flex:1}
+.table-search{background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-size:.82rem;font-family:inherit;outline:none;width:200px}
+.table-search:focus{border-color:var(--green2)}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th{padding:12px 16px;text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--border);font-weight:600;background:var(--card2)}
+td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+.td-img{width:52px;height:40px;object-fit:cover;border-radius:6px}
+.td-title{font-weight:600}
+.td-sub{font-size:.72rem;color:var(--muted);margin-top:2px}
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:.7rem;font-weight:600;gap:4px}
+.badge-success{background:rgba(72,187,120,.15);color:var(--success)}
+.badge-danger{background:rgba(229,62,62,.15);color:var(--danger)}
+.badge-warning{background:rgba(237,137,54,.15);color:var(--warning)}
+.badge-info{background:rgba(66,153,225,.15);color:var(--info)}
+.badge-muted{background:rgba(136,146,164,.15);color:var(--muted)}
+.empty-state{padding:48px;text-align:center;color:var(--muted)}
+.empty-state i{font-size:2.5rem;margin-bottom:12px;display:block;opacity:.4}
+.loading-box{padding:40px;text-align:center;color:var(--muted)}
+.spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--green2);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px}
+.spinner-sm{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:.82rem;font-weight:500;color:var(--muted);margin-bottom:6px}
+.form-control{width:100%;padding:10px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:.88rem;font-family:inherit;transition:var(--trans);outline:none}
+.form-control:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(34,163,122,.15)}
+.form-control::placeholder{color:var(--muted)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);width:100%;max-width:580px;max-height:92vh;overflow-y:auto}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;position:sticky;top:0;background:var(--card);z-index:1}
+.modal-header h3{flex:1;font-size:1rem;font-weight:600}
+.modal-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.2rem;padding:4px;transition:var(--trans)}
+.modal-close:hover{color:var(--text)}
+.modal-body{padding:24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;position:sticky;bottom:0;background:var(--card)}
+.page-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:24px;flex-wrap:wrap}
+.page-header h2{font-size:1.2rem;font-weight:700;flex:1}
+.page-header p{font-size:.82rem;color:var(--muted);margin-top:2px}
+.upload-area{border:2px dashed var(--border);border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:var(--trans);margin-top:8px;position:relative}
+.upload-area:hover{border-color:var(--green2);background:rgba(34,163,122,.05)}
+.upload-area i{font-size:1.5rem;color:var(--muted);display:block;margin-bottom:6px}
+.upload-area span{font-size:.78rem;color:var(--muted)}
+.upload-area input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.img-preview{width:100%;max-height:160px;object-fit:cover;border-radius:8px;margin-top:8px;display:none}
+.img-preview.show{display:block}
+.upload-progress{height:4px;background:var(--border);border-radius:2px;margin-top:8px;display:none;overflow:hidden}
+.upload-progress-bar{height:100%;background:var(--green2);border-radius:2px;transition:width .3s}
+.toggle{position:relative;display:inline-block;width:40px;height:22px;flex-shrink:0;vertical-align:middle}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:22px;transition:var(--trans);cursor:pointer}
+.toggle-slider::before{content:'';position:absolute;width:16px;height:16px;right:3px;bottom:3px;background:#fff;border-radius:50%;transition:var(--trans)}
+.toggle input:checked+.toggle-slider{background:var(--green2)}
+.toggle input:checked+.toggle-slider::before{transform:translateX(-18px)}
+#toast-container{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px}
+.toast{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:.82rem;display:flex;align-items:center;gap:10px;min-width:260px;animation:slideIn .3s ease;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.toast.success{border-color:rgba(72,187,120,.4);color:var(--success)}
+.toast.error{border-color:rgba(229,62,62,.4);color:#fc8181}
+.toast.info{border-color:rgba(66,153,225,.4);color:var(--info)}
+@keyframes slideIn{from{transform:translateX(60px);opacity:0}to{transform:translateX(0);opacity:1}}
+.status-select{background:var(--bg);border:1.5px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-family:inherit;font-size:.78rem;cursor:pointer;outline:none}
+.status-select:focus{border-color:var(--green2)}
+@media(max-width:768px){.sidebar{display:none}.main{margin-right:0}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon"><i class="fas fa-map-marked-alt"></i></div>
+    <div>
+      <h1>Ochre Morocco</h1>
+      <span>لوحة التحكم</span>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">الرئيسية</div>
+    <button class="nav-item active" onclick="showPage('dashboard')">
+      <i class="fas fa-chart-pie"></i> نظرة عامة
+    </button>
+    <div class="nav-section">المحتوى</div>
+    <button class="nav-item" onclick="showPage('excursions')">
+      <i class="fas fa-hiking"></i> الرحلات
+      <span class="nav-badge" id="badge-exc">0</span>
+    </button>
+    <button class="nav-item" onclick="showPage('bookings')">
+      <i class="fas fa-calendar-check"></i> الحجوزات
+      <span class="nav-badge" id="badge-book">0</span>
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="avatar" id="user-avatar">A</div>
+      <div class="user-info">
+        <div class="user-name" id="user-email">...</div>
+        <div class="user-role">المسؤول</div>
+      </div>
+      <button class="logout-btn" onclick="doLogout()" title="تسجيل الخروج">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- Main -->
+<div class="main">
+  <div class="topbar">
+    <span class="topbar-title" id="topbar-title">نظرة عامة</span>
+    <a href="https://ochre-morocco.com" target="_blank" class="btn btn-ghost btn-sm">
+      <i class="fas fa-external-link-alt"></i> عرض الموقع
+    </a>
+  </div>
+  <div class="content">
+
+    <!-- ══ DASHBOARD ══ -->
+    <div id="page-dashboard" class="page active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fas fa-hiking"></i></div>
+          <div><div class="stat-label">الرحلات النشطة</div><div class="stat-value" id="stat-active">-</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon gold"><i class="fas fa-list"></i></div>
+          <div><div class="stat-label">إجمالي الرحلات</div><div class="stat-value" id="stat-total">-</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon info"><i class="fas fa-calendar-check"></i></div>
+          <div><div class="stat-label">الحجوزات</div><div class="stat-value" id="stat-bookings">-</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon warning"><i class="fas fa-clock"></i></div>
+          <div><div class="stat-label">حجوزات قيد الانتظار</div><div class="stat-value" id="stat-pending">-</div></div>
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <h3><i class="fas fa-hiking" style="color:var(--gold);margin-left:6px"></i> آخر الرحلات</h3>
+          <button class="btn btn-primary btn-sm" onclick="showPage('excursions')">
+            <i class="fas fa-list"></i> عرض الكل
+          </button>
+        </div>
+        <div id="dash-exc-list"><div class="loading-box"><div class="spinner"></div></div></div>
+      </div>
+    </div>
+
+    <!-- ══ EXCURSIONS ══ -->
+    <div id="page-excursions" class="page">
+      <div class="page-header">
+        <div>
+          <h2><i class="fas fa-hiking" style="color:var(--gold)"></i> الرحلات</h2>
+          <p>إضافة وتعديل وحذف الرحلات والبرامج السياحية</p>
+        </div>
+        <button class="btn btn-primary" onclick="openExcModal()">
+          <i class="fas fa-plus"></i> إضافة رحلة
+        </button>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <h3>قائمة الرحلات</h3>
+          <select id="cat-filter" class="form-control" style="width:160px" onchange="renderExcursions()">
+            <option value="">كل الفئات</option>
+            <option value="excursion">رحلات</option>
+            <option value="circuit">دورات سياحية</option>
+            <option value="transfert">تنقلات</option>
+          </select>
+          <input type="text" class="table-search" placeholder="بحث..." id="exc-search" oninput="renderExcursions()"/>
+        </div>
+        <div id="exc-table"><div class="loading-box"><div class="spinner"></div></div></div>
+      </div>
+    </div>
+
+    <!-- ══ BOOKINGS ══ -->
+    <div id="page-bookings" class="page">
+      <div class="page-header">
+        <div>
+          <h2><i class="fas fa-calendar-check" style="color:var(--info)"></i> الحجوزات</h2>
+          <p>تتبع وإدارة حجوزات العملاء</p>
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <h3>قائمة الحجوزات</h3>
+          <select id="book-filter" class="form-control" style="width:160px" onchange="renderBookings()">
+            <option value="">كل الحالات</option>
+            <option value="pending">قيد الانتظار</option>
+            <option value="confirmed">مؤكدة</option>
+            <option value="cancelled">ملغاة</option>
+          </select>
+          <input type="text" class="table-search" placeholder="بحث بالاسم..." id="book-search" oninput="renderBookings()"/>
+        </div>
+        <div id="book-table"><div class="loading-box"><div class="spinner"></div></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast-container"></div>
+
+<!-- MODAL: إضافة / تعديل رحلة -->
+<div class="modal-overlay" id="modal-exc">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="exc-modal-title">إضافة رحلة</h3>
+      <button class="modal-close" onclick="closeModal('modal-exc')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="exc-edit-id"/>
+      <div class="form-group">
+        <label>عنوان الرحلة *</label>
+        <input type="text" class="form-control" id="exc-title" placeholder="مثال: رحلة يوم إلى أسواق مراكش"/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>السعر (€) *</label>
+          <input type="number" class="form-control" id="exc-price" placeholder="45" min="0" step="0.01"/>
+        </div>
+        <div class="form-group">
+          <label>المدة</label>
+          <input type="text" class="form-control" id="exc-duration" placeholder="يوم كامل"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>الفئة *</label>
+        <select class="form-control" id="exc-category">
+          <option value="excursion">رحلة يومية (excursion)</option>
+          <option value="circuit">دورة سياحية (circuit)</option>
+          <option value="transfert">تنقل (transfert)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>الوصف</label>
+        <textarea class="form-control" id="exc-description" rows="3" placeholder="وصف الرحلة..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>صورة الرحلة</label>
+        <div class="upload-area" id="upload-area">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <span>اسحب الصورة هنا أو انقر للاختيار</span>
+          <input type="file" id="exc-image-file" accept="image/*" onchange="handleImageSelect(event)"/>
+        </div>
+        <div class="upload-progress" id="upload-progress">
+          <div class="upload-progress-bar" id="upload-progress-bar"></div>
+        </div>
+        <img id="exc-img-preview" class="img-preview" alt="معاينة الصورة"/>
+        <input type="hidden" id="exc-image-url"/>
+      </div>
+      <div class="form-group" style="display:flex;align-items:center;gap:12px">
+        <label class="toggle">
+          <input type="checkbox" id="exc-active" checked/>
+          <span class="toggle-slider"></span>
+        </label>
+        <span style="font-size:.85rem">نشط — يظهر في الموقع العام</span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-exc')">إلغاء</button>
+      <button class="btn btn-primary" id="exc-save-btn" onclick="saveExcursion()">
+        <i class="fas fa-save"></i> حفظ
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: تأكيد الحذف -->
+<div class="modal-overlay" id="modal-confirm">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <h3>تأكيد الحذف</h3>
+      <button class="modal-close" onclick="closeModal('modal-confirm')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="color:var(--muted);line-height:1.7">
+        هل أنت متأكد من حذف هذه الرحلة؟<br/>
+        <strong style="color:var(--danger)" id="confirm-title"></strong><br/>
+        هذا الإجراء لا يمكن التراجع عنه.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">إلغاء</button>
+      <button class="btn btn-danger" id="confirm-delete-btn" onclick="confirmDelete()">
+        <i class="fas fa-trash"></i> حذف
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/js/supabase-client.js"></script>
+<script>
+'use strict';
+
+var sb = null;
+var allExcursions = [];
+var allBookings   = [];
+var deleteTarget  = null;
+
+/* ═══════════════════════════════════════════
+   INIT — التحقق من الجلسة عند التحميل
+═══════════════════════════════════════════ */
+(async function init() {
+  if (!window.supabaseClient) {
+    alert('خطأ: لم يتم تهيئة Supabase. تحقق من الاتصال بالإنترنت.');
+    return;
+  }
+  sb = window.supabaseClient;
+
+  var { data: { session } } = await sb.auth.getSession();
+  if (!session) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  // عرض بريد المستخدم
+  var email = session.user.email || '';
+  document.getElementById('user-email').textContent = email;
+  document.getElementById('user-avatar').textContent = email.charAt(0).toUpperCase();
+
+  // تحميل البيانات
+  await Promise.all([loadExcursions(), loadBookings()]);
+  renderDashboard();
+  renderExcursions();
+  renderBookings();
+})();
+
+/* ═══════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════ */
+var pageTitles = {
+  dashboard:  'نظرة عامة',
+  excursions: 'الرحلات',
+  bookings:   'الحجوزات'
+};
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  var el = document.getElementById('page-' + id);
+  if (el) el.classList.add('active');
+  var btn = event && event.currentTarget;
+  if (btn) btn.classList.add('active');
+  document.getElementById('topbar-title').textContent = pageTitles[id] || id;
+}
+
+/* ═══════════════════════════════════════════
+   DATA LOADING
+═══════════════════════════════════════════ */
+async function loadExcursions() {
+  var { data, error } = await sb.from('excursions').select('*').order('created_at', { ascending: false });
+  if (error) { toast('خطأ في تحميل الرحلات: ' + error.message, 'error'); return; }
+  allExcursions = data || [];
+  document.getElementById('badge-exc').textContent = allExcursions.length;
+}
+
+async function loadBookings() {
+  var { data, error } = await sb.from('bookings')
+    .select('*, excursions(title)')
+    .order('created_at', { ascending: false });
+  if (error) { toast('خطأ في تحميل الحجوزات: ' + error.message, 'error'); return; }
+  allBookings = data || [];
+  var pending = allBookings.filter(b => b.status === 'pending').length;
+  document.getElementById('badge-book').textContent = allBookings.length;
+  document.getElementById('stat-bookings').textContent = allBookings.length;
+  document.getElementById('stat-pending').textContent = pending;
+}
+
+/* ═══════════════════════════════════════════
+   DASHBOARD RENDER
+═══════════════════════════════════════════ */
+function renderDashboard() {
+  var active = allExcursions.filter(e => e.is_active).length;
+  document.getElementById('stat-active').textContent = active;
+  document.getElementById('stat-total').textContent  = allExcursions.length;
+
+  var container = document.getElementById('dash-exc-list');
+  if (!allExcursions.length) {
+    container.innerHTML = '<div class="empty-state"><i class="fas fa-hiking"></i><p>لا توجد رحلات بعد</p></div>';
+    return;
+  }
+  var rows = allExcursions.slice(0, 8).map(excRow).join('');
+  container.innerHTML = '<table><thead><tr>' +
+    '<th>الصورة</th><th>العنوان</th><th>الفئة</th><th>السعر</th><th>الحالة</th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+/* ═══════════════════════════════════════════
+   EXCURSIONS RENDER
+═══════════════════════════════════════════ */
+function renderExcursions() {
+  var q      = (document.getElementById('exc-search')?.value || '').toLowerCase();
+  var cat    = document.getElementById('cat-filter')?.value || '';
+  var items  = allExcursions.filter(e =>
+    (!cat || e.category === cat) &&
+    (!q || e.title.toLowerCase().includes(q) || (e.description||'').toLowerCase().includes(q))
+  );
+  var container = document.getElementById('exc-table');
+  if (!items.length) {
+    container.innerHTML = '<div class="empty-state"><i class="fas fa-hiking"></i><p>لا توجد نتائج</p></div>';
+    return;
+  }
+  container.innerHTML = '<table><thead><tr>' +
+    '<th>الصورة</th><th>العنوان</th><th>الفئة</th><th>السعر</th><th>الحالة</th><th>إجراءات</th>' +
+    '</tr></thead><tbody>' + items.map(excRowFull).join('') + '</tbody></table>';
+}
+
+function catLabel(cat) {
+  return { excursion: 'رحلة', circuit: 'دورة سياحية', transfert: 'تنقل' }[cat] || cat;
+}
+function catBadge(cat) {
+  var cls = { excursion: 'badge-info', circuit: 'badge-warning', transfert: 'badge-muted' }[cat] || 'badge-muted';
+  return '<span class="badge ' + cls + '">' + catLabel(cat) + '</span>';
+}
+
+function excRow(e) {
+  var img = e.image_url
+    ? '<img src="' + escH(e.image_url) + '" class="td-img" alt="" onerror="this.style.display=\'none\'"/>'
+    : '<div style="width:52px;height:40px;background:var(--card2);border-radius:6px;display:flex;align-items:center;justify-content:center"><i class="fas fa-image" style="color:var(--muted)"></i></div>';
+  var status = e.is_active
+    ? '<span class="badge badge-success"><i class="fas fa-circle" style="font-size:.45rem"></i> نشط</span>'
+    : '<span class="badge badge-muted">معطّل</span>';
+  return '<tr><td>' + img + '</td>' +
+    '<td><div class="td-title">' + escH(e.title) + '</div>' +
+    (e.duration ? '<div class="td-sub"><i class="fas fa-clock"></i> ' + escH(e.duration) + '</div>' : '') + '</td>' +
+    '<td>' + catBadge(e.category) + '</td>' +
+    '<td style="font-weight:700;color:var(--gold)">€' + (e.price || 0) + '</td>' +
+    '<td>' + status + '</td></tr>';
+}
+
+function excRowFull(e) {
+  var img = e.image_url
+    ? '<img src="' + escH(e.image_url) + '" class="td-img" alt="" onerror="this.style.display=\'none\'"/>'
+    : '<div style="width:52px;height:40px;background:var(--card2);border-radius:6px;display:flex;align-items:center;justify-content:center"><i class="fas fa-image" style="color:var(--muted)"></i></div>';
+  var status = e.is_active
+    ? '<span class="badge badge-success"><i class="fas fa-circle" style="font-size:.45rem"></i> نشط</span>'
+    : '<span class="badge badge-muted">معطّل</span>';
+  return '<tr><td>' + img + '</td>' +
+    '<td><div class="td-title">' + escH(e.title) + '</div>' +
+    (e.duration ? '<div class="td-sub"><i class="fas fa-clock"></i> ' + escH(e.duration) + '</div>' : '') + '</td>' +
+    '<td>' + catBadge(e.category) + '</td>' +
+    '<td style="font-weight:700;color:var(--gold)">€' + (e.price || 0) + '</td>' +
+    '<td>' + status + '</td>' +
+    '<td><div style="display:flex;gap:6px">' +
+      '<button class="btn btn-ghost btn-sm" onclick="editExc(\'' + e.id + '\')"><i class="fas fa-edit"></i></button>' +
+      '<button class="btn btn-danger btn-sm" onclick="askDelete(\'' + e.id + '\',\'' + escH(e.title) + '\')"><i class="fas fa-trash"></i></button>' +
+    '</div></td></tr>';
+}
+
+/* ═══════════════════════════════════════════
+   BOOKINGS RENDER
+═══════════════════════════════════════════ */
+function renderBookings() {
+  var q      = (document.getElementById('book-search')?.value || '').toLowerCase();
+  var filter = document.getElementById('book-filter')?.value || '';
+  var items  = allBookings.filter(b =>
+    (!filter || b.status === filter) &&
+    (!q || (b.client_name||'').toLowerCase().includes(q) || (b.client_email||'').toLowerCase().includes(q))
+  );
+  var container = document.getElementById('book-table');
+  if (!items.length) {
+    container.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-check"></i><p>لا توجد حجوزات</p></div>';
+    return;
+  }
+  var rows = items.map(b => {
+    var excTitle = b.excursions ? escH(b.excursions.title) : '<span style="color:var(--muted)">—</span>';
+    var d = b.booking_date ? new Date(b.booking_date).toLocaleDateString('ar-MA') : '—';
+    var statusCls = { pending:'badge-warning', confirmed:'badge-success', cancelled:'badge-danger' }[b.status] || 'badge-muted';
+    var statusLabel = { pending:'قيد الانتظار', confirmed:'مؤكد', cancelled:'ملغى' }[b.status] || b.status;
+    return '<tr>' +
+      '<td><div class="td-title">' + escH(b.client_name||'—') + '</div>' +
+        '<div class="td-sub">' + escH(b.client_email||'') + ' ' + escH(b.client_phone||'') + '</div></td>' +
+      '<td>' + excTitle + '</td>' +
+      '<td>' + d + '</td>' +
+      '<td style="text-align:center">' + (b.people_count||1) + '</td>' +
+      '<td>' +
+        '<select class="status-select" onchange="updateBookingStatus(\'' + b.id + '\',this.value)">' +
+          '<option value="pending"' + (b.status==='pending'?' selected':'') + '>قيد الانتظار</option>' +
+          '<option value="confirmed"' + (b.status==='confirmed'?' selected':'') + '>مؤكد</option>' +
+          '<option value="cancelled"' + (b.status==='cancelled'?' selected':'') + '>ملغى</option>' +
+        '</select>' +
+      '</td>' +
+      '<td><span class="badge ' + statusCls + '">' + statusLabel + '</span></td>' +
+    '</tr>';
+  }).join('');
+  container.innerHTML = '<table><thead><tr>' +
+    '<th>العميل</th><th>الرحلة</th><th>التاريخ</th><th>الأشخاص</th><th>تغيير الحالة</th><th>الحالة</th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+async function updateBookingStatus(id, status) {
+  var { error } = await sb.from('bookings').update({ status }).eq('id', id);
+  if (error) { toast('خطأ: ' + error.message, 'error'); return; }
+  var b = allBookings.find(x => x.id === id);
+  if (b) b.status = status;
+  toast('تم تحديث حالة الحجز', 'success');
+  var pending = allBookings.filter(b => b.status === 'pending').length;
+  document.getElementById('stat-pending').textContent = pending;
+}
+
+/* ═══════════════════════════════════════════
+   MODAL: EXCURSION ADD / EDIT
+═══════════════════════════════════════════ */
+function openExcModal(exc) {
+  document.getElementById('exc-modal-title').textContent = exc ? 'تعديل الرحلة' : 'إضافة رحلة جديدة';
+  document.getElementById('exc-edit-id').value      = exc ? exc.id : '';
+  document.getElementById('exc-title').value         = exc ? exc.title : '';
+  document.getElementById('exc-price').value         = exc ? exc.price : '';
+  document.getElementById('exc-duration').value      = exc ? (exc.duration||'') : '';
+  document.getElementById('exc-category').value      = exc ? (exc.category||'excursion') : 'excursion';
+  document.getElementById('exc-description').value   = exc ? (exc.description||'') : '';
+  document.getElementById('exc-active').checked      = exc ? exc.is_active : true;
+  document.getElementById('exc-image-url').value     = exc ? (exc.image_url||'') : '';
+  var preview = document.getElementById('exc-img-preview');
+  if (exc && exc.image_url) {
+    preview.src = exc.image_url;
+    preview.classList.add('show');
+  } else {
+    preview.classList.remove('show');
+    preview.src = '';
+  }
+  document.getElementById('upload-progress').style.display = 'none';
+  document.getElementById('modal-exc').classList.add('open');
+}
+
+function editExc(id) {
+  var exc = allExcursions.find(e => e.id === id);
+  if (exc) openExcModal(exc);
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+async function saveExcursion() {
+  var id       = document.getElementById('exc-edit-id').value;
+  var title    = document.getElementById('exc-title').value.trim();
+  var price    = parseFloat(document.getElementById('exc-price').value) || 0;
+  var duration = document.getElementById('exc-duration').value.trim();
+  var category = document.getElementById('exc-category').value;
+  var desc     = document.getElementById('exc-description').value.trim();
+  var active   = document.getElementById('exc-active').checked;
+  var imageUrl = document.getElementById('exc-image-url').value.trim();
+
+  if (!title) { toast('يرجى إدخال عنوان الرحلة', 'error'); return; }
+  if (!category) { toast('يرجى اختيار الفئة', 'error'); return; }
+
+  var btn = document.getElementById('exc-save-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner-sm"></div> جارٍ الحفظ...';
+
+  var payload = { title, price, duration, category, description: desc, is_active: active, image_url: imageUrl };
+
+  var error;
+  if (id) {
+    var res = await sb.from('excursions').update(payload).eq('id', id);
+    error = res.error;
+    if (!error) {
+      var idx = allExcursions.findIndex(e => e.id === id);
+      if (idx !== -1) allExcursions[idx] = { ...allExcursions[idx], ...payload };
+    }
+  } else {
+    // auto-generate slug from title
+    payload.slug = title.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'') + '-' + Date.now();
+    var res = await sb.from('excursions').insert([payload]).select();
+    error = res.error;
+    if (!error && res.data && res.data[0]) allExcursions.unshift(res.data[0]);
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fas fa-save"></i> حفظ';
+
+  if (error) { toast('خطأ: ' + error.message, 'error'); return; }
+
+  toast(id ? 'تم تحديث الرحلة بنجاح' : 'تمت إضافة الرحلة بنجاح', 'success');
+  closeModal('modal-exc');
+  document.getElementById('badge-exc').textContent = allExcursions.length;
+  document.getElementById('stat-total').textContent  = allExcursions.length;
+  document.getElementById('stat-active').textContent = allExcursions.filter(e => e.is_active).length;
+  renderExcursions();
+  renderDashboard();
+}
+
+/* ═══════════════════════════════════════════
+   DELETE
+═══════════════════════════════════════════ */
+function askDelete(id, title) {
+  deleteTarget = id;
+  document.getElementById('confirm-title').textContent = title;
+  document.getElementById('modal-confirm').classList.add('open');
+}
+
+async function confirmDelete() {
+  if (!deleteTarget) return;
+  var { error } = await sb.from('excursions').delete().eq('id', deleteTarget);
+  if (error) { toast('خطأ: ' + error.message, 'error'); return; }
+  allExcursions = allExcursions.filter(e => e.id !== deleteTarget);
+  deleteTarget = null;
+  closeModal('modal-confirm');
+  toast('تم حذف الرحلة', 'success');
+  document.getElementById('badge-exc').textContent   = allExcursions.length;
+  document.getElementById('stat-total').textContent  = allExcursions.length;
+  document.getElementById('stat-active').textContent = allExcursions.filter(e => e.is_active).length;
+  renderExcursions();
+  renderDashboard();
+}
+
+/* ═══════════════════════════════════════════
+   IMAGE UPLOAD
+═══════════════════════════════════════════ */
+function handleImageSelect(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+  // معاينة فورية
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var preview = document.getElementById('exc-img-preview');
+    preview.src = e.target.result;
+    preview.classList.add('show');
+  };
+  reader.readAsDataURL(file);
+  // رفع إلى Supabase Storage
+  uploadImage(file);
+}
+
+async function uploadImage(file) {
+  var progressWrap = document.getElementById('upload-progress');
+  var progressBar  = document.getElementById('upload-progress-bar');
+  progressWrap.style.display = 'block';
+  progressBar.style.width = '30%';
+
+  var ext      = file.name.split('.').pop();
+  var filename = 'exc-' + Date.now() + '.' + ext;
+
+  progressBar.style.width = '60%';
+
+  var { data, error } = await sb.storage
+    .from('excursion-images')
+    .upload(filename, file, { cacheControl: '3600', upsert: false });
+
+  progressBar.style.width = '100%';
+  setTimeout(() => { progressWrap.style.display = 'none'; }, 800);
+
+  if (error) {
+    toast('خطأ في رفع الصورة: ' + error.message, 'error');
+    return;
+  }
+  var { data: urlData } = sb.storage.from('excursion-images').getPublicUrl(filename);
+  var publicUrl = urlData.publicUrl;
+  document.getElementById('exc-image-url').value = publicUrl;
+  toast('تم رفع الصورة بنجاح', 'success');
+}
+
+/* ═══════════════════════════════════════════
+   LOGOUT
+═══════════════════════════════════════════ */
+async function doLogout() {
+  await sb.auth.signOut();
+  window.location.href = 'login.html';
+}
+
+/* ═══════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════ */
+function escH(v) {
+  return String(v == null ? '' : v).replace(/[&<>"']/g, c =>
+    ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])
+  );
+}
+
+function toast(msg, type) {
+  type = type || 'info';
+  var icons = { success:'fa-check-circle', error:'fa-exclamation-circle', info:'fa-info-circle' };
+  var el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.innerHTML = '<i class="fas ' + (icons[type]||'fa-info-circle') + '"></i> ' + msg;
+  var container = document.getElementById('toast-container');
+  container.appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(60px)'; el.style.transition = '.3s'; }, 3500);
+  setTimeout(() => el.remove(), 3800);
+}
+</script>
+</body>
+</html>

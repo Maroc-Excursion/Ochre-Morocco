@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>تسجيل الدخول — Ochre Morocco</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{--bg:#0f1117;--card:#1e2535;--border:#2a3347;--green:#1a7a5e;--green2:#22a37a;--gold:#d4a853;--text:#e2e8f0;--muted:#8892a4;--danger:#e53e3e;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:48px 40px;width:100%;max-width:420px;text-align:center}
+.auth-logo{width:72px;height:72px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#fff;margin:0 auto 24px}
+.auth-card h2{font-size:1.5rem;font-weight:700;margin-bottom:6px}
+.auth-card p{color:var(--muted);font-size:.85rem;margin-bottom:32px;line-height:1.6}
+.form-group{margin-bottom:18px;text-align:right}
+.form-group label{display:block;font-size:.82rem;font-weight:500;color:var(--muted);margin-bottom:6px}
+.form-control{width:100%;padding:11px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:.88rem;font-family:inherit;outline:none;transition:.2s}
+.form-control:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(34,163,122,.15)}
+.form-control::placeholder{color:var(--muted)}
+.btn-login{width:100%;padding:13px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:.95rem;font-weight:600;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s}
+.btn-login:hover{background:var(--green2)}
+.btn-login:disabled{opacity:.6;cursor:not-allowed}
+.alert{padding:10px 14px;border-radius:8px;font-size:.82rem;display:flex;align-items:center;gap:8px;margin-bottom:16px;text-align:right}
+.alert-danger{background:rgba(229,62,62,.12);border:1px solid rgba(229,62,62,.3);color:#fc8181}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.security-note{font-size:.72rem;color:var(--muted);margin-top:20px;opacity:.6}
+</style>
+</head>
+<body>
+<div class="auth-card">
+  <div class="auth-logo"><i class="fas fa-map-marked-alt"></i></div>
+  <h2>Ochre Morocco</h2>
+  <p>لوحة التحكم الإدارية — دخول آمن عبر Supabase</p>
+
+  <div id="error-msg" class="alert alert-danger" style="display:none"></div>
+
+  <div class="form-group">
+    <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+    <input type="email" id="inp-email" class="form-control" placeholder="ochremorocco@gmail.com"
+           autocomplete="email" spellcheck="false" dir="ltr"/>
+  </div>
+  <div class="form-group">
+    <label><i class="fas fa-lock"></i> كلمة السر</label>
+    <input type="password" id="inp-pass" class="form-control" placeholder="••••••••"
+           autocomplete="current-password"/>
+  </div>
+
+  <button class="btn-login" id="login-btn" onclick="doLogin()">
+    <i class="fas fa-sign-in-alt"></i> دخول
+  </button>
+
+  <p class="security-note"><i class="fas fa-shield-alt"></i> الدخول محمي بـ Supabase Auth + RLS</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/js/supabase-client.js"></script>
+<script>
+(async function() {
+  // إذا كان المستخدم مسجلاً بالفعل، انتقل مباشرة للوحة التحكم
+  if (window.supabaseClient) {
+    const { data: { session } } = await window.supabaseClient.auth.getSession();
+    if (session) window.location.href = 'dashboard.html';
+  }
+
+  // تفعيل الدخول بضغط Enter
+  document.getElementById('inp-pass').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') doLogin();
+  });
+  document.getElementById('inp-email').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('inp-pass').focus();
+  });
+})();
+
+async function doLogin() {
+  var email  = document.getElementById('inp-email').value.trim();
+  var pass   = document.getElementById('inp-pass').value;
+  var btn    = document.getElementById('login-btn');
+  var errDiv = document.getElementById('error-msg');
+
+  errDiv.style.display = 'none';
+
+  if (!email || !pass) {
+    showError('يرجى إدخال البريد الإلكتروني وكلمة السر.');
+    return;
+  }
+  if (!window.supabaseClient) {
+    showError('خطأ: لم يتم تهيئة Supabase. تحقق من الاتصال بالإنترنت.');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> جارٍ التحقق...';
+
+  try {
+    var { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password: pass });
+    if (error) throw error;
+    window.location.href = 'dashboard.html';
+  } catch (err) {
+    var msg = err.message || 'خطأ غير معروف';
+    if (msg.includes('Invalid login') || msg.includes('invalid_credentials')) {
+      msg = 'البريد الإلكتروني أو كلمة السر غير صحيحة.';
+    } else if (msg.includes('Email not confirmed')) {
+      msg = 'يجب تأكيد البريد الإلكتروني أولاً.';
+    }
+    showError(msg);
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> دخول';
+  }
+}
+
+function showError(msg) {
+  var el = document.getElementById('error-msg');
+  el.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + msg;
+  el.style.display = 'flex';
+}
+</script>
+</body>
+</html>
