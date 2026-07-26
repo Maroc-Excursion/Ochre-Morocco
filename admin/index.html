@@ -52,117 +52,106 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .page{display:none}
 .page.active{display:block}
 
-/* ── Login / Setup Screens ── */
+/* ── Auth Screens ── */
 .auth-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:500;padding:20px}
 .auth-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:48px 40px;width:100%;max-width:420px;text-align:center}
 .auth-logo{width:64px;height:64px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:#fff;margin:0 auto 24px}
 .auth-card h2{font-size:1.4rem;font-weight:700;margin-bottom:6px}
 .auth-card p{color:var(--muted);font-size:.85rem;margin-bottom:28px;line-height:1.6}
-.form-group{margin-bottom:16px;text-align:left}
-.form-group label{display:block;font-size:.8rem;font-weight:500;margin-bottom:6px;color:var(--muted)}
-.form-control{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:inherit;font-size:.9rem;transition:var(--trans)}
-.form-control:focus{outline:none;border-color:var(--green2)}
-select.form-control option{background:var(--bg)}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;font-family:inherit;font-size:.85rem;font-weight:600;cursor:pointer;transition:var(--trans);border:none;text-decoration:none}
-.btn-primary{background:var(--green);color:#fff}
-.btn-primary:hover{background:var(--green2)}
-.btn-danger{background:var(--danger);color:#fff}
-.btn-danger:hover{opacity:.85}
-.btn-ghost{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--border)}
-.btn-ghost:hover{background:rgba(255,255,255,.1)}
-.btn-warning{background:var(--warning);color:#fff}
-.btn-warning:hover{opacity:.85}
-.btn-sm{padding:6px 14px;font-size:.78rem}
-.btn-icon{padding:8px;border-radius:6px;background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:var(--trans)}
-.btn-icon:hover{background:rgba(255,255,255,.12);color:var(--text)}
-.btn-block{width:100%;justify-content:center;margin-top:4px}
-.alert{padding:12px 16px;border-radius:8px;font-size:.82rem;margin-bottom:16px;display:flex;align-items:center;gap:10px}
-.alert-danger{background:rgba(229,62,62,.1);border:1px solid rgba(229,62,62,.3);color:var(--danger)}
-.alert-info{background:rgba(66,153,225,.1);border:1px solid rgba(66,153,225,.3);color:var(--info)}
-.alert-success{background:rgba(72,187,120,.1);border:1px solid rgba(72,187,120,.3);color:var(--success)}
+.lockout-banner{background:rgba(229,62,62,.1);border:1px solid rgba(229,62,62,.3);border-radius:8px;padding:12px;font-size:.82rem;color:var(--danger);margin-bottom:16px;display:none}
+
+/* ── Forms ── */
+.form-group{margin-bottom:16px;text-align:right}
+.form-group label{display:block;font-size:.82rem;font-weight:500;color:var(--muted);margin-bottom:6px;text-align:right}
+.form-control{width:100%;padding:10px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:.88rem;font-family:inherit;transition:var(--trans);outline:none}
+.form-control:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(34,163,122,.15)}
+.form-control::placeholder{color:var(--muted)}
+.form-hint{font-size:.75rem;color:var(--muted);margin-top:5px;line-height:1.5}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* ── Buttons ── */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;border:none;transition:var(--trans);font-family:inherit}
+.btn-primary{background:var(--green);color:#fff}.btn-primary:hover{background:var(--green2)}
+.btn-ghost{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--border)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-danger{background:var(--danger);color:#fff}.btn-danger:hover{filter:brightness(1.1)}
+.btn-block{width:100%;justify-content:center;padding:12px}
+.btn-sm{padding:6px 12px;font-size:.78rem}
+.btn-icon{background:none;border:none;color:var(--muted);cursor:pointer;padding:6px;border-radius:6px;transition:var(--trans);font-size:.9rem}.btn-icon:hover{background:rgba(255,255,255,.08);color:var(--text)}
+
+/* ── Alerts ── */
+.alert{padding:10px 14px;border-radius:8px;font-size:.82rem;display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.alert-danger{background:rgba(229,62,62,.12);border:1px solid rgba(229,62,62,.3);color:#fc8181}
 
 /* ── Stats ── */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;margin-bottom:28px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;display:flex;align-items:flex-start;gap:16px}
-.stat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;display:flex;align-items:center;gap:16px}
+.stat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
 .stat-icon.green{background:rgba(26,122,94,.2);color:var(--green2)}
 .stat-icon.gold{background:rgba(212,168,83,.2);color:var(--gold)}
 .stat-icon.info{background:rgba(66,153,225,.2);color:var(--info)}
 .stat-icon.warning{background:rgba(237,137,54,.2);color:var(--warning)}
-.stat-icon.danger{background:rgba(229,62,62,.2);color:var(--danger)}
-.stat-label{font-size:.78rem;color:var(--muted);margin-bottom:4px}
-.stat-value{font-size:1.8rem;font-weight:700;line-height:1}
-.stat-sub{font-size:.72rem;color:var(--muted);margin-top:4px}
+.stat-label{font-size:.75rem;color:var(--muted);margin-bottom:2px}
+.stat-value{font-size:1.6rem;font-weight:700;line-height:1}
+.stat-sub{font-size:.7rem;color:var(--muted);margin-top:2px}
 
-/* ── Table ── */
-.table-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:24px}
-.table-header{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+/* ── Table card ── */
+.table-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.table-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .table-header h3{font-size:.95rem;font-weight:600;flex:1}
-.table-search{background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:8px 14px;color:var(--text);font-family:inherit;font-size:.82rem;width:200px}
-.table-search:focus{outline:none;border-color:var(--green2)}
-table{width:100%;border-collapse:collapse}
-th{background:var(--card2);padding:12px 18px;text-align:left;font-size:.75rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border)}
-td{padding:14px 18px;border-bottom:1px solid rgba(42,51,71,.5);font-size:.85rem;vertical-align:middle}
+.table-search{background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-size:.82rem;font-family:inherit;outline:none;width:200px}
+.table-search:focus{border-color:var(--green2)}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th{padding:12px 16px;text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--border);font-weight:600;background:var(--card2)}
+td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:rgba(255,255,255,.02)}
-.td-img{width:52px;height:38px;border-radius:6px;object-fit:cover}
-.td-title{font-weight:500;max-width:260px}
-.td-sub{font-size:.75rem;color:var(--muted);margin-top:2px}
-
-/* ── Badges ── */
-.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:50px;font-size:.72rem;font-weight:600}
-.badge-green{background:rgba(72,187,120,.15);color:var(--success)}
-.badge-red{background:rgba(229,62,62,.15);color:var(--danger)}
-.badge-gold{background:rgba(212,168,83,.15);color:var(--gold)}
+.td-img{width:48px;height:36px;object-fit:cover;border-radius:6px}
+.td-title{font-weight:600;max-width:200px}
+.td-sub{font-size:.72rem;color:var(--muted);margin-top:2px}
+.badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:20px;font-size:.7rem;font-weight:600}
 .badge-info{background:rgba(66,153,225,.15);color:var(--info)}
+.badge-success{background:rgba(72,187,120,.15);color:var(--success)}
+.empty-state{padding:48px;text-align:center;color:var(--muted)}
+.empty-state i{font-size:2.5rem;margin-bottom:12px;display:block;opacity:.4}
+.loading{padding:40px;text-align:center;color:var(--muted)}
+.spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--green2);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Settings ── */
+.settings-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+.settings-section h3{font-size:.9rem;font-weight:600;margin-bottom:18px;display:flex;align-items:center;gap:8px;padding-bottom:12px;border-bottom:1px solid var(--border);color:var(--gold)}
 
 /* ── Toggle ── */
-.toggle{position:relative;display:inline-block;width:40px;height:22px;cursor:pointer}
+.toggle{position:relative;display:inline-block;width:40px;height:22px;flex-shrink:0}
 .toggle input{opacity:0;width:0;height:0}
-.toggle-slider{position:absolute;inset:0;background:#374151;border-radius:22px;transition:var(--trans)}
-.toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:#fff;border-radius:50%;transition:var(--trans)}
+.toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:22px;transition:var(--trans);cursor:pointer}
+.toggle-slider::before{content:'';position:absolute;width:16px;height:16px;right:3px;bottom:3px;background:#fff;border-radius:50%;transition:var(--trans)}
 .toggle input:checked+.toggle-slider{background:var(--green2)}
-.toggle input:checked+.toggle-slider::before{transform:translateX(18px)}
+.toggle input:checked+.toggle-slider::before{transform:translateX(-18px)}
+
+/* ── Toast ── */
+#toast-container{position:fixed;bottom:24px;left:24px;z-index:9999;display:flex;flex-direction:column;gap:10px}
+.toast{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:.82rem;display:flex;align-items:center;gap:10px;min-width:260px;animation:slideIn .3s ease;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.toast.success{border-color:rgba(72,187,120,.4)}
+.toast.error{border-color:rgba(229,62,62,.4)}
+.toast.info{border-color:rgba(66,153,225,.4)}
+@keyframes slideIn{from{transform:translateX(100px);opacity:0}to{transform:translateX(0);opacity:1}}
 
 /* ── Modal ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.open{display:flex}
-.modal{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);width:100%;max-width:580px;max-height:92vh;overflow-y:auto}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);width:100%;max-width:560px;max-height:90vh;overflow-y:auto}
 .modal-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;position:sticky;top:0;background:var(--card);z-index:1}
 .modal-header h3{flex:1;font-size:1rem;font-weight:600}
 .modal-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.2rem;padding:4px;transition:var(--trans)}
 .modal-close:hover{color:var(--text)}
 .modal-body{padding:24px}
 .modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;position:sticky;bottom:0;background:var(--card)}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.form-row.single{grid-template-columns:1fr}
-textarea.form-control{resize:vertical;min-height:80px}
-.form-hint{font-size:.72rem;color:var(--muted);margin-top:4px}
 
 /* ── Page header ── */
 .page-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:24px;flex-wrap:wrap}
 .page-header h2{font-size:1.2rem;font-weight:700;flex:1}
 .page-header p{font-size:.82rem;color:var(--muted);margin-top:2px}
-
-/* ── Settings ── */
-.settings-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
-.settings-section h3{font-size:.95rem;font-weight:600;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;color:var(--green2)}
-
-/* ── Loading / Empty ── */
-.loading{display:flex;align-items:center;gap:10px;color:var(--muted);padding:40px;justify-content:center;font-size:.9rem}
-.spinner{width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--green2);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
-.empty-state i{font-size:2.5rem;margin-bottom:16px;opacity:.4;display:block}
-.empty-state p{font-size:.85rem}
-
-/* ── Toast ── */
-.toast-container{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px}
-.toast{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:.82rem;display:flex;align-items:center;gap:10px;min-width:260px;animation:slideIn .3s ease;box-shadow:0 8px 32px rgba(0,0,0,.4)}
-.toast.success{border-color:rgba(72,187,120,.4)}
-.toast.error{border-color:rgba(229,62,62,.4)}
-.toast.info{border-color:rgba(66,153,225,.4)}
-@keyframes slideIn{from{transform:translateX(100px);opacity:0}to{transform:translateX(0);opacity:1}}
 
 /* ── Image preview ── */
 .img-preview{width:100%;height:120px;object-fit:cover;border-radius:8px;margin-top:8px;display:none}
@@ -176,16 +165,13 @@ textarea.form-control{resize:vertical;min-height:80px}
 .price-input{background:var(--bg);border:1.5px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-family:inherit;font-size:.85rem;width:80px;text-align:center}
 .price-input:focus{outline:none;border-color:var(--green2)}
 
-/* ── City cards ── */
-.cities-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
-.city-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:var(--trans)}
-.city-card:hover{border-color:var(--green)}
-.city-img{width:100%;height:140px;object-fit:cover}
-.city-body{padding:16px}
-.city-name{font-size:1rem;font-weight:700;margin-bottom:4px}
-.city-desc{font-size:.78rem;color:var(--muted);margin-bottom:12px;line-height:1.5}
-.city-footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.city-airport{font-size:.72rem;background:var(--card2);border-radius:6px;padding:3px 8px;color:var(--muted)}
+/* ── Upload area ── */
+.upload-area{border:2px dashed var(--border);border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:var(--trans);margin-top:8px}
+.upload-area:hover{border-color:var(--green2);background:rgba(34,163,122,.05)}
+.upload-area i{font-size:1.5rem;color:var(--muted);display:block;margin-bottom:6px}
+.upload-area span{font-size:.78rem;color:var(--muted)}
+.upload-progress{display:none;height:4px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden}
+.upload-progress-bar{height:100%;background:var(--green2);border-radius:2px;transition:width .3s}
 
 /* ── Responsive ── */
 @media(max-width:768px){
@@ -200,23 +186,59 @@ textarea.form-control{resize:vertical;min-height:80px}
 <body>
 
 <!-- ══════════════════════════════════════
-     AUTH SCREENS
+     SCREEN: LOGIN (Email + Password)
 ══════════════════════════════════════ -->
-
-<!-- Screen 1: Email + Password -->
 <div id="screen-login" class="auth-screen">
   <div class="auth-card">
     <div class="auth-logo"><i class="fas fa-map-marked-alt"></i></div>
     <h2>Ochre Morocco</h2>
-    <p>لوحة التحكم الإدارية — دخول آمن عبر GitHub</p>
-    <div id="login-error" class="alert alert-danger" style="display:none"></div>
-    <div class="form-group">
-      <label><i class="fas fa-key"></i> GitHub Personal Access Token</label>
-      <input type="password" id="inp-pass" class="form-control" placeholder="ghp_ أو github_pat_..." autocomplete="off" spellcheck="false"/>
-      <div class="form-hint">يُستخدم للتحقق من صلاحية إدارة هذا المستودع، ويُحفظ في جلسة المتصفح الحالية فقط.</div>
+    <p>لوحة التحكم الإدارية — دخول آمن</p>
+    <div id="lockout-banner" class="lockout-banner">
+      <i class="fas fa-lock"></i> <span id="lockout-msg">تم تجاوز عدد المحاولات. المرجو الانتظار.</span>
     </div>
-    <button class="btn btn-primary btn-block" onclick="doLogin()">
+    <div id="login-error" class="alert alert-danger" style="display:none"></div>
+    <div class="form-group" style="text-align:right">
+      <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+      <input type="email" id="inp-email" class="form-control" placeholder="admin@ochremorocco.com" autocomplete="email" spellcheck="false" dir="ltr"/>
+    </div>
+    <div class="form-group" style="text-align:right">
+      <label><i class="fas fa-lock"></i> كلمة السر</label>
+      <input type="password" id="inp-pass" class="form-control" placeholder="••••••••" autocomplete="current-password"/>
+    </div>
+    <div id="login-spinner" style="display:none;color:var(--muted);font-size:.82rem;margin-bottom:12px">
+      <i class="fas fa-spinner fa-spin"></i> جارٍ التحقق...
+    </div>
+    <button class="btn btn-primary btn-block" id="login-btn" onclick="doLogin()">
       <i class="fas fa-sign-in-alt"></i> دخول
+    </button>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:20px;opacity:.6">
+      <i class="fas fa-shield-alt"></i> الدخول محمي — 5 محاولات فاشلة تؤدي إلى الإغلاق المؤقت
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN: FIRST-TIME SETUP (GitHub Token)
+══════════════════════════════════════ -->
+<div id="screen-setup" class="auth-screen" style="display:none">
+  <div class="auth-card">
+    <div class="auth-logo" style="background:linear-gradient(135deg,#d4a853,#e8c070)"><i class="fas fa-key"></i></div>
+    <h2>إعداد أولي — مرة واحدة فقط</h2>
+    <p>أدخل GitHub Token الخاص بالمستودع. سيُحفظ مشفراً في متصفحك ولن تحتاج لإدخاله مجدداً.</p>
+    <div id="setup-error" class="alert alert-danger" style="display:none"></div>
+    <div class="form-group" style="text-align:right">
+      <label><i class="fab fa-github"></i> GitHub Personal Access Token</label>
+      <input type="password" id="inp-token" class="form-control" placeholder="ghp_..." autocomplete="off" spellcheck="false" dir="ltr"/>
+      <div class="form-hint">
+        يجب أن يملك صلاحية <strong>contents:write</strong> على مستودع Ochre-Morocco فقط.<br>
+        اذهب إلى: GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token
+      </div>
+    </div>
+    <button class="btn btn-primary btn-block" id="setup-btn" onclick="doSetupToken()">
+      <i class="fas fa-save"></i> حفظ وإكمال الإعداد
+    </button>
+    <button class="btn btn-ghost btn-block" style="margin-top:8px" onclick="showLogin()">
+      <i class="fas fa-arrow-right"></i> رجوع
     </button>
   </div>
 </div>
@@ -259,6 +281,10 @@ textarea.form-control{resize:vertical;min-height:80px}
     <button class="nav-item" id="nav-settings" onclick="showPage('settings')">
       <i class="fas fa-cog nav-icon"></i> إعدادات الموقع
     </button>
+    <div class="nav-section">الحساب</div>
+    <button class="nav-item" id="nav-token" onclick="showPage('token')">
+      <i class="fab fa-github nav-icon"></i> GitHub Token
+    </button>
   </nav>
   <div class="sidebar-footer">
     <div class="sidebar-user">
@@ -278,7 +304,7 @@ textarea.form-control{resize:vertical;min-height:80px}
     <button class="btn-icon" id="sidebar-toggle" onclick="toggleSidebar()" style="display:none"><i class="fas fa-bars"></i></button>
     <span class="topbar-title" id="topbar-title">لوحة التحكم</span>
     <div class="topbar-actions">
-      <a href="../index.html" target="_blank" class="btn btn-ghost btn-sm">
+      <a href="https://ochremorocco.com" target="_blank" class="btn btn-ghost btn-sm">
         <i class="fas fa-external-link-alt"></i> عرض الموقع
       </a>
     </div>
@@ -311,7 +337,7 @@ textarea.form-control{resize:vertical;min-height:80px}
       </div>
     </div>
 
-    <!-- ══ SERVICES (EXCURSIONS + PRICES) ══ -->
+    <!-- ══ SERVICES ══ -->
     <div id="page-services" class="page">
       <div class="page-header">
         <div><h2><i class="fas fa-hiking" style="color:var(--gold)"></i> الخدمات والأسعار</h2><p>تحكم في جميع الخدمات، الأسعار، الصور والنصوص</p></div>
@@ -369,32 +395,22 @@ textarea.form-control{resize:vertical;min-height:80px}
       <div class="settings-section">
         <h3><i class="fab fa-youtube"></i> رابط الفيديو</h3>
         <div class="form-group">
-          <label>رابط YouTube (مثال: https://www.youtube.com/watch?v=ABC123)</label>
+          <label>رابط YouTube</label>
           <input type="url" class="form-control" id="yt-url" placeholder="https://www.youtube.com/watch?v=..." oninput="previewYoutube()"/>
-          <div class="form-hint">يمكنك نسخ الرابط مباشرة من YouTube</div>
         </div>
         <div class="form-group">
-          <label>عنوان القسم (ما يظهر فوق الفيديو في الموقع)</label>
-          <input type="text" class="form-control" id="yt-title" placeholder="شاهد المغرب بعيونك" value="اكتشف المغرب"/>
+          <label>عنوان القسم</label>
+          <input type="text" class="form-control" id="yt-title" placeholder="اكتشف المغرب" value="اكتشف المغرب"/>
         </div>
         <div class="form-group">
           <label>وصف قصير</label>
-          <input type="text" class="form-control" id="yt-subtitle" placeholder="وصف مختصر عن الفيديو"/>
+          <input type="text" class="form-control" id="yt-subtitle" placeholder="وصف مختصر"/>
         </div>
         <iframe id="yt-preview-frame" class="yt-preview" allowfullscreen></iframe>
         <div style="margin-top:16px">
           <button class="btn btn-primary" onclick="saveYoutube()"><i class="fas fa-save"></i> حفظ وتطبيق على الموقع</button>
           <button class="btn btn-danger btn-sm" style="margin-left:10px" onclick="removeYoutube()"><i class="fas fa-trash"></i> إزالة الفيديو</button>
         </div>
-      </div>
-      <div class="settings-section" style="margin-top:0">
-        <h3><i class="fas fa-info-circle"></i> كيف يعمل؟</h3>
-        <p style="font-size:.85rem;color:var(--muted);line-height:1.8">
-          1. انسخ رابط أي فيديو YouTube<br>
-          2. الصقه في الحقل أعلاه<br>
-          3. اضغط "حفظ وتطبيق على الموقع"<br>
-          4. الفيديو سيظهر تلقائياً في صفحة الموقع الرئيسية بين قسم الخدمات وزر الحجز
-        </p>
       </div>
     </div>
 
@@ -410,17 +426,17 @@ textarea.form-control{resize:vertical;min-height:80px}
             <div class="form-group"><label>اسم الموقع</label><input type="text" class="form-control" id="s-name" placeholder="Ochre Morocco"/></div>
             <div class="form-group"><label>الشعار</label><input type="text" class="form-control" id="s-tagline" placeholder="Discover the Magic of Morocco"/></div>
           </div>
-          <div class="form-group form-row single"><label>الوصف</label><textarea class="form-control" id="s-description" rows="2"></textarea></div>
+          <div class="form-group"><label>الوصف</label><textarea class="form-control" id="s-description" rows="2"></textarea></div>
         </div>
         <div class="settings-section">
           <h3><i class="fas fa-phone"></i> معلومات الاتصال</h3>
           <div class="form-row">
             <div class="form-group"><label>الهاتف 1</label><input type="text" class="form-control" id="s-phone1" placeholder="+212 694 170 004"/></div>
-            <div class="form-group"><label>الهاتف 2 / WhatsApp</label><input type="text" class="form-control" id="s-phone2" placeholder="+212 694 170 004"/></div>
+            <div class="form-group"><label>الهاتف 2</label><input type="text" class="form-control" id="s-phone2"/></div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label>البريد الإلكتروني</label><input type="email" class="form-control" id="s-email" placeholder="contact@ochre-morocco.com"/></div>
-            <div class="form-group"><label>رقم WhatsApp (بدون +)</label><input type="text" class="form-control" id="s-whatsapp" placeholder="212694170004"/></div>
+            <div class="form-group"><label>البريد الإلكتروني</label><input type="email" class="form-control" id="s-email"/></div>
+            <div class="form-group"><label>واتساب (أرقام فقط)</label><input type="text" class="form-control" id="s-whatsapp" placeholder="212694170004"/></div>
           </div>
         </div>
         <div class="settings-section">
@@ -431,21 +447,45 @@ textarea.form-control{resize:vertical;min-height:80px}
           </div>
           <div class="form-row">
             <div class="form-group"><label><i class="fab fa-tiktok"></i> TikTok</label><input type="url" class="form-control" id="s-tiktok" placeholder="https://tiktok.com/@..."/></div>
-            <div class="form-group"><label><i class="fab fa-youtube"></i> YouTube Channel</label><input type="url" class="form-control" id="s-youtube" placeholder="https://youtube.com/@..."/></div>
+            <div class="form-group"><label><i class="fab fa-youtube"></i> YouTube</label><input type="url" class="form-control" id="s-youtube" placeholder="https://youtube.com/@..."/></div>
           </div>
         </div>
-        <div style="display:flex;justify-content:flex-end">
-          <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> حفظ الإعدادات</button>
-        </div>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> حفظ كل الإعدادات</button>
       </form>
+    </div>
+
+    <!-- ══ TOKEN PAGE ══ -->
+    <div id="page-token" class="page">
+      <div class="page-header">
+        <div><h2><i class="fab fa-github" style="color:var(--muted)"></i> GitHub Token</h2><p>تحديث التوكن المشفر المحفوظ في متصفحك</p></div>
+      </div>
+      <div class="settings-section">
+        <h3><i class="fas fa-key"></i> تحديث GitHub Token</h3>
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:18px;line-height:1.7">
+          التوكن محفوظ مشفراً في متصفحك باستخدام AES-256. لا أحد يستطيع رؤيته حتى لو فتح الكود المصدري.
+          أدخل توكناً جديداً إذا أردت تغييره أو إذا انتهت صلاحيته.
+        </p>
+        <div class="form-group">
+          <label>GitHub Token الجديد</label>
+          <input type="password" class="form-control" id="new-token-inp" placeholder="ghp_..." dir="ltr"/>
+        </div>
+        <button class="btn btn-primary" onclick="updateToken()"><i class="fas fa-sync"></i> تحديث التوكن</button>
+        <div style="margin-top:20px;padding:14px;background:var(--card2);border-radius:8px;font-size:.78rem;color:var(--muted);line-height:1.8">
+          <strong style="color:var(--gold)"><i class="fas fa-shield-alt"></i> كيف تحصل على توكن؟</strong><br>
+          1. اذهب إلى: github.com → Settings → Developer settings → Fine-grained tokens<br>
+          2. Generate new token → اختر المستودع Ochre-Morocco فقط<br>
+          3. الصلاحيات المطلوبة: Repository permissions → Contents → Read and write<br>
+          4. انسخ التوكن وضعه هنا
+        </div>
+      </div>
     </div>
 
   </div><!-- /content -->
 </div><!-- /main -->
 </div><!-- /admin-layout -->
 
-<!-- Toast container -->
-<div class="toast-container" id="toast-container"></div>
+<!-- ══ TOAST CONTAINER ══ -->
+<div id="toast-container"></div>
 
 <!-- ══ MODAL: SERVICE ══ -->
 <div class="modal-overlay" id="modal-svc">
@@ -494,9 +534,13 @@ textarea.form-control{resize:vertical;min-height:80px}
         <div class="form-hint">الصيغة: icon|نص — مثال: fas fa-clock|ساعتان</div>
       </div>
       <div class="form-group">
-        <label>صورة الخدمة (رابط URL)</label>
-        <input type="url" class="form-control" id="svc-image" placeholder="https://..." oninput="previewImg(this,'svc-img-preview')"/>
-        <button type="button" class="btn btn-ghost btn-sm" onclick="uploadImage('svc-image','svc-img-preview')" style="margin-top:6px;width:100%"><i class="fas fa-upload"></i> رفع صورة من الجهاز</button>
+        <label>صورة الخدمة</label>
+        <input type="url" class="form-control" id="svc-image" placeholder="https://res.cloudinary.com/..." oninput="previewImg(this,'svc-img-preview')"/>
+        <div class="upload-area" onclick="uploadImage('svc-image','svc-img-preview')">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <span>انقر لرفع صورة من جهازك (Cloudinary)</span>
+        </div>
+        <div class="upload-progress" id="prog-svc-image"><div class="upload-progress-bar" id="progbar-svc-image"></div></div>
         <img id="svc-img-preview" class="img-preview"/>
       </div>
       <div class="form-group">
@@ -533,6 +577,10 @@ textarea.form-control{resize:vertical;min-height:80px}
       <div class="form-group">
         <label>صورة</label>
         <input type="url" class="form-control" id="transfer-image" placeholder="https://..." oninput="previewImg(this,'transfer-img-preview')"/>
+        <div class="upload-area" onclick="uploadImage('transfer-image','transfer-img-preview')">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <span>انقر لرفع صورة (Cloudinary)</span>
+        </div>
         <img id="transfer-img-preview" class="img-preview"/>
       </div>
       <div class="form-group"><label>الخصائص (مفصولة بفاصلة)</label><input type="text" class="form-control" id="transfer-features" placeholder="مكيف, Wifi, حقيبتان"/></div>
@@ -570,6 +618,10 @@ textarea.form-control{resize:vertical;min-height:80px}
       <div class="form-group">
         <label>صورة</label>
         <input type="url" class="form-control" id="circ-image" placeholder="https://..." oninput="previewImg(this,'circ-img-preview')"/>
+        <div class="upload-area" onclick="uploadImage('circ-image','circ-img-preview')">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <span>انقر لرفع صورة (Cloudinary)</span>
+        </div>
         <img id="circ-img-preview" class="img-preview"/>
       </div>
       <div class="form-group">
@@ -593,7 +645,7 @@ textarea.form-control{resize:vertical;min-height:80px}
       <h3><i class="fas fa-exclamation-triangle" style="color:var(--danger)"></i> تأكيد الحذف</h3>
       <button class="modal-close" onclick="closeModal('modal-confirm')"><i class="fas fa-times"></i></button>
     </div>
-    <div class="modal-body" id="confirm-message">هل أنت متأكد أنك تريد حذف هذا العنصر؟</div>
+    <div class="modal-body" id="confirm-message">هل أنت متأكد؟</div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">إلغاء</button>
       <button class="btn btn-danger" id="confirm-btn"><i class="fas fa-trash"></i> حذف</button>
@@ -603,95 +655,338 @@ textarea.form-control{resize:vertical;min-height:80px}
 
 <script>
 // ════════════════════════════════════════
-// CONFIG — بيانات الدخول ورابط المستودع
+// CONFIG
 // ════════════════════════════════════════
-const REPO           = 'Maroc-Excursion/Ochre-Morocco';
-const BRANCH         = 'main';
-const BASE_API       = `https://api.github.com/repos/${REPO}/contents`;
+const REPO     = 'Maroc-Excursion/Ochre-Morocco';
+const BRANCH   = 'main';
+const BASE_API = `https://api.github.com/repos/${REPO}/contents`;
 
-// The token is deliberately session-scoped. A static GitHub Pages admin cannot
-// keep a GitHub token server-side, so never persist it in localStorage.
-function getToken() { return sessionStorage.getItem('ochre_gh_token') || ''; }
+// Cloudinary (unsigned upload — no secret needed)
+const CLD_CLOUD  = 'must75052';
+const CLD_PRESET = 'ml_default';
+
+// Credential hashes (PBKDF2 SHA-256, salt: "ochre-v1-2025", 100000 iter, 32 bytes)
+const CRED_EMAIL_HASH = '6872f0bd457a6de40b34bedadbfafa1d4d16fc6e9431130e35ca66dd54e5f4f5';
+const CRED_PASS_HASH  = 'd5023e362418a33ba816c7bfb16c05fdc4cc64eb02e51307bc3113c54bbfd2d5';
+const PBKDF2_SALT     = 'ochre-v1-2025';
+const PBKDF2_ITER     = 100000;
+const LS_TOKEN_KEY    = 'ochre_enc_token';
+const LS_IV_KEY       = 'ochre_enc_iv';
+const SESSION_KEY     = 'ochre_session';
+const SESSION_TTL     = 8 * 60 * 60 * 1000; // 8 hours
+const LOCKOUT_KEY     = 'ochre_lockout';
+const MAX_ATTEMPTS    = 5;
+const LOCKOUT_MS      = 15 * 60 * 1000; // 15 minutes
 
 let DATA       = { excursions: [], circuits: [], transfers: [], settings: {} };
 let FILE_SHAS  = {};
 let currentPage = 'dashboard';
+let _derivedKey = null; // cached in-memory for token decryption
 
 // ════════════════════════════════════════
-// AUTH: LOGIN & TOKEN SETUP
+// CRYPTO HELPERS
+// ════════════════════════════════════════
+async function strToKey(str) {
+  const enc = new TextEncoder().encode(str);
+  return crypto.subtle.importKey('raw', enc, 'PBKDF2', false, ['deriveBits', 'deriveKey']);
+}
+
+async function deriveKey(password) {
+  const saltBuf = new TextEncoder().encode(PBKDF2_SALT);
+  const baseKey = await strToKey(password);
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt: saltBuf, iterations: PBKDF2_ITER, hash: 'SHA-256' },
+    baseKey,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+}
+
+async function deriveBitsHex(password) {
+  const saltBuf = new TextEncoder().encode(PBKDF2_SALT);
+  const baseKey = await strToKey(password);
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', salt: saltBuf, iterations: PBKDF2_ITER, hash: 'SHA-256' },
+    baseKey,
+    256
+  );
+  return Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function sha256hex(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function encryptToken(token, key) {
+  const iv  = crypto.getRandomValues(new Uint8Array(12));
+  const enc = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, new TextEncoder().encode(token));
+  localStorage.setItem(LS_TOKEN_KEY, btoa(String.fromCharCode(...new Uint8Array(enc))));
+  localStorage.setItem(LS_IV_KEY,    btoa(String.fromCharCode(...iv)));
+}
+
+async function decryptToken(key) {
+  const encB64 = localStorage.getItem(LS_TOKEN_KEY);
+  const ivB64  = localStorage.getItem(LS_IV_KEY);
+  if (!encB64 || !ivB64) return null;
+  try {
+    const enc = Uint8Array.from(atob(encB64), c => c.charCodeAt(0));
+    const iv  = Uint8Array.from(atob(ivB64),  c => c.charCodeAt(0));
+    const dec = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, enc);
+    return new TextDecoder().decode(dec);
+  } catch { return null; }
+}
+
+function getToken() {
+  // Token kept only in memory (set during login)
+  return sessionStorage.getItem('ochre_live_token') || '';
+}
+
+// ════════════════════════════════════════
+// RATE LIMITING
+// ════════════════════════════════════════
+function getLockoutState() {
+  try { return JSON.parse(localStorage.getItem(LOCKOUT_KEY)) || { attempts: 0, until: 0 }; }
+  catch { return { attempts: 0, until: 0 }; }
+}
+function saveLockoutState(state) { localStorage.setItem(LOCKOUT_KEY, JSON.stringify(state)); }
+
+function isLockedOut() {
+  const s = getLockoutState();
+  if (s.until && Date.now() < s.until) return s.until;
+  if (s.until && Date.now() >= s.until) {
+    saveLockoutState({ attempts: 0, until: 0 });
+  }
+  return false;
+}
+
+function recordFailedAttempt() {
+  const s = getLockoutState();
+  s.attempts = (s.attempts || 0) + 1;
+  if (s.attempts >= MAX_ATTEMPTS) {
+    s.until = Date.now() + LOCKOUT_MS;
+    s.attempts = 0;
+  }
+  saveLockoutState(s);
+}
+
+function resetAttempts() { saveLockoutState({ attempts: 0, until: 0 }); }
+
+function showLockoutBanner(until) {
+  const banner = document.getElementById('lockout-banner');
+  const msg    = document.getElementById('lockout-msg');
+  const update = () => {
+    const left = Math.ceil((until - Date.now()) / 1000);
+    if (left <= 0) { banner.style.display = 'none'; return; }
+    const m = Math.floor(left / 60), s = left % 60;
+    msg.textContent = `تم تجاوز عدد المحاولات. انتظر ${m}:${s.toString().padStart(2,'0')} قبل المحاولة مجدداً.`;
+    setTimeout(update, 1000);
+  };
+  banner.style.display = 'block';
+  document.getElementById('login-btn').disabled = true;
+  update();
+  setTimeout(() => { document.getElementById('login-btn').disabled = false; }, until - Date.now());
+}
+
+// ════════════════════════════════════════
+// AUTH: LOGIN
 // ════════════════════════════════════════
 async function doLogin() {
-  const token = document.getElementById('inp-pass').value.trim();
-  const errEl = document.getElementById('login-error');
+  const email  = (document.getElementById('inp-email').value || '').trim().toLowerCase();
+  const pass   = document.getElementById('inp-pass').value;
+  const errEl  = document.getElementById('login-error');
+  const btn    = document.getElementById('login-btn');
+  const spinner = document.getElementById('login-spinner');
+  errEl.style.display = 'none';
+
+  // Check lockout
+  const lockedUntil = isLockedOut();
+  if (lockedUntil) { showLockoutBanner(lockedUntil); return; }
+
+  if (!email || !pass) {
+    errEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> أدخل البريد الإلكتروني وكلمة السر.';
+    errEl.style.display = 'flex'; return;
+  }
+
+  btn.disabled = true;
+  spinner.style.display = 'block';
+
+  try {
+    // Verify email (SHA-256)
+    const emailHash = await sha256hex(email);
+    if (emailHash !== CRED_EMAIL_HASH) {
+      throw new Error('البريد الإلكتروني أو كلمة السر غير صحيحة.');
+    }
+
+    // Verify password (PBKDF2 — takes ~1s intentionally)
+    const passHash = await deriveBitsHex(pass);
+    if (passHash !== CRED_PASS_HASH) {
+      throw new Error('البريد الإلكتروني أو كلمة السر غير صحيحة.');
+    }
+
+    // Derive AES key from password
+    const aesKey = await deriveKey(pass);
+    _derivedKey  = aesKey;
+
+    // Check if token is stored
+    const token = await decryptToken(aesKey);
+    if (!token) {
+      // First time: need to setup token
+      btn.disabled = false;
+      spinner.style.display = 'none';
+      showSetup();
+      return;
+    }
+
+    // Validate token against GitHub
+    const res = await fetch(`https://api.github.com/repos/${REPO}`, {
+      headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' }
+    });
+    if (!res.ok) {
+      localStorage.removeItem(LS_TOKEN_KEY);
+      localStorage.removeItem(LS_IV_KEY);
+      throw new Error('انتهت صلاحية GitHub Token — أدخله مجدداً من صفحة "GitHub Token".');
+    }
+
+    resetAttempts();
+    sessionStorage.setItem('ochre_live_token', token);
+    sessionStorage.setItem(SESSION_KEY, String(Date.now() + SESSION_TTL));
+    launchAdmin();
+
+  } catch (e) {
+    recordFailedAttempt();
+    const lockedAfter = isLockedOut();
+    if (lockedAfter) {
+      showLockoutBanner(lockedAfter);
+    } else {
+      const s = getLockoutState();
+      const left = MAX_ATTEMPTS - (s.attempts || 0);
+      errEl.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${e.message} (${left} محاولة متبقية)`;
+      errEl.style.display = 'flex';
+    }
+  } finally {
+    btn.disabled = false;
+    spinner.style.display = 'none';
+  }
+}
+
+function showLogin() {
+  document.getElementById('screen-setup').style.display = 'none';
+  document.getElementById('screen-login').style.display = 'flex';
+}
+
+function showSetup() {
+  document.getElementById('screen-login').style.display = 'none';
+  document.getElementById('screen-setup').style.display = 'flex';
+}
+
+// ════════════════════════════════════════
+// AUTH: FIRST-TIME TOKEN SETUP
+// ════════════════════════════════════════
+async function doSetupToken() {
+  const token  = document.getElementById('inp-token').value.trim();
+  const errEl  = document.getElementById('setup-error');
+  const btn    = document.getElementById('setup-btn');
   errEl.style.display = 'none';
 
   if (!token) {
     errEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> أدخل GitHub Token.';
     errEl.style.display = 'flex'; return;
   }
-  const button = document.querySelector('#screen-login .btn-primary');
-  button.disabled = true;
-  button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جارٍ التحقق...';
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جارٍ التحقق...';
+
   try {
     const res = await fetch(`https://api.github.com/repos/${REPO}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/vnd.github+json'
-      }
+      headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' }
     });
     const details = await res.json();
     if (!res.ok) throw new Error('التوكن غير صالح أو لا يملك صلاحية الوصول للمستودع.');
     if (!details.permissions || (!details.permissions.push && !details.permissions.admin)) {
-      throw new Error('التوكن يتيح القراءة فقط. يلزم تفعيل صلاحية الكتابة للمستودع.');
+      throw new Error('التوكن يتيح القراءة فقط. يلزم صلاحية الكتابة (contents: write).');
     }
-    sessionStorage.setItem('ochre_gh_token', token);
+
+    if (!_derivedKey) throw new Error('انتهت الجلسة — أعد تسجيل الدخول.');
+
+    await encryptToken(token, _derivedKey);
+    sessionStorage.setItem('ochre_live_token', token);
+    sessionStorage.setItem(SESSION_KEY, String(Date.now() + SESSION_TTL));
+
+    document.getElementById('screen-setup').style.display = 'none';
     launchAdmin();
+
   } catch (e) {
     errEl.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${e.message}`;
     errEl.style.display = 'flex';
   } finally {
-    button.disabled = false;
-    button.innerHTML = '<i class="fas fa-sign-in-alt"></i> دخول';
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-save"></i> حفظ وإكمال الإعداد';
   }
 }
 
+// ════════════════════════════════════════
+// AUTH: LAUNCH / LOGOUT
+// ════════════════════════════════════════
 function launchAdmin() {
-  sessionStorage.setItem('ochre_authed', '1');
-  document.getElementById('screen-login').style.display = 'none';
-  document.getElementById('admin-layout').style.display = 'flex';
+  document.getElementById('screen-login').style.display  = 'none';
+  document.getElementById('screen-setup').style.display  = 'none';
+  document.getElementById('admin-layout').style.display  = 'flex';
   loadAllData();
 }
 
 function doLogout() {
-  sessionStorage.removeItem('ochre_authed');
-  sessionStorage.removeItem('ochre_gh_token');
-  document.getElementById('admin-layout').style.display = 'none';
-  document.getElementById('screen-login').style.display = 'flex';
-  document.getElementById('inp-pass').value = '';
+  sessionStorage.removeItem('ochre_live_token');
+  sessionStorage.removeItem(SESSION_KEY);
+  _derivedKey = null;
+  document.getElementById('admin-layout').style.display  = 'none';
+  document.getElementById('screen-login').style.display  = 'flex';
+  document.getElementById('inp-email').value = '';
+  document.getElementById('inp-pass').value  = '';
   document.getElementById('login-error').style.display = 'none';
 }
 
+// Session check
+function checkSession() {
+  const exp = parseInt(sessionStorage.getItem(SESSION_KEY) || '0', 10);
+  if (exp && Date.now() > exp) {
+    toast('انتهت الجلسة تلقائياً بعد 8 ساعات.', 'info');
+    doLogout();
+    return false;
+  }
+  return true;
+}
+
 // ════════════════════════════════════════
-// AUTO-LOGIN: إذا كان Token موجوداً وبيانات الجلسة محفوظة
+// AUTO-LOGIN ON PAGE LOAD
 // ════════════════════════════════════════
 window.addEventListener('DOMContentLoaded', () => {
-  if (getToken() && sessionStorage.getItem('ochre_authed')) {
+  const token = sessionStorage.getItem('ochre_live_token');
+  const exp   = parseInt(sessionStorage.getItem(SESSION_KEY) || '0', 10);
+  if (token && exp && Date.now() < exp) {
     launchAdmin();
+  } else {
+    // Check lockout
+    const lockedUntil = isLockedOut();
+    if (lockedUntil) showLockoutBanner(lockedUntil);
   }
   if (window.innerWidth < 768) {
     document.getElementById('sidebar-toggle').style.display = 'flex';
   }
 });
 
-// Enter key for login
+// Enter key support
 document.getElementById('inp-pass').addEventListener('keypress', e => { if(e.key==='Enter') doLogin(); });
+document.getElementById('inp-email').addEventListener('keypress', e => { if(e.key==='Enter') document.getElementById('inp-pass').focus(); });
 
 // ════════════════════════════════════════
 // GITHUB API
 // ════════════════════════════════════════
 async function ghGet(path) {
+  if (!checkSession()) throw new Error('انتهت الجلسة');
   const res = await fetch(`${BASE_API}/${path}?ref=${BRANCH}`, {
-      headers: { Authorization: `Bearer ${getToken()}`, Accept: 'application/vnd.github+json' }
+    headers: { Authorization: `Bearer ${getToken()}`, Accept: 'application/vnd.github+json' }
   });
   if (!res.ok) throw new Error(`فشل جلب ${path}: ${res.status}`);
   const d = await res.json();
@@ -700,6 +995,7 @@ async function ghGet(path) {
 }
 
 async function ghPut(path, data, sha, message) {
+  if (!checkSession()) throw new Error('انتهت الجلسة');
   const json    = JSON.stringify(data, null, 2);
   const encoder = new TextEncoder();
   const bytes   = encoder.encode(json);
@@ -738,12 +1034,10 @@ async function loadAllData() {
     DATA.excursions = excursions.data; FILE_SHAS['data/excursions.json'] = excursions.sha;
     DATA.circuits   = circuits.data;   FILE_SHAS['data/circuits.json']   = circuits.sha;
     DATA.settings   = settings.data;   FILE_SHAS['data/settings.json']   = settings.sha;
-
     try {
       const t = await ghGet('data/transfers.json');
       DATA.transfers = t.data; FILE_SHAS['data/transfers.json'] = t.sha;
     } catch { DATA.transfers = getDefaultTransfers(); }
-
     updateBadges();
     renderDashboard();
     loadSettings();
@@ -768,7 +1062,7 @@ async function saveData(key, data, commitMsg) {
   const path = `data/${key}.json`;
   await ghPut(path, data, FILE_SHAS[path], commitMsg);
   DATA[key] = data;
-  toast('✓ تم الحفظ بنجاح!', 'success');
+  toast('✓ تم الحفظ! سيظهر على الموقع خلال 1–2 دقيقة.', 'success');
 }
 
 // ════════════════════════════════════════
@@ -780,74 +1074,66 @@ const pageLabels = {
   transfers: 'التنقلات',
   circuits:  'الدورات السياحية',
   youtube:   'فيديو YouTube',
-  settings:  'إعدادات الموقع'
+  settings:  'إعدادات الموقع',
+  token:     'GitHub Token'
 };
 
 function showPage(name) {
-  // إخفاء كل الصفحات
-  document.querySelectorAll('.page').forEach(el => el.style.display = 'none');
-  // إزالة active من كل الأزرار
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  // تفعيل الصفحة المطلوبة
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const pg = document.getElementById('page-' + name);
   if (pg) pg.style.display = 'block';
-  // تفعيل الزر في القائمة
-  const btn = document.getElementById('nav-' + name);
-  if (btn) btn.classList.add('active');
+  const nav = document.getElementById('nav-' + name);
+  if (nav) nav.classList.add('active');
   document.getElementById('topbar-title').textContent = pageLabels[name] || name;
   currentPage = name;
-
-  if (name === 'services')  { renderServices(); }
-  if (name === 'transfers') { renderTransfers(); }
-  if (name === 'circuits')  { renderCircuits(); }
-  if (name === 'dashboard') { renderDashboard(); }
-  if (name === 'youtube')   { loadYoutube(); }
-
+  if (name === 'services')  renderServices();
+  if (name === 'transfers') renderTransfers();
+  if (name === 'circuits')  renderCircuits();
+  if (name === 'settings')  loadSettings();
+  if (name === 'youtube')   loadYoutube();
   // Close sidebar on mobile
-  if (window.innerWidth < 768) {
-    document.getElementById('sidebar').classList.remove('open');
-  }
+  if (window.innerWidth < 768) document.getElementById('sidebar').classList.remove('open');
+}
+
+// ════════════════════════════════════════
+// BADGES
+// ════════════════════════════════════════
+function updateBadges() {
+  document.getElementById('badge-services').textContent = DATA.excursions.filter(e => e.active !== false).length;
+  document.getElementById('badge-circuits').textContent = DATA.circuits.filter(c => c.active !== false).length;
 }
 
 // ════════════════════════════════════════
 // DASHBOARD
 // ════════════════════════════════════════
-function updateBadges() {
-  const active = DATA.excursions.filter(e => e.active !== false).length;
-  const circ   = DATA.circuits.filter(c => c.active !== false).length;
-  document.getElementById('badge-services').textContent = active;
-  document.getElementById('badge-circuits').textContent = circ;
-  document.getElementById('stat-services').textContent  = active;
-  document.getElementById('stat-circuits').textContent  = circ;
+function renderDashboard() {
+  document.getElementById('stat-services').textContent  = DATA.excursions.filter(e => e.active !== false).length;
+  document.getElementById('stat-circuits').textContent  = DATA.circuits.filter(c => c.active !== false).length;
   document.getElementById('stat-transfers').textContent = DATA.transfers.length;
   const prices = DATA.excursions.filter(e => e.active !== false).map(e => e.price);
-  document.getElementById('stat-min-price').textContent = prices.length ? '€' + Math.min(...prices) : '-';
-}
-
-function renderDashboard() {
-  updateBadges();
+  document.getElementById('stat-min-price').textContent = prices.length ? '€' + Math.min(...prices) : '—';
   const el = document.getElementById('dash-services-list');
-  const list = DATA.excursions.slice(0, 10);
-  el.innerHTML = list.length ? `
-    <table><thead><tr><th>صورة</th><th>الخدمة</th><th>الفئة</th><th>السعر الحالي</th><th>حالة</th></tr></thead><tbody>
-    ${list.map(e => `<tr>
-      <td><img src="${imgSrc(e.image)}" class="td-img" onerror="this.style.display='none'"/></td>
-      <td class="td-title">${e.title}</td>
-      <td><span class="badge badge-info" style="font-size:.7rem">${e.category||''}</span></td>
-      <td><strong>€${e.price}</strong>${e.oldPrice ? `<span style="color:var(--muted);text-decoration:line-through;font-size:.75rem;margin-left:6px">€${e.oldPrice}</span>` : ''}</td>
-      <td><span class="badge ${e.active !== false ? 'badge-green' : 'badge-red'}">${e.active !== false ? '● نشط' : '○ مخفي'}</span></td>
-    </tr>`).join('')}
-    </tbody></table>` : `<div class="empty-state"><i class="fas fa-hiking"></i><p>لا توجد خدمات بعد</p></div>`;
+  if (!DATA.excursions.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-hiking"></i><p>لا توجد خدمات بعد.</p></div>`; return; }
+  el.innerHTML = `<table><thead><tr><th>صورة</th><th>الخدمة</th><th>الفئة</th><th>السعر</th><th>الحالة</th></tr></thead><tbody>
+  ${DATA.excursions.map(e => `<tr>
+    <td><img src="${imgSrc(e.image)}" class="td-img" onerror="this.style.display='none'"/></td>
+    <td class="td-title">${e.title}</td>
+    <td>${catLabel(e.category)}</td>
+    <td>€${e.price}</td>
+    <td><span class="badge ${e.active !== false ? 'badge-success' : 'badge-info'}">${e.active !== false ? 'نشط' : 'مخفي'}</span></td>
+  </tr>`).join('')}
+  </tbody></table>`;
 }
 
 // ════════════════════════════════════════
-// SERVICES (EXCURSIONS)
+// SERVICES
 // ════════════════════════════════════════
 function renderServices() {
-  const catFilter = document.getElementById('svc-cat-filter').value;
-  const search    = document.getElementById('svc-search').value.toLowerCase();
-  let list = DATA.excursions.filter(e => {
-    if (catFilter && e.category !== catFilter) return false;
+  const cat    = document.getElementById('svc-cat-filter').value;
+  const search = (document.getElementById('svc-search').value || '').toLowerCase().trim();
+  const list   = DATA.excursions.filter(e => {
+    if (cat && e.category !== cat) return false;
     if (search && !e.title.toLowerCase().includes(search)) return false;
     return true;
   });
@@ -864,12 +1150,12 @@ function renderServices() {
     <td><span class="badge badge-info" style="font-size:.65rem">${catLabel(e.category)}</span></td>
     <td>
       <input type="number" class="price-input" value="${e.price}" min="0" step="1"
-        onchange="quickSavePrice('${e.id}', 'price', this.value)" title="اضغط Enter أو انقر خارجاً للحفظ"/>
+        onchange="quickSavePrice('${e.id}', 'price', this.value)" title="السعر"/>
     </td>
     <td>
       <input type="number" class="price-input" value="${e.oldPrice||''}" min="0" step="1"
         placeholder="—"
-        onchange="quickSavePrice('${e.id}', 'oldPrice', this.value)" title="السعر القديم (للتشطيب)"/>
+        onchange="quickSavePrice('${e.id}', 'oldPrice', this.value)" title="السعر القديم"/>
     </td>
     <td><label class="toggle"><input type="checkbox" ${e.active!==false?'checked':''} onchange="toggleSvc('${e.id}',this.checked)"/><span class="toggle-slider"></span></label></td>
     <td><div style="display:flex;gap:4px">
@@ -891,7 +1177,6 @@ function catLabel(cat) {
   return map[cat] || cat || '';
 }
 
-// تعديل السعر مباشرة من الجدول
 async function quickSavePrice(id, field, value) {
   const parsed = parseFloat(value);
   const excursions = DATA.excursions.map(e => {
@@ -920,7 +1205,7 @@ function openSvcModal(id) {
   document.getElementById('svc-tag').value        = e?.tags?.[0] || '';
   document.getElementById('svc-meta').value       = (e?.meta || []).join('\n');
   document.getElementById('svc-image').value      = e?.image || '';
-  document.getElementById('svc-active').checked  = e ? (e.active !== false) : true;
+  document.getElementById('svc-active').checked   = e ? (e.active !== false) : true;
   const prev = document.getElementById('svc-img-preview');
   if (e?.image) { prev.src = imgSrc(e.image); prev.className = 'img-preview show'; }
   else          { prev.className = 'img-preview'; }
@@ -976,13 +1261,13 @@ function renderTransfers() {
   el.innerHTML = `<table><thead><tr><th>صورة</th><th>السيارة</th><th>السعة</th><th>السعر €</th><th>شائع</th><th>إجراءات</th></tr></thead><tbody>
   ${DATA.transfers.map(t => `<tr>
     <td><img src="${imgSrc(t.image)}" class="td-img" onerror="this.style.display='none'"/></td>
-    <td><strong>${t.type}</strong><div class="td-sub">${t.model||''}</div></td>
+    <td class="td-title">${t.type}<div class="td-sub">${t.model||''}</div></td>
     <td>${t.capacity||''}</td>
-    <td><strong>€${t.price}</strong></td>
-    <td>${t.popular ? '<span class="badge badge-gold">⭐ شائع</span>' : '–'}</td>
+    <td>€${t.price}</td>
+    <td>${t.popular ? '<span class="badge badge-success">شائع</span>' : ''}</td>
     <td><div style="display:flex;gap:4px">
-      <button class="btn-icon" onclick="openTransferModal('${t.id}')"><i class="fas fa-edit"></i></button>
-      <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('transfer','${t.id}')"><i class="fas fa-trash"></i></button>
+      <button class="btn-icon" onclick="openTransferModal('${t.id}')" title="تعديل"><i class="fas fa-edit"></i></button>
+      <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('transfer','${t.id}')" title="حذف"><i class="fas fa-trash"></i></button>
     </div></td>
   </tr>`).join('')}
   </tbody></table>`;
@@ -991,14 +1276,14 @@ function renderTransfers() {
 function openTransferModal(id) {
   const t = id ? DATA.transfers.find(x => x.id === id) : null;
   document.getElementById('transfer-modal-title').textContent = t ? 'تعديل السيارة' : 'إضافة سيارة';
-  document.getElementById('transfer-edit-id').value       = id || '';
-  document.getElementById('transfer-type').value          = t?.type || '';
-  document.getElementById('transfer-model').value         = t?.model || '';
-  document.getElementById('transfer-capacity').value      = t?.capacity || '';
-  document.getElementById('transfer-price').value         = t?.price || '';
-  document.getElementById('transfer-image').value         = t?.image || '';
-  document.getElementById('transfer-features').value      = t?.features?.join(', ') || '';
-  document.getElementById('transfer-popular').checked     = t?.popular || false;
+  document.getElementById('transfer-edit-id').value    = id || '';
+  document.getElementById('transfer-type').value       = t?.type || '';
+  document.getElementById('transfer-model').value      = t?.model || '';
+  document.getElementById('transfer-capacity').value   = t?.capacity || '';
+  document.getElementById('transfer-price').value      = t?.price || '';
+  document.getElementById('transfer-image').value      = t?.image || '';
+  document.getElementById('transfer-features').value   = (t?.features || []).join(', ');
+  document.getElementById('transfer-popular').checked  = t?.popular || false;
   const prev = document.getElementById('transfer-img-preview');
   if (t?.image) { prev.src = imgSrc(t.image); prev.className = 'img-preview show'; }
   else          { prev.className = 'img-preview'; }
@@ -1019,31 +1304,32 @@ async function saveTransfer() {
     features: document.getElementById('transfer-features').value.split(',').map(s => s.trim()).filter(Boolean),
     popular:  document.getElementById('transfer-popular').checked
   };
-  const transfers = editId ? DATA.transfers.map(x => x.id === editId ? t : x) : [...DATA.transfers, t];
+  const transfers = editId
+    ? DATA.transfers.map(x => x.id === editId ? t : x)
+    : [...DATA.transfers, t];
   await saveData('transfers', transfers, `Admin: ${editId ? 'تعديل' : 'إضافة'} سيارة ${type}`);
   closeModal('modal-transfer');
   renderTransfers();
-  updateBadges();
 }
 
 // ════════════════════════════════════════
 // CIRCUITS
 // ════════════════════════════════════════
 function renderCircuits() {
-  const search = document.getElementById('circ-search').value.toLowerCase();
+  const search = (document.getElementById('circ-search').value || '').toLowerCase().trim();
   const list   = DATA.circuits.filter(c => !search || c.title.toLowerCase().includes(search));
   const el     = document.getElementById('circ-table');
-  if (!list.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-route"></i><p>لا توجد دورات سياحية.</p></div>`; return; }
-  el.innerHTML = `<table><thead><tr><th>صورة</th><th>العنوان</th><th>المدة</th><th>السعر</th><th>نشط</th><th>إجراءات</th></tr></thead><tbody>
+  if (!list.length) { el.innerHTML = `<div class="empty-state"><i class="fas fa-route"></i><p>لا توجد دورات.</p></div>`; return; }
+  el.innerHTML = `<table><thead><tr><th>صورة</th><th>الدورة</th><th>المدة</th><th>السعر €</th><th>نشط</th><th>إجراءات</th></tr></thead><tbody>
   ${list.map(c => `<tr>
     <td><img src="${imgSrc(c.image)}" class="td-img" onerror="this.style.display='none'"/></td>
     <td class="td-title">${c.title}<div class="td-sub">${c.subtitle||''}</div></td>
-    <td><span class="badge badge-info">${c.duration}</span></td>
-    <td><strong>€${c.price}</strong>/شخص</td>
+    <td>${c.duration||''}</td>
+    <td>€${c.price}</td>
     <td><label class="toggle"><input type="checkbox" ${c.active!==false?'checked':''} onchange="toggleCircuit('${c.id}',this.checked)"/><span class="toggle-slider"></span></label></td>
     <td><div style="display:flex;gap:4px">
-      <button class="btn-icon" onclick="openCircuitModal('${c.id}')"><i class="fas fa-edit"></i></button>
-      <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('circuit','${c.id}')"><i class="fas fa-trash"></i></button>
+      <button class="btn-icon" onclick="openCircuitModal('${c.id}')" title="تعديل"><i class="fas fa-edit"></i></button>
+      <button class="btn-icon" style="color:var(--danger)" onclick="confirmDelete('circuit','${c.id}')" title="حذف"><i class="fas fa-trash"></i></button>
     </div></td>
   </tr>`).join('')}
   </tbody></table>`;
@@ -1051,7 +1337,7 @@ function renderCircuits() {
 
 function openCircuitModal(id) {
   const c = id ? DATA.circuits.find(x => x.id === id) : null;
-  document.getElementById('circ-modal-title').textContent = c ? 'تعديل الدورة' : 'إضافة دورة';
+  document.getElementById('circ-modal-title').textContent  = c ? 'تعديل الدورة' : 'إضافة دورة';
   document.getElementById('circ-edit-id').value        = id || '';
   document.getElementById('circ-title').value          = c?.title || '';
   document.getElementById('circ-subtitle').value       = c?.subtitle || '';
@@ -1100,6 +1386,31 @@ async function toggleCircuit(id, active) {
 }
 
 // ════════════════════════════════════════
+// DELETE CONFIRM
+// ════════════════════════════════════════
+function confirmDelete(type, id) {
+  const names = { excursion: 'الخدمة', circuit: 'الدورة', transfer: 'السيارة' };
+  document.getElementById('confirm-message').innerHTML =
+    `<p>هل أنت متأكد من حذف <strong>${names[type]||type}</strong>؟<br><small style="color:var(--muted)">لا يمكن التراجع عن هذا الإجراء.</small></p>`;
+  const btn = document.getElementById('confirm-btn');
+  btn.onclick = async () => {
+    closeModal('modal-confirm');
+    if (type === 'excursion') {
+      await saveData('excursions', DATA.excursions.filter(e => e.id !== id), `Admin: حذف خدمة ${id}`);
+      renderServices();
+    } else if (type === 'circuit') {
+      await saveData('circuits', DATA.circuits.filter(c => c.id !== id), `Admin: حذف دورة ${id}`);
+      renderCircuits();
+    } else if (type === 'transfer') {
+      await saveData('transfers', DATA.transfers.filter(t => t.id !== id), `Admin: حذف سيارة ${id}`);
+      renderTransfers();
+    }
+    updateBadges();
+  };
+  openModal('modal-confirm');
+}
+
+// ════════════════════════════════════════
 // YOUTUBE
 // ════════════════════════════════════════
 function loadYoutube() {
@@ -1114,25 +1425,14 @@ function previewYoutube() {
   const url   = document.getElementById('yt-url').value.trim();
   const frame = document.getElementById('yt-preview-frame');
   const vid   = extractYoutubeId(url);
-  if (vid) {
-    frame.src = `https://www.youtube.com/embed/${vid}`;
-    frame.className = 'yt-preview show';
-  } else {
-    frame.src = '';
-    frame.className = 'yt-preview';
-  }
+  if (vid) { frame.src = `https://www.youtube.com/embed/${vid}`; frame.className = 'yt-preview show'; }
+  else     { frame.src = ''; frame.className = 'yt-preview'; }
 }
 
 function extractYoutubeId(url) {
   if (!url) return null;
-  const patterns = [
-    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/
-  ];
-  for (const p of patterns) {
-    const m = url.match(p);
-    if (m) return m[1];
-  }
-  return null;
+  const m = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/);
+  return m ? m[1] : null;
 }
 
 async function saveYoutube() {
@@ -1140,11 +1440,8 @@ async function saveYoutube() {
   const title    = document.getElementById('yt-title').value.trim();
   const subtitle = document.getElementById('yt-subtitle').value.trim();
   const vid      = extractYoutubeId(url);
-  if (url && !vid) { toast('رابط YouTube غير صالح — تأكد من الرابط', 'error'); return; }
-  const settings = {
-    ...DATA.settings,
-    youtube_video: url ? { url, videoId: vid, title, subtitle, active: true } : null
-  };
+  if (url && !vid) { toast('رابط YouTube غير صالح', 'error'); return; }
+  const settings = { ...DATA.settings, youtube_video: url ? { url, videoId: vid, title, subtitle, active: true } : null };
   await saveData('settings', settings, 'Admin: تحديث فيديو YouTube');
   DATA.settings = settings;
 }
@@ -1202,27 +1499,24 @@ async function saveSettings(e) {
 }
 
 // ════════════════════════════════════════
-// DELETE
+// UPDATE TOKEN (from settings page)
 // ════════════════════════════════════════
-function confirmDelete(type, id) {
-  document.getElementById('confirm-message').textContent = `هل تريد حذف هذا العنصر؟ (${type}: ${id})`;
-  document.getElementById('confirm-btn').onclick = () => doDelete(type, id);
-  openModal('modal-confirm');
-}
-
-async function doDelete(type, id) {
-  closeModal('modal-confirm');
-  if (type === 'excursion') {
-    await saveData('excursions', DATA.excursions.filter(e => e.id !== id), `Admin: حذف خدمة ${id}`);
-    renderServices();
-  } else if (type === 'circuit') {
-    await saveData('circuits', DATA.circuits.filter(c => c.id !== id), `Admin: حذف دورة ${id}`);
-    renderCircuits();
-  } else if (type === 'transfer') {
-    await saveData('transfers', DATA.transfers.filter(t => t.id !== id), `Admin: حذف سيارة ${id}`);
-    renderTransfers();
+async function updateToken() {
+  const token = document.getElementById('new-token-inp').value.trim();
+  if (!token) { toast('أدخل التوكن الجديد', 'error'); return; }
+  if (!_derivedKey) { toast('انتهت الجلسة — أعد تسجيل الدخول', 'error'); doLogout(); return; }
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}`, {
+      headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' }
+    });
+    if (!res.ok) throw new Error('التوكن غير صالح');
+    await encryptToken(token, _derivedKey);
+    sessionStorage.setItem('ochre_live_token', token);
+    document.getElementById('new-token-inp').value = '';
+    toast('✓ تم تحديث التوكن بنجاح!', 'success');
+  } catch (e) {
+    toast('خطأ: ' + e.message, 'error');
   }
-  updateBadges();
 }
 
 // ════════════════════════════════════════
@@ -1261,7 +1555,7 @@ function toast(msg, type = 'success') {
   const icon = type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle';
   t.innerHTML = `<i class="fas fa-${icon}"></i> ${msg}`;
   c.appendChild(t);
-  setTimeout(() => t.remove(), 4000);
+  setTimeout(() => t.remove(), 4500);
 }
 
 function toggleSidebar() {
@@ -1269,53 +1563,69 @@ function toggleSidebar() {
 }
 
 // ════════════════════════════════════════
-// IMAGE UPLOAD — رفع الصور إلى المستودع
+// IMAGE UPLOAD — Cloudinary (unsigned)
 // ════════════════════════════════════════
 async function uploadImage(fieldId, previewId) {
   const input = document.createElement('input');
-  input.type = 'file';
+  input.type  = 'file';
   input.accept = 'image/jpeg,image/png,image/webp,image/gif';
   input.onchange = async () => {
     const file = input.files[0];
     if (!file) return;
-    if (file.size > 5 * 1024 * 1024) { toast('الصورة يجب أن تكون أقل من 5 ميغابايت', 'error'); return; }
-    const reader = new FileReader();
-    reader.onload = async (ev) => {
-      try {
-        toast('جارٍ رفع الصورة...', 'info');
-        const base64   = ev.target.result.split(',')[1];
-        const safeName = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9._-]/g, '-').toLowerCase();
-        const repoPath = 'assets/images/' + safeName;
-        const res = await fetch(`${BASE_API}/${repoPath}`, {
-          method: 'PUT',
-          headers: {
-             Authorization: `Bearer ${getToken()}`,
-             Accept: 'application/vnd.github+json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: 'Admin: رفع صورة ' + safeName,
-            content: base64,
-            branch: BRANCH
-          })
-        });
-        if (!res.ok) { const e = await res.json(); throw new Error(e.message || 'فشل الرفع'); }
-        const field = document.getElementById(fieldId);
-        if (field) {
-          field.value = repoPath;
-          const prev = document.getElementById(previewId);
-          if (prev) { prev.src = '../' + repoPath; prev.className = 'img-preview show'; }
-        }
-        toast('✓ تم رفع الصورة بنجاح!', 'success');
-      } catch (err) { toast('خطأ في الرفع: ' + err.message, 'error'); }
-    };
-    reader.readAsDataURL(file);
+    if (file.size > 10 * 1024 * 1024) { toast('الصورة يجب أن تكون أقل من 10 ميغابايت', 'error'); return; }
+
+    toast('جارٍ رفع الصورة إلى Cloudinary...', 'info');
+
+    const progWrapper = document.getElementById('prog-' + fieldId);
+    const progBar     = document.getElementById('progbar-' + fieldId);
+    if (progWrapper) progWrapper.style.display = 'block';
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLD_PRESET);
+    formData.append('folder', 'ochre-morocco');
+
+    try {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLD_CLOUD}/image/upload`);
+
+      if (progBar) {
+        xhr.upload.onprogress = (ev) => {
+          if (ev.lengthComputable) {
+            progBar.style.width = Math.round(ev.loaded / ev.total * 100) + '%';
+          }
+        };
+      }
+
+      const result = await new Promise((resolve, reject) => {
+        xhr.onload = () => {
+          if (xhr.status === 200) resolve(JSON.parse(xhr.responseText));
+          else reject(new Error('فشل رفع الصورة: ' + xhr.status));
+        };
+        xhr.onerror = () => reject(new Error('خطأ في الاتصال'));
+        xhr.send(formData);
+      });
+
+      const url   = result.secure_url;
+      const field = document.getElementById(fieldId);
+      if (field) {
+        field.value = url;
+        const prev = document.getElementById(previewId);
+        if (prev) { prev.src = url; prev.className = 'img-preview show'; }
+      }
+      toast('✓ تم رفع الصورة بنجاح!', 'success');
+    } catch (err) {
+      toast('خطأ في الرفع: ' + err.message, 'error');
+    } finally {
+      if (progWrapper) { progWrapper.style.display = 'none'; }
+      if (progBar)     { progBar.style.width = '0%'; }
+    }
   };
   input.click();
 }
 
 // ════════════════════════════════════════
-// INIT — عرض الصفحة الأولى
+// INIT
 // ════════════════════════════════════════
 document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
 document.getElementById('page-dashboard').style.display = 'block';
