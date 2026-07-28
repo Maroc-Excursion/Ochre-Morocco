@@ -125,6 +125,22 @@
     .lang-dropdown.open { display: flex; flex-direction: column; }
     .lang-option { background: none; border: none; padding: 9px 14px; border-radius: 8px; cursor: pointer; font-size: .84rem; font-weight: 500; color: #333; text-align: left; transition: background .15s; width: 100%; }
     .lang-option:hover, .lang-option.active { background: #f7f0e6; color: #c8922b; font-weight: 700; }
+
+    /* ── LOCATION SECTION ── */
+    .loc-section { background: #f7f3ee; padding: 60px 24px; }
+    .loc-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .loc-title { font-size: 1.7rem; font-weight: 800; margin-bottom: 24px; color: var(--dark); }
+    .loc-cards { display: flex; flex-direction: column; gap: 16px; margin-bottom: 28px; }
+    .loc-card { display: flex; align-items: flex-start; gap: 14px; }
+    .loc-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(200,146,43,.12); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.1rem; flex-shrink: 0; }
+    .loc-icon-green { background: rgba(37,211,102,.12) !important; color: #25d366 !important; }
+    .loc-text strong { display: block; font-size: .85rem; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+    .loc-text span, .loc-text a { display: block; font-size: .83rem; color: var(--muted); text-decoration: none; line-height: 1.5; }
+    .loc-text a:hover { color: var(--gold); }
+    .btn-directions { display: inline-flex; align-items: center; gap: 8px; background: var(--gold); color: #fff; padding: 12px 24px; border-radius: 50px; font-weight: 700; font-size: .88rem; text-decoration: none; transition: background .2s; }
+    .btn-directions:hover { background: #b07d20; }
+    .loc-info { padding-top: 8px; }
+    @media (max-width: 768px) { .loc-inner { grid-template-columns: 1fr; gap: 32px; } }
 </style>
   <link rel="stylesheet" href="assets/css/booking.css" />
 </head>
@@ -152,9 +168,10 @@
   <nav>
     <a href="index.html" data-i18n="nav_home">Home</a>
     <a href="excursions.html" data-i18n="nav_exc">Excursions</a>
+    <a href="circuits.html" data-i18n="nav_circ">Circuits</a>
     <a href="transferts.html" class="active" data-i18n="nav_trans">Transfers</a>
     <a href="contact.html" data-i18n="nav_contact">Contact</a>
-      <a href="about.html" data-i18n="nav_about">About</a>
+    <a href="about.html" data-i18n="nav_about">About</a>
     <a href="blog.html" data-i18n="nav_blog">Blog</a>
   </nav>
   <div class="header-right">
@@ -184,6 +201,7 @@
     <button class="mobile-close" onclick="document.getElementById('mobileNav').classList.remove('open')">✕</button>
     <a href="index.html">Home</a>
     <a href="excursions.html">Excursions</a>
+    <a href="circuits.html">Circuits</a>
     <a href="transferts.html">Transfers</a>
     <a href="contact.html">Contact</a>
     <a href="about.html">About</a>
@@ -193,7 +211,7 @@
 </div>
 
 <section class="hero">
-  <img src="assets/images/webp/vehicule-berline-aeroport.webp" alt="Airport Transfer Marrakech" loading="lazy" decoding="async" />
+  <img src="assets/images/webp/vehicule-berline-aeroport.webp" alt="Airport Transfer Marrakech" fetchpriority="high" decoding="async" />
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <span class="hero-badge"><i class="fas fa-plane-arrival"></i> Marrakech Menara Airport · RAK</span>

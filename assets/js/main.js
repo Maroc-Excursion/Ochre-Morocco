@@ -37,7 +37,7 @@
   }
 
   /* --- Sticky header --- */
-  const header = document.querySelector('.site-header');
+  const header = document.querySelector('header');
   window.addEventListener('scroll', () => {
     header && header.classList.toggle('scrolled', window.scrollY > 60);
     updateBackToTop();
